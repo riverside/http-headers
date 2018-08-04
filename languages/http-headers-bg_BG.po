@@ -1,0 +1,395 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: HTTP Headers in Bulgarian\n"
+"POT-Creation-Date: 2017-17-12 19:26:00+02:00\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/http-headers\n"
+"PO-Revision-Date: 2017-17-12 19:26:00+02:00\n"
+"Last-Translator: Dimitar Ivanov <biggie4life@gmail.com>\n"
+"Language-Team: Dimitar Ivanov <biggie4life@gmail.com>\n"
+
+#: views/includes/config.inc.php:2
+msgid "Off"
+msgstr "Изкл."
+
+#: views/includes/config.inc.php:2
+msgid "On"
+msgstr "Вкл."
+
+#: includes/config.inc.php:5
+msgid "Security"
+msgstr "Сигурност"
+
+#: includes/config.inc.php:6
+msgid "Access control"
+msgstr "Контрол на достъпа"
+
+#: includes/config.inc.php:7
+msgid "Authentication"
+msgstr "Удостоверяване"
+
+#: includes/config.inc.php:8
+msgid "Compression"
+msgstr "Компресия"
+
+#: includes/config.inc.php:10
+msgid "Caching"
+msgstr "Кеширане"
+
+#: includes/config.inc.php:11
+msgid "Miscellaneous"
+msgstr "Общи"
+
+#: includes/breadcrumbs.inc.php:2
+msgid "Dashboard"
+msgstr "Табло"
+
+#: includes/breadcrumbs.inc.php:11
+msgid "Advanced settings"
+msgstr "Разширени настройки"
+
+#: includes/breadcrumbs.inc.php:13
+msgid "Inspect headers"
+msgstr "Проверка на хедърите"
+
+#: views/index.php:3
+msgid "Quick links"
+msgstr "Бързи връзки"
+
+#: views/index.php:4
+msgid "Getting started"
+msgstr "Ръководство за начинаещи"
+
+#: views/index.php:6
+msgid "Manual setup"
+msgstr "Ръчна настройка"
+
+#: views/dashboard.php:47
+msgid "Donate"
+msgstr "Дари"
+
+#: views/dashboard.php:34
+msgid "Rate us"
+msgstr "Оцени ни"
+
+#: views/dashboard.php:35
+msgid "Tell us what you think about this plugin"
+msgstr "Кажете ни какво мислите за този плъгин"
+
+#: views/dashboard.php:35
+msgid "writing a review"
+msgstr "като напишете ревю"
+
+#: views/dashboard.php:36
+msgid "Contribution"
+msgstr "Принос"
+
+#: views/dashboard.php:37
+msgid "Help us to continue developing this plugin with a small donation."
+msgstr "Помогнете ни да продължим да развиваме този плъгин с малко дарение."
+
+#: views/category.php:8
+msgid "Header"
+msgstr "Хедър"
+
+#: views/category.php:9
+msgid "Value"
+msgstr "Стойност"
+
+#: views/category.php:10
+msgid "Status"
+msgstr "Статус"
+
+#: views/category.php:230
+msgid "Edit"
+msgstr "Редактирай"
+
+#: views/category.php:223
+msgid "On"
+msgstr "Вкл."
+
+#: views/category.php:223
+msgid "Off"
+msgstr "Изкл."
+
+#: views/advanced.php:10
+msgid "Default mode"
+msgstr "Режим по подразбиране"
+
+#: views/advanced.php:11
+msgid "Choose a method for sending of headers. Usually, the PHP method works perfectly. However, some third-party plugins like WP Super Cache may require switching to Apache method."
+msgstr "Режима по подразбиране представлява технологията с която този плъгин изпраща хедърите. Използвайте PHP само ако никоя от останалите технологии не е налична."
+
+#: views/advanced.php:20
+msgid "Use PHP to send headers (deprecated)"
+msgstr "PHP режим"
+
+#: views/advanced.php:21
+msgid "Use Apache (mod_headers) to send headers"
+msgstr "Apache режим (препоръчва се)"
+
+#: views/advanced.php:40
+msgid "Export"
+msgstr "Експорт"
+
+#: views/advanced.php:41
+msgid "Export the plugin current state of settings for later use if recovery needs."
+msgstr "Експортирайте текущото състояние на настройките на плъгина за по-нататъшна употреба, ако е необходимо възстановяване."
+
+#: views/advanced.php:46
+msgid "Export settings"
+msgstr "Експортирай настройките"
+
+#: views/advanced.php:51
+msgid "Import"
+msgstr "Импорт"
+
+#: views/advanced.php:52
+msgid "Import a previously saved state of settings."
+msgstr "Възстановяване на предварително запазено състояние на настройките."
+
+#: views/advanced.php:58
+msgid "Import settings"
+msgstr "Импортирай"
+
+#: views/advanced.php:58
+msgid "Choose file..."
+msgstr "Избери файл..."
+
+#: views/access-control-allow-credentials.php:3
+msgid "The Access-Control-Allow-Credentials header indicates whether the response to request can be exposed when the credentials flag is true."
+msgstr "Access-Control-Allow-Credentials хедъра посочва дали в отговор на заявка може да се съдържат идентификационни данни."
+
+#: views/access-control-allow-headers.php:3
+msgid "The Access-Control-Allow-Headers header is returned by the server in a response to a preflight request and informs the browser about the HTTP headers that can be used in the actual request."
+msgstr "Access-Control-Allow-Headers хедъра се връща от сървъра в отговор на preflight заявка и информира браузъра за HTTP хедърите които могат да се използват в действителната заявка."
+
+#: views/access-control-allow-methods.php:3
+msgid "The Access-Control-Allow-Methods header is returned by the server in a response to a preflight request and informs the browser about the HTTP methods that can be used in the actual request."
+msgstr "Access-Control-Allow-Methods хедъра се връща от сървъра в отговор на preflight заявка и информира браузъра за HTTP методите които могат да се използват в действителната заявка."
+
+#: views/access-control-allow-origin.php:3
+msgid "The Access-Control-Allow-Origin header indicates whether a resource can be shared."
+msgstr "Access-Control-Allow-Origin хедъра посочва дали един ресурс (например шрифт) може да се ползва от външни origins и кои са позволените такива."
+
+#: views/access-control-allow-origin.php:65
+msgid "Add origin"
+msgstr "Добави origin"
+
+#: views/access-control-expose-headers.php:3
+msgid "The Access-Control-Expose-Headers response header brings information about headers that browsers could allow accessing."
+msgstr "Access-Control-Expose-Headers хедъра носи информация за хедърите които браузърите биха могли да позволят достъп до тях."
+
+#: views/access-control-max-age.php:3
+msgid "The Access-Control-Max-Age header indicates how much time, the result of a preflight request, can be cached."
+msgstr "Access-Control-Max-Age хедъра показва колко време резултатът от preflight искането може да бъде кеширан."
+
+#: views/age.php:3
+msgid "The Age header contains the time in seconds the object has been in a proxy cache."
+msgstr "Age хедъра съдържа времето в секунди които обектът е бил в кеша на прокси сървъра. Приема само положителни цели числа и обикновено е близо до 0."
+
+#: views/age.php:21
+msgid "seconds"
+msgstr "секунди"
+
+#: views/cache-control.php:3
+msgid "The Cache-Control general-header field is used to specify directives for caching mechanisms in both, requests and responses. Caching directives are unidirectional, meaning that a given directive in a request is not implying that the same directive is to be given in the response."
+msgstr "Cache-Control хедъра се използва за уточняване на директивите за механизмите на кеширане, както в исканията, така и в отговорите. Директивите за кеширането са еднопосочни, което означава, че дадена директива в искането не означава, че в отговора трябва да бъде върната същата директива."
+
+#: views/connection.php:3
+msgid "The Connection general header controls whether or not the network connection stays open after the current transaction finishes. If the value sent is keep-alive, the connection is persistent and not closed, allowing for subsequent requests to the same server to be done."
+msgstr "Connection хедъра контролира дали мрежовата връзка да остане отворена след завършване на текущата транзакция. Ако изпратената стойност е 'keep-alive', връзката е постоянна и не се затваря, което позволява да бъдат извършени последващите заявки към същия сървър."
+
+#: views/content-encoding.php:3
+msgid "Compression is an important way to increase the performance of a Web site. For some documents, size reduction of up to 70% lowers the bandwidth capacity needs."
+msgstr "Компресирането е важен начин за увеличаване на ефективността на един уеб сайт. За някои документи, намаляването на размера им до 70% понижава нуждата от по-висок капацитет на честотната лента."
+
+#: views/content-encoding.php:22
+msgid "By content type"
+msgstr "По съдържание"
+
+#: views/content-encoding.php:67
+msgid "By extension"
+msgstr "По разширение"
+
+#: views/content-security-policy.php:6
+msgid "Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware."
+msgstr "Content Security Policy (CSP) хедъра е допълнителен слой за сигурност, който помага за откриването и смекчаването на определени видове атаки, включително Cross Site Scripting (XSS) и атаки с инжектиране на данни. Тези атаки се използват за всичко, от кражбата на данни до site defacement (частична или пълна подмяна на сайта) или разпространението на злонамерен софтуер."
+
+#: views/content-security-policy.php:32
+msgid "Directive"
+msgstr "Директива"
+
+#: views/content-security-policy.php:12
+msgid "for reporting-only purposes"
+msgstr "генерира само отчет/доклад"
+
+#: views/cookie-security.php:3
+msgid "A secure cookie is only sent to the server with a encrypted request over the HTTPS protocol."
+msgstr "Сигурните (Secure) 'бисквитки' се изпращат към сървъра само при криптирани заявки чрез HTTPS протокола."
+
+#: views/cookie-security.php:4
+msgid "To prevent cross-site scripting (XSS) attacks, HttpOnly cookies are inaccessible to JavaScript's Document.cookie API; they are only sent to the server."
+msgstr "За да се предотвратят атаки между сървъри (XSS), HttpOnly 'бисквитките' са недостъпни за JavaScript's Document.cookie API; те се изпращат само до сървъра."
+
+#: views/custom-headers.php:3
+msgid "Common non-standard response fields:"
+msgstr "Често срещани нестандартни хедъри:"
+
+#: views/custom-headers.php:73
+msgid "Add header"
+msgstr "Добави хедър"
+
+#: views/custom-headers.php:66
+msgid "Delete"
+msgstr "Изтрий"
+
+#: views/expect-ct.php:3
+msgid "Expect-CT is an HTTP header that allows sites to opt in to reporting and/or enforcement of Certificate Transparency requirements, which prevents the use of misissued certificates for that site from going unnoticed. When a site enables the Expect-CT header, they are requesting that Chrome check that any certificate for that site appears in public CT logs."
+msgstr "Expect-CT е хедър, който позволява на сайтовете да се включат в отчитането и/или изпълнението на изискванията за прозрачност на сертификатите, което пречи на използването на невалидни сертификати за този сайт да останат незабелязани. Когато даден сайт активира заглавката Expect-CT, те искат Chrome да провери дали всеки сертификат за този сайт фигурира в обществени CT регистри."
+
+#: views/expires.php:3
+msgid "The Expires header contains the date/time after which the response is considered stale."
+msgstr "Expires хедъра съдържа датата и времето след което отговорът се счита за остарял."
+
+#: views/expires.php:4
+msgid "Invalid dates, like the value 0, represent a date in the past and mean that the resource is already expired."
+msgstr "Невалидни дати, като стойноста 0, представляват дата в миналото и означават, че ресурсът вече е изтекъл."
+
+#: views/expires.php:5
+msgid "If there is a Cache-Control header with the 'max-age' or 's-max-age' directive in the response, the Expires header is ignored."
+msgstr "Ако в отговора има 'Cache-Control' хедър с една от директивите 'max-age' или 's-max-age', тогава Expires хедъра се игнорира."
+
+#: views/expires.php:6
+msgid "* Works only in Apache mode"
+msgstr "* Работи само в режим Apache"
+
+#: views/feature-policy.php:8
+msgid "With Feature Policy, you opt-in to a set of policies for the browser to enforce on specific features used throughout your site. These policies restrict what APIs the site can access or modify the browser's default behavior for certain features."
+msgstr "С Feature Policy хедъра се присъединявате към набор от правила, които браузърът може да прилага по отношение на конкретни функции, използвани в сайта Ви. Тези правила ограничават какви API може да има достъп до сайта или да променя поведението му по подразбиране за определени функции."
+
+#: views/p3p.php:3
+msgid "The Platform for Privacy Preferences Project (P3P) is a protocol allowing websites to declare their intended use of information they collect about web browser users."
+msgstr "P3P е протокол, позволяващ на уебсайтовете да декларират предназначението на информацията, която събират за уеб потребителите."
+
+#: views/pragma.php:3
+msgid "The Pragma HTTP/1.0 general header is an implementation-specific header that may have various effects along the request-response chain. It is used for backwards compatibility with HTTP/1.0 caches where the Cache-Control HTTP/1.1 header is not yet present."
+msgstr "Pragma хедъра, част от HTTP/1.0 протокола, е специфичен за внедряване, който може да има различни ефекти по веригата на заявка-отговор. Използва се за обратна съвместимост с HTTP/1.0 кеширане, където Cache-Control хедъра, част от HTTP/1.1 протокола, все още не е налице."
+
+#: views/public-key-pins.php:6
+msgid "HTTP Public Key Pinning (HPKP) is a security mechanism which allows HTTPS websites to resist impersonation by attackers using mis-issued or otherwise fraudulent certificates."
+msgstr "HTTP Public Key Pinning (HPKP) е защитен механизъм, който позволява на уеб сайт с HTTPS да се противопостави на атаки при които се изплозва чужда самоличност и неверни или измамни сертификати."
+
+#: views/referrer-policy.php:3
+msgid "The Referrer-Policy HTTP header governs which referrer information, sent in the Referer header, should be included with requests made."
+msgstr "Referrer-Policy хедъра указва коя референтна информация, изпратена в Referer хедъра, трябва да бъде включена при направени заявки."
+
+#: views/report-to.php:3
+msgid "The Report-To HTTP response header field instructs the user agent to store reporting endpoints for an origin."
+msgstr "Report-To хедъра казва на потребителския агент (браузър) да съхранява крайните точки за отчитане за даден origin."
+
+#: views/report-to.php:75
+msgid "Add endpoint"
+msgstr "Добави крайна точка"
+
+#: views/strict-transport-security.php:3
+msgid "HTTP Strict-Transport-Security (HSTS) enforces secure (HTTP over SSL/TLS) connections to the server. This reduces impact of bugs in web applications leaking session data through cookies and external links and defends against Man-in-the-middle attacks. HSTS also disables the ability for user's to ignore SSL negotiation warnings."
+msgstr "HTTP Strict-Transport-Security (HSTS) налага сигурни (HTTP over SSL/TLS) връзки към сървъра. Това намалява въздействието на бъгове в уеб приложенията, изтичащи сесийни данни чрез 'бисквитки' и външни връзки и защитава срещу атаки от вида 'човек-в-средата' (Man-in-the-middle). HSTS също така забранява възможността потребителят да пренебрегва предупрежденията за преговори по SSL."
+
+#: views/timing-allow-origin.php:3
+msgid "The Timing-Allow-Origin header indicates whether a resource provides the complete timing information. SEO tools use the Resource Timing API to analyze the speed and weight of your web page resources."
+msgstr "Timing-Allow-Origin хедъра показва дали даден ресурс предоставя пълната информация за времето. SEO инструментите използват Resource Timing API, за да анализират скоростта и теглото на ресурсите на уеб страниците."
+
+#: views/vary.php:3
+msgid "The Vary HTTP response header determines how to match future request headers to decide whether a cached response can be used rather than requesting a fresh one from the origin server. It is used by the server to indicate which headers it used when selecting a representation of a resource in a content negotiation algorithm."
+msgstr "Vary хедъра определя как да се сравняват хедърите на бъдещите заявки, за да се реши дали може да се използва кеширана заявка, а не да се поиска нова от сървъра. Той се използва от сървъра, за да посочи кои хедъри използва при избора на представяне на ресурс в алгоритъма за договаряне на съдържание."
+
+#: views/www-authenticate.php:3
+msgid "HTTP supports the use of several authentication mechanisms to control access to pages and other resources. These mechanisms are all based around the use of the 401 status code and the WWW-Authenticate response header."
+msgstr "HTTP поддържа няколко механизма за удостоверяване, за да контролира достъпа до страници и други ресурси. Всички тези механизми се основават на използването на 401 кода на състоянието и на WWW-Authenticate хедъра."
+
+#: views/www-authenticate.php:79
+msgid "Add user"
+msgstr "Добави потребител"
+
+#: views/www-authenticate.php:43
+msgid "Username"
+msgstr "Потребител"
+
+#: views/www-authenticate.php:44
+msgid "Password"
+msgstr "Парола"
+
+#: views/x-content-type-options.php:3
+msgid "Prevents Internet Explorer and Google Chrome from MIME-sniffing a response away from the declared content-type. This also applies to Google Chrome, when downloading extensions. This reduces exposure to drive-by download attacks and sites serving user uploaded content that, by clever naming, could be treated by MSIE as executable or dynamic HTML files."
+msgstr "Предотвратява Internet Explorer и Google Chrome от MIME-sniffing на отговор извън обявения тип съдържание. Това важи и за Google Chrome, когато изтегляте разширения. Това намалява излагането на атаки за изтегляне и страници, показващи качено от потребителите съдържание, което чрез подходящо име може да бъде третирано от MSIE като изпълним или динамичен HTML файл."
+
+#: views/x-dns-prefetch-control.php:3
+msgid "The X-DNS-Prefetch-Control HTTP response header controls DNS prefetching, a feature by which browsers proactively perform domain name resolution on both links that the user may choose to follow as well as URLs for items referenced by the document, including images, CSS, JavaScript, and so forth."
+msgstr "X-DNS-Prefetch-Control хедъра контролира предварителното изтегляне на DNS - функция, чрез която браузърите проактивно преобразуват домейн име към IP адрес и на двете: линкове, които потребителят може да последва, както и URL адреси за елементите, посочени от документа, включително изображения, CSS, JavaScript и т.н."
+
+#: views/x-dns-prefetch-control.php:4
+msgid "This prefetching is performed in the background, so that the DNS is likely to have been resolved by the time the referenced items are needed. This reduces latency when the user clicks a link."
+msgstr "Това предварително зареждане се извършва във фонов режим, така че DNS е вероятно да бъде resolved до момента, в който са необходими референтните елементи. Това намалява латентността, когато потребителят кликне върху връзка."
+
+#: views/x-download-options.php:3
+msgid "For web applications that need to serve untrusted HTML files, Microsoft IE introduced a mechanism to help prevent the untrusted content from compromising your site's security. When the X-Download-Options header is present with the value noopen, the user is prevented from opening a file download directly; instead, they must first save the file locally. When the locally saved file is later opened, it no longer executes in the security context of your site, helping to prevent script injection."
+msgstr "За уеб приложения, които трябва да обслужват ненадеждни HTML файлове, Microsoft IE въведе механизъм за предотвратяване на несигурното съдържание от компрометиране на сигурността на сайта ви. Когато X-Download-Options хедъра е налице със стойността noopen, потребителят е възпрепятстван да отваря директно файл за изтегляне; вместо това те трябва първо да запазят файла локално. Когато локално запазеният файл се отвори по-късно, той вече не се изпълнява в контекста за сигурност на вашия сайт, което помага да се предотврати инжектирането на скриптове."
+
+#: views/x-frame-options.php:3
+msgid "This header can be used to indicate whether or not a browser should be allowed to render a page in a &lt;frame&gt;, &lt;iframe&gt; or &lt;object&gt;. Use this to avoid clickjacking attacks."
+msgstr "Този хедър може за се използва за индикация дали е позволено на браузъра да зарежда страница в &lt;frame&gt;, &lt;iframe&gt; или &lt;object&gt;. Използвайте този хедър за да избегнете clickjacking атаки."
+
+#: views/x-permitted-cross-domain-policies.php:3
+msgid "A cross-domain policy file is an XML document that grants a web client, such as Adobe Flash Player or Adobe Acrobat (though not necessarily limited to these), permission to handle data across domains."
+msgstr "Файла полица за кръстосани домейни е XML документ, който предоставя на уеб клиент като Adobe Flash Player или Adobe Acrobat разрешение за обработка на данни между домейни."
+
+#: views/x-powered-by.php:3
+msgid "Specifies the technology (e.g. ASP.NET, PHP, JBoss, Express) supporting the web application, i.e. the scripting language. It is recommended to remove it or provide misleading information to throw off hackers that might target a particular technology/version."
+msgstr "Определя технологията (например ASP.NET, PHP, JBoss, Express), поддържаща уеб приложението, т.е. скрипт езика. Препоръчително е да го премахнете или да предоставите подвеждаща информация, за да отклоните хакери, които биха могли да се насочат към определена технология/версия."
+
+#: views/x-ua-compatible.php:3
+msgid "In some cases, it might be necessary to restrict a webpage to a document mode supported by an older version of Windows Internet Explorer. Here we look at the x-ua-compatible header, which allows a webpage to be displayed as if it were viewed by an earlier version of the browser."
+msgstr "В някои случаи може да е необходимо да ограничите уеб страница до режим на документи, поддържан от по-стара версия на Windows Internet Explorer. X-UA-Compatible хедъра позволява на уеб страницата да се показва така, сякаш е била разглеждана от по-ранна версия на браузъра."
+
+#: views/x-xss-protection.php:3
+msgid "This header enables the Cross-site scripting (XSS) filter built into most recent web browsers. It's usually enabled by default anyway, so the role of this header is to re-enable the filter for this particular website if it was disabled by the user."
+msgstr "Този хедър активира вградения филтър за Cross-site scripting (XSS) в най-новите уеб браузъри. Обикновено това е активирано по подразбиране така, че ролята на този хедър е да активира отново филтъра за този конкретен уебсайт, ако е бил деактивиран от потребителя."
+
+#: views/inspect.php:19
+msgid "Use this tool to inspect the HTTP headers of your website or your competitor's website."
+msgstr "Използвайте този инструмент, за да проверите HTTP хедърите на уебсайта си или уебсайта на вашия конкурент."
+
+#: views/inspect.php:35
+msgid "Auth Type"
+msgstr "Тип удостоверяване"
+
+#: views/inspect.php:52
+msgid "Inspect"
+msgstr "Провери"
+
+#: views/ajax.php:123
+msgid "Category"
+msgstr "Категория"
+
+#: views/ajax.php:118
+msgid "Missing headers"
+msgstr "Липсващи хедъри"
+
+#: views/ajax.php:72
+msgid "Response headers"
+msgstr "Хедъри в отговора"
+
+#: views/ajax.php:45
+msgid "HTTP status"
+msgstr "HTTP статус"
+
+#: views/ajax.php:17
+msgid "URL malformed"
+msgstr "Неправилен URL"
+
+#: http-headers.php:1110
+msgid "Settings"
+msgstr "Настройки"

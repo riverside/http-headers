@@ -1,0 +1,401 @@
+# Copyright (C) 2017 HTTP Headers
+# This file is distributed under the same license as the HTTP Headers package.
+msgid ""
+msgstr ""
+"Project-Id-Version: HTTP Headers\n"
+"POT-Creation-Date: 2017-17-12 19:26:00+02:00\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/http-headers\n"
+"PO-Revision-Date: 2017-17-12 19:26:00+02:00\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: views/includes/config.inc.php:2
+msgid "Off"
+msgstr ""
+
+#: views/includes/config.inc.php:2
+msgid "On"
+msgstr ""
+
+#: views/includes/config.inc.php:5
+msgid "Security"
+msgstr ""
+
+#: views/includes/config.inc.php:6
+msgid "Access control"
+msgstr ""
+
+#: views/includes/config.inc.php:7
+msgid "Authentication"
+msgstr ""
+
+#: views/includes/config.inc.php:8
+msgid "Compression"
+msgstr ""
+
+#: views/includes/config.inc.php:9
+msgid "Caching"
+msgstr ""
+
+#: views/includes/config.inc.php:10
+msgid "Miscellaneous"
+msgstr ""
+
+#: views/includes/breadcrumbs.inc.php:2
+msgid "Dashboard"
+msgstr ""
+
+#: views/includes/breadcrumbs.inc.php:11
+msgid "Advanced settings"
+msgstr ""
+
+#: views/includes/breadcrumbs.inc.php:13
+msgid "Inspect headers"
+msgstr ""
+
+#: views/index.php:3
+msgid "Quick links"
+msgstr ""
+
+#: views/index.php:4
+msgid "Getting started"
+msgstr ""
+
+#: views/index.php:6
+msgid "Manual setup"
+msgstr ""
+
+#: views/dashboard.php:47
+msgid "Donate"
+msgstr ""
+
+#: views/dashboard.php:34
+msgid "Rate us"
+msgstr ""
+
+#: views/dashboard.php:35
+msgid "Tell us what you think about this plugin"
+msgstr ""
+
+#: views/dashboard.php:35
+msgid "writing a review"
+msgstr ""
+
+#: views/dashboard.php:36
+msgid "Contribution"
+msgstr ""
+
+#: views/dashboard.php:37
+msgid "Help us to continue developing this plugin with a small donation."
+msgstr ""
+
+#: views/category.php:8
+msgid "Header"
+msgstr ""
+
+#: views/category.php:9
+msgid "Value"
+msgstr ""
+
+#: views/category.php:10
+msgid "Status"
+msgstr ""
+
+#: views/category.php:230
+msgid "Edit"
+msgstr ""
+
+#: views/category.php:223
+msgid "On"
+msgstr ""
+
+#: views/category.php:223
+msgid "Off"
+msgstr ""
+
+#: views/advanced.php:10
+msgid "Default mode"
+msgstr ""
+
+#: views/advanced.php:11
+msgid "Choose a method for sending of headers. Usually, the PHP method works perfectly. However, some third-party plugins like WP Super Cache may require switching to Apache method."
+msgstr ""
+
+#: views/advanced.php:20
+msgid "Use PHP to send headers (deprecated)"
+msgstr ""
+
+#: views/advanced.php:21
+msgid "Use Apache (mod_headers) to send headers"
+msgstr ""
+
+#: views/advanced.php:40
+msgid "Export"
+msgstr ""
+
+#: views/advanced.php:41
+msgid "Export the plugin current state of settings for later use if recovery needs."
+msgstr ""
+
+#: views/advanced.php:46
+msgid "Export settings"
+msgstr ""
+
+#: views/advanced.php:51
+msgid "Import"
+msgstr ""
+
+#: views/advanced.php:52
+msgid "Import a previously saved state of settings."
+msgstr ""
+
+#: views/advanced.php:58
+msgid "Import settings"
+msgstr ""
+
+#: views/advanced.php:58
+msgid "Choose file..."
+msgstr ""
+
+#: views/access-control-allow-credentials.php:3
+msgid "The Access-Control-Allow-Credentials header indicates whether the response to request can be exposed when the credentials flag is true."
+msgstr ""
+
+#: views/access-control-allow-headers.php:3
+msgid "The Access-Control-Allow-Headers header is returned by the server in a response to a preflight request and informs the browser about the HTTP headers that can be used in the actual request."
+msgstr ""
+
+#: views/access-control-allow-methods.php:3
+msgid "The Access-Control-Allow-Methods header is returned by the server in a response to a preflight request and informs the browser about the HTTP methods that can be used in the actual request."
+msgstr ""
+
+#: views/access-control-allow-origin.php:3
+msgid "The Access-Control-Allow-Origin header indicates whether a resource can be shared."
+msgstr ""
+
+#: views/access-control-allow-origin.php:65
+msgid "Add origin"
+msgstr ""
+
+#: views/access-control-expose-headers.php:3
+msgid "The Access-Control-Expose-Headers response header brings information about headers that browsers could allow accessing."
+msgstr ""
+
+#: views/access-control-max-age.php:3
+msgid "The Access-Control-Max-Age header indicates how much time, the result of a preflight request, can be cached."
+msgstr ""
+
+#: views/age.php:3
+msgid "The Age header contains the time in seconds the object has been in a proxy cache."
+msgstr ""
+
+#: views/age.php:21
+msgid "seconds"
+msgstr ""
+
+#: views/cache-control.php:3
+msgid "The Cache-Control general-header field is used to specify directives for caching mechanisms in both, requests and responses. Caching directives are unidirectional, meaning that a given directive in a request is not implying that the same directive is to be given in the response."
+msgstr ""
+
+#: views/connection.php:3
+msgid "The Connection general header controls whether or not the network connection stays open after the current transaction finishes. If the value sent is keep-alive, the connection is persistent and not closed, allowing for subsequent requests to the same server to be done."
+msgstr ""
+
+#: views/content-encoding.php:3
+msgid "Compression is an important way to increase the performance of a Web site. For some documents, size reduction of up to 70% lowers the bandwidth capacity needs."
+msgstr ""
+
+#: views/content-encoding.php:22
+msgid "By content type"
+msgstr ""
+
+#: views/content-encoding.php:67
+msgid "By extension"
+msgstr ""
+
+#: views/content-security-policy.php:6
+msgid "Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware."
+msgstr ""
+
+#: views/content-security-policy.php:32
+msgid "Directive"
+msgstr ""
+
+#: views/content-security-policy.php:12
+msgid "for reporting-only purposes"
+msgstr ""
+
+#: views/cookie-security.php:3
+msgid "A secure cookie is only sent to the server with a encrypted request over the HTTPS protocol."
+msgstr ""
+
+#: views/cookie-security.php:4
+msgid "To prevent cross-site scripting (XSS) attacks, HttpOnly cookies are inaccessible to JavaScript's Document.cookie API; they are only sent to the server."
+msgstr ""
+
+#: views/custom-headers.php:3
+msgid "Common non-standard response fields:"
+msgstr ""
+
+#: views/custom-headers.php:73
+msgid "Add header"
+msgstr ""
+
+#: views/custom-headers.php:66
+msgid "Delete"
+msgstr ""
+
+#: views/expect-ct.php:3
+msgid "Expect-CT is an HTTP header that allows sites to opt in to reporting and/or enforcement of Certificate Transparency requirements, which prevents the use of misissued certificates for that site from going unnoticed. When a site enables the Expect-CT header, they are requesting that Chrome check that any certificate for that site appears in public CT logs."
+msgstr ""
+
+#: views/expires.php:3
+msgid "The Expires header contains the date/time after which the response is considered stale."
+msgstr ""
+
+#: views/expires.php:4
+msgid "Invalid dates, like the value 0, represent a date in the past and mean that the resource is already expired."
+msgstr ""
+
+#: views/expires.php:5
+msgid "If there is a Cache-Control header with the 'max-age' or 's-max-age' directive in the response, the Expires header is ignored."
+msgstr ""
+
+#: views/expires.php:6
+msgid "* Works only in Apache mode"
+msgstr ""
+
+#: views/feature-policy.php:8
+msgid "With Feature Policy, you opt-in to a set of policies for the browser to enforce on specific features used throughout your site. These policies restrict what APIs the site can access or modify the browser's default behavior for certain features."
+msgstr ""
+
+#: views/p3p.php:3
+msgid "The Platform for Privacy Preferences Project (P3P) is a protocol allowing websites to declare their intended use of information they collect about web browser users."
+msgstr ""
+
+#: views/pragma.php:3
+msgid "The Pragma HTTP/1.0 general header is an implementation-specific header that may have various effects along the request-response chain. It is used for backwards compatibility with HTTP/1.0 caches where the Cache-Control HTTP/1.1 header is not yet present."
+msgstr ""
+
+#: views/public-key-pins.php:6
+msgid "HTTP Public Key Pinning (HPKP) is a security mechanism which allows HTTPS websites to resist impersonation by attackers using mis-issued or otherwise fraudulent certificates."
+msgstr ""
+
+#: views/referrer-policy.php:3
+msgid "The Referrer-Policy HTTP header governs which referrer information, sent in the Referer header, should be included with requests made."
+msgstr ""
+
+#: views/report-to.php:3
+msgid "The Report-To HTTP response header field instructs the user agent to store reporting endpoints for an origin."
+msgstr ""
+
+#: views/report-to.php:75
+msgid "Add endpoint"
+msgstr ""
+
+#: views/strict-transport-security.php:3
+msgid "HTTP Strict-Transport-Security (HSTS) enforces secure (HTTP over SSL/TLS) connections to the server. This reduces impact of bugs in web applications leaking session data through cookies and external links and defends against Man-in-the-middle attacks. HSTS also disables the ability for user's to ignore SSL negotiation warnings."
+msgstr ""
+
+#: views/timing-allow-origin.php:3
+msgid "The Timing-Allow-Origin header indicates whether a resource provides the complete timing information. SEO tools use the Resource Timing API to analyze the speed and weight of your web page resources."
+msgstr ""
+
+#: views/vary.php:3
+msgid "The Vary HTTP response header determines how to match future request headers to decide whether a cached response can be used rather than requesting a fresh one from the origin server. It is used by the server to indicate which headers it used when selecting a representation of a resource in a content negotiation algorithm."
+msgstr ""
+
+#: views/www-authenticate.php:3
+msgid "HTTP supports the use of several authentication mechanisms to control access to pages and other resources. These mechanisms are all based around the use of the 401 status code and the WWW-Authenticate response header."
+msgstr ""
+
+#: views/www-authenticate.php:79
+msgid "Add user"
+msgstr ""
+
+#: views/www-authenticate.php:43
+msgid "Username"
+msgstr ""
+
+#: views/www-authenticate.php:44
+msgid "Password"
+msgstr ""
+
+#: views/x-content-type-options.php:3
+msgid "Prevents Internet Explorer and Google Chrome from MIME-sniffing a response away from the declared content-type. This also applies to Google Chrome, when downloading extensions. This reduces exposure to drive-by download attacks and sites serving user uploaded content that, by clever naming, could be treated by MSIE as executable or dynamic HTML files."
+msgstr ""
+
+#: views/x-dns-prefetch-control.php:3
+msgid "The X-DNS-Prefetch-Control HTTP response header controls DNS prefetching, a feature by which browsers proactively perform domain name resolution on both links that the user may choose to follow as well as URLs for items referenced by the document, including images, CSS, JavaScript, and so forth."
+msgstr ""
+
+#: views/x-dns-prefetch-control.php:4
+msgid "This prefetching is performed in the background, so that the DNS is likely to have been resolved by the time the referenced items are needed. This reduces latency when the user clicks a link."
+msgstr ""
+
+#: views/x-download-options.php:3
+msgid "For web applications that need to serve untrusted HTML files, Microsoft IE introduced a mechanism to help prevent the untrusted content from compromising your site’s security. When the X-Download-Options header is present with the value noopen, the user is prevented from opening a file 	download directly; instead, they must first save the file locally. When the locally saved file is later opened, it no longer executes in the security context of your site, helping to prevent script injection."
+msgstr ""
+
+#: views/x-frame-options.php:3
+msgid "This header can be used to indicate whether or not a browser should be allowed to render a page in a &lt;frame&gt;, &lt;iframe&gt; or &lt;object&gt;. Use this to avoid clickjacking attacks."
+msgstr ""
+
+#: views/x-permitted-cross-domain-policies.php:3
+msgid "A cross-domain policy file is an XML document that grants a web client, such as Adobe Flash Player or Adobe Acrobat (though not necessarily limited to these), permission to handle data across domains."
+msgstr ""
+
+#: views/x-powered-by.php:3
+msgid "Specifies the technology (e.g. ASP.NET, PHP, JBoss, Express) supporting the web application, i.e. the scripting language. It is recommended to remove it or provide misleading information to throw off hackers that might target a particular technology/version."
+msgstr ""
+
+#: views/x-ua-compatible.php:3
+msgid "In some cases, it might be necessary to restrict a webpage to a document mode supported by an older version of Windows Internet Explorer. Here we look at the x-ua-compatible header, which allows a webpage to be displayed as if it were viewed by an earlier version of the browser."
+msgstr ""
+
+#: views/x-xss-protection.php:3
+msgid "This header enables the Cross-site scripting (XSS) filter built into most recent web browsers. It's usually enabled by default anyway, so the role of this header is to re-enable the filter for this particular website if it was disabled by the user."
+msgstr ""
+
+#: views/inspect.php:19
+msgid "Use this tool to inspect the HTTP headers of your website or your competitor's website."
+msgstr ""
+
+#: views/inspect.php:35
+msgid "Auth Type"
+msgstr ""
+
+#: views/inspect.php:52
+msgid "Inspect"
+msgstr ""
+
+#: views/ajax.php:123
+msgid "Category"
+msgstr ""
+
+#: views/inspect.php:52
+msgid "Inspect"
+msgstr ""
+
+#: views/ajax.php:118
+msgid "Missing headers"
+msgstr ""
+
+#: views/ajax.php:72
+msgid "Response headers"
+msgstr ""
+
+#: views/ajax.php:45
+msgid "HTTP Status"
+msgstr ""
+
+#: views/ajax.php:17
+msgid "URL malformed"
+msgstr ""
+
+#: http-headers.php:1110
+msgid "Settings"
+msgstr ""
