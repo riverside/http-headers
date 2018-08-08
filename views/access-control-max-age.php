@@ -23,5 +23,6 @@ if (!defined('ABSPATH')) {
 		<?php settings_fields( 'http-headers-acma' ); ?>
 		<?php do_settings_sections( 'http-headers-acma' ); ?>
 		<input type="text" name="hh_access_control_max_age_value" class="http-header-value" value="<?php echo esc_attr(get_option('hh_access_control_max_age_value')); ?>"<?php echo $access_control_max_age == 1 ? NULL : ' checked'; ?>>
+		<?php _e('seconds', 'http-headers'); ?>
 	</td>
 </tr>

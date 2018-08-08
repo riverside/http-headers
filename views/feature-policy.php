@@ -51,7 +51,7 @@ if (!defined('ABSPATH')) {
 			    'vibrate',
 			    'vr',
 			);
-			$origins = array('*', "'none'", "'self'", 'origin(s)');
+			$origins = array("'self'", "'none'", '*', 'origin(s)');
 			
 			$feature_policy_value = get_option('hh_feature_policy_value');
 			$feature_policy_feature = get_option('hh_feature_policy_feature');

@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.10.2
+Version: 1.10.3
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -901,13 +901,17 @@ function apache_headers_directives() {
 				$all[] = sprintf('  Header always set %s %s', $key, sprintf('%1$s%2$s%1$s', strpos($value, '"') === false ? '"' : "'", $value));
 				continue;
 			}
+        if ($key == 'Strict-Transport-Security') {
+            $lines[] = sprintf('    Header set %s %s env=HTTPS', $key, sprintf('%1$s%2$s%1$s', strpos($value, '"') === false ? '"' : "'", $value));
+            continue;
+        }
         if ($key == 'Access-Control-Allow-Origin') {
             $all[] = '  <IfModule mod_setenvif.c>';
             if (is_array($value))
             {
             	$all[] = sprintf('    SetEnvIf Origin "^(%s)$" CORS=$0', str_replace('.', '\.', join('|', $value)));
             } else {
-                $all[] = '    SetEnvIf Origin "^(.*)$" CORS=$0';
+                $all[] = '    SetEnvIf Origin "^(.+)$" CORS=$0';
             }
             $all[] = '  </IfModule>';
             $all[] = '  Header set Access-Control-Allow-Origin %{CORS}e env=CORS';
