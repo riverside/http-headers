@@ -56,15 +56,31 @@ msgstr ""
 msgid "Inspect headers"
 msgstr ""
 
-#: views/index.php:3
+#: views/index.php:13
+msgid "Error!"
+msgstr ""
+
+#: views/index.php:16
+msgid "The following file was not found. Please make sure the file exists and has write permissions:"
+msgstr ""
+
+#: views/index.php:18
+msgid "Please make sure the following file has write permissions:"
+msgstr ""
+
+#: views/index.php:28
+msgid "Warning!"
+msgstr ""
+
+#: views/index.php:40
 msgid "Quick links"
 msgstr ""
 
-#: views/index.php:4
+#: views/index.php:41
 msgid "Getting started"
 msgstr ""
 
-#: views/index.php:6
+#: views/index.php:43
 msgid "Manual setup"
 msgstr ""
 

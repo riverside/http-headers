@@ -251,6 +251,9 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 				        $value = "";
 				    }
 				    break;
+				case 'hh_clear_site_data':
+				    $value = '"' . join('", "', array_keys($value)) . '"';
+				    break;
 				default:
 					$value = !is_array($value) ? $value : join(', ', $value);
 			}

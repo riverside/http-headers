@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.10.3
+Version: 1.11.0
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -165,6 +165,11 @@ if (get_option('hh_feature_policy') === false) {
     add_option('hh_feature_policy_feature', null, null, 'yes');
     add_option('hh_feature_policy_origin', null, null, 'yes');
     add_option('hh_feature_policy_value', null, null, 'yes');
+}
+
+if (get_option('hh_clear_site_data') === false) {
+    add_option('hh_clear_site_data', 0, null, 'yes');
+    add_option('hh_clear_site_data_value', null, null, 'yes');
 }
 
 function get_http_headers() {
@@ -496,6 +501,21 @@ function php_content_encoding() {
 	}
 }
 
+function php_cookie_security_directives() {
+    $lines = array();
+    if (get_option('hh_cookie_security') == 1) {
+        $value = get_option('hh_cookie_security_value', array());
+        if (isset($value['HttpOnly'])) {
+            $lines[] = 'session.cookie_httponly = on';
+        }
+        if (isset($value['Secure'])) {
+            $lines[] = 'session.cookie_secure = on';
+        }
+    }
+    
+    return $lines;
+}
+
 function http_headers() {
 	if (get_option('hh_method') !== 'php') {
 		return;
@@ -645,9 +665,14 @@ function http_headers_admin() {
 	register_setting('http-headers-fp', 'hh_feature_policy_value');
 	register_setting('http-headers-fp', 'hh_feature_policy_feature');
 	register_setting('http-headers-fp', 'hh_feature_policy_origin');
+	register_setting('http-headers-csd', 'hh_clear_site_data');
+	register_setting('http-headers-csd', 'hh_clear_site_data_value');
 }
 	
 function http_headers_option($option) {
+    
+    include_once ABSPATH . 'wp-admin/includes/admin.php';
+    
     if (isset($_POST['hh_method']))
     {
         check_admin_referer('http-headers-mtd-options');
@@ -857,6 +882,11 @@ function nginx_cookie_security_directives() {
     return $lines;
 }
 
+function nginx_check_requirements() {
+    //TODO scheduled for v2.0.0
+    return true;
+}
+
 function iis_headers_directives() {
     //TODO scheduled for v2.0.0
 }
@@ -883,6 +913,11 @@ function iis_auth_credentials() {
 
 function iis_cookie_security_directives() {
     //TODO scheduled for v2.0.0
+}
+
+function iis_check_requirements() {
+    //TODO scheduled for v2.0.0
+    return true;
 }
 
 function apache_headers_directives() {
@@ -1096,6 +1131,10 @@ function apache_cookie_security_directives() {
     return $lines;
 }
 
+function apache_check_requirements() {
+    return check_filename(get_home_path().'.htaccess');
+}
+
 function update_headers_directives() {
 	$lines = array();
 	if (get_option('hh_method') == 'htaccess') {
@@ -1153,11 +1192,15 @@ function update_auth_credentials() {
 
 function update_cookie_security_directives() {
     $lines = array();
-    if (get_option('hh_method') == 'htaccess') {
+    if (strpos(PHP_SAPI, 'cgi') !== false) {
+        $filename = get_home_path().ini_get('user_ini.filename');
+        $lines = php_cookie_security_directives();
+    } elseif (get_option('hh_method') == 'htaccess') {
+        $filename = get_home_path().'.htaccess';
         $lines = apache_cookie_security_directives();
     }
     
-    return insert_with_markers(get_home_path().'.htaccess', "HttpHeadersCookieSecurity", $lines);
+    return insert_with_markers($filename, "HttpHeadersCookieSecurity", $lines);
 }
 
 function http_headers_text_domain() {
@@ -1257,6 +1300,49 @@ function http_headers_post_export() {
     echo $sql;
     exit;
 }
+
+function check_filename($filename) {
+    if (!is_file($filename)) {
+        return -1;
+    }
+    
+    clearstatcache();
+    if (!is_writable($filename)) {
+        return -2;
+    }
+    
+    return true;
+}
+
+function check_webserver_requirements() {
+    $method = get_option('hh_method');
+    if ($method == 'htaccess') {
+        return apache_check_requirements();
+    }
+    
+    return true;
+}
+
+function check_php_requirements() {
+    if (strpos(PHP_SAPI, 'cgi') !== false) {
+        // cgi, cgi-fcgi, fpm-fcgi
+        return check_filename(get_home_path().ini_get('user_ini.filename'));
+    }
+    
+    return true;
+}
+
+function http_headers_logout() {
+    if (get_option('hh_clear_site_data') == 1) {
+        $values = get_option('hh_clear_site_data_value', array());
+        $tmp = array_keys($values);
+        if ($tmp) {
+            header(sprintf('Clear-Site-Data: "%s"', join('", "', $tmp)));
+        }
+    }
+}
+
+add_action('wp_logout', 'http_headers_logout');
 
 if ( is_admin() ){ // admin actions
 	add_action('admin_menu', 'http_headers_admin_add_page');

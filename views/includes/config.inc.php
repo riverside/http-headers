@@ -50,6 +50,7 @@ $headers = array(
     'x-permitted-cross-domain-policies' => array('X-Permitted-Cross-Domain-Policies', 'hh_x_permitted_cross_domain_policies', 'security'),
     'report-to' => array('Report-To', 'hh_report_to', 'security'),
     'feature-policy' => array('Feature-Policy', 'hh_feature_policy', 'security'),
+    'clear-site-data' => array('Clear-Site-Data', 'hh_clear_site_data', 'security'),
 );
 
 $options = array(
@@ -143,4 +144,6 @@ $options = array(
     'hh_feature_policy_feature',
     'hh_feature_policy_origin',
     'hh_feature_policy_value',
+    'hh_clear_site_data',
+    'hh_clear_site_data_value',
 );

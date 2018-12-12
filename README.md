@@ -6,9 +6,9 @@ Donate link: https://zinoui.com/donation
 
 Requires at least: 3.2
 
-Tested up to: 4.9.7
+Tested up to: 5.0
 
-Stable tag: 1.10.2
+Stable tag: 1.11.0
 
 License: GPLv2 or later
 
@@ -28,6 +28,7 @@ Headers supported by HTTP Headers includes:
 * Content-Security-Policy
 * Content-Security-Policy-Report-Only
 * Cache-Control
+* Clear-Site-Data
 * Connection
 * Content-Encoding
 * Expect-CT
@@ -75,6 +76,28 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+
+#### 1.11.0
+*Release Date - 9th December, 2018*
+
+* Added support of "Clear-Site-Data" header
+
+#### 1.10.5
+*Release Date - 6th November, 2018*
+
+* Hotfix: parallel work with third-party plugins
+
+#### 1.10.4
+*Release Date - 30th September, 2018*
+
+* Support of following Server APIs: CGI, FastCGI, PHP-FPM
+* Error handling improvement
+
+#### 1.10.3
+*Release Date - 8th August, 2018*
+
+* HSTS improvement
+* CORS improvement
 
 #### 1.10.2
 *Release Date - 31st July, 2018*
