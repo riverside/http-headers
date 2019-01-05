@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.11.0
+Version: 1.12.0
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -24,7 +24,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/copyleft/gpl.html>.
 
-Copyright (c) 2017-2018 Zino UI
+Copyright (c) 2017-2019 Zino UI
 */
 
 if (!defined('ABSPATH')) {
@@ -677,13 +677,7 @@ function http_headers_option($option) {
     {
         check_admin_referer('http-headers-mtd-options');
 	# When method is changed
-		update_headers_directives();
-		update_auth_credentials();
-		update_auth_directives();
-		update_content_encoding_directives();
-		update_expires_directives();
-		update_cookie_security_directives();
-		update_timing_directives();
+        http_headers_activate();
 	
     } elseif (get_option('hh_method') == 'htaccess') {
 	# When particular header is changed
@@ -1192,12 +1186,18 @@ function update_auth_credentials() {
 
 function update_cookie_security_directives() {
     $lines = array();
+    $is_apache = get_option('hh_method') == 'htaccess';
+    $htaccess = get_home_path().'.htaccess';
     if (strpos(PHP_SAPI, 'cgi') !== false) {
         $filename = get_home_path().ini_get('user_ini.filename');
         $lines = php_cookie_security_directives();
-    } elseif (get_option('hh_method') == 'htaccess') {
-        $filename = get_home_path().'.htaccess';
+    } elseif ($is_apache) {
+        $filename = $htaccess;
         $lines = apache_cookie_security_directives();
+    }
+    
+    if (!$is_apache) {
+        insert_with_markers($htaccess, "HttpHeadersCookieSecurity", array());
     }
     
     return insert_with_markers($filename, "HttpHeadersCookieSecurity", $lines);
@@ -1342,6 +1342,29 @@ function http_headers_logout() {
     }
 }
 
+function http_headers_activate() {
+    update_headers_directives();
+    update_auth_credentials();
+    update_auth_directives();
+    update_content_encoding_directives();
+    update_expires_directives();
+    update_cookie_security_directives();
+    update_timing_directives();
+}
+
+function http_headers_deactivate() {
+    $filename = get_home_path().'.htaccess';
+    
+    insert_with_markers($filename, "HttpHeaders", array());
+    insert_with_markers($filename, "HttpHeadersCompression", array());
+    insert_with_markers($filename, "HttpHeadersExpires", array());
+    insert_with_markers($filename, "HttpHeadersTiming", array());
+    insert_with_markers($filename, "HttpHeadersAuth", array());
+    insert_with_markers($filename, "HttpHeadersCookieSecurity", array());
+}
+
+register_activation_hook(__FILE__, 'http_headers_activate');
+register_deactivation_hook(__FILE__, 'http_headers_deactivate');
 add_action('wp_logout', 'http_headers_logout');
 
 if ( is_admin() ){ // admin actions
