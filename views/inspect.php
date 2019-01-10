@@ -23,13 +23,6 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 				</div>
 			</div>
 			<div id="box-authentication" style="display: none">
-				<div class="form-field">
-					<label class="form-label"><?php _e('Auth Type', 'http-headers'); ?>:</label>
-					<label class="form-lbl"><input type="radio" name="auth_type" value="basic" checked>Basic</label>
-					<label class="form-lbl"><input type="radio" name="auth_type" value="digest">Digest</label>
-					<label class="form-lbl"><input type="radio" name="auth_type" value="gss">GSS</label>
-					<label class="form-lbl"><input type="radio" name="auth_type" value="ntlm">NTLM</label>
-				</div>
 				<div class="form-row">
 					<div class="form-field form-col-6">
 						<label class="form-label" for="username"><?php _e('Username', 'http-headers'); ?>:</label>

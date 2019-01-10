@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.12.0
+Version: 1.12.1
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later

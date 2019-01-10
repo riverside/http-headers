@@ -6,9 +6,9 @@ Donate link: https://zinoui.com/donation
 
 Requires at least: 3.2
 
-Tested up to: 5.0.2
+Tested up to: 5.0.3
 
-Stable tag: 1.12.0
+Stable tag: 1.12.1
 
 License: GPLv2 or later
 
@@ -76,6 +76,11 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.12.1
+*Release Date - 9th January, 2019*
+
+* Remove direct calls to cURL
+
 #### 1.12.0
 *Release Date - 5th January, 2019*
 

@@ -9,25 +9,25 @@ if (!(isset($_POST['url']) && preg_match('|^https?://|', $_POST['url'])))
 	exit;
 }
 
-include 'includes/http.class.php';
 include 'includes/config.inc.php';
-$http = new Http();
 
-if (isset($_POST['authentication'], $_POST['auth_type'], $_POST['username'], $_POST['password'])
-	&& in_array($_POST['auth_type'], array('basic', 'digest', 'gss', 'ntlm'))
+$args = array();
+
+if (isset($_POST['authentication'], $_POST['username'], $_POST['password'])
 	&& !empty($_POST['username'])
 	&& !empty($_POST['password'])
 )
 {
-	$http->setAuthType($_POST['auth_type']);
-	$http->setPassword($_POST['password']);
-	$http->setUsername($_POST['username']);
+    $args['headers'] = array(
+        'Authorization' => sprintf('Basic %s', base64_encode($_POST['username'] .':'. $_POST['password']))
+    );
 }
 
-$http->request($_POST['url']);
-$responseHeaders = $http->getResponseHeaders();
-$status = $http->getHttpCode();
-$error = $http->getError();
+$response = wp_remote_head($_POST['url'], $args);
+$status = wp_remote_retrieve_response_code($response);
+$dictionary = wp_remote_retrieve_headers($response);
+$responseHeaders = $dictionary ? $dictionary->getAll() : array();
+
 if ($status !== 200)
 {
 	?>
