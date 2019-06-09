@@ -224,11 +224,15 @@ msgstr ""
 msgid "Compression is an important way to increase the performance of a Web site. For some documents, size reduction of up to 70% lowers the bandwidth capacity needs."
 msgstr ""
 
-#: views/content-encoding.php:22
+#: views/content-encoding.php:28
+msgid "Module"
+msgstr ""
+
+#: views/content-encoding.php:53
 msgid "By content type"
 msgstr ""
 
-#: views/content-encoding.php:67
+#: views/content-encoding.php:98
 msgid "By extension"
 msgstr ""
 
@@ -244,12 +248,20 @@ msgstr ""
 msgid "for reporting-only purposes"
 msgstr ""
 
-#: views/cookie-security.php:3
+#: views/cookie-security.php:8
 msgid "A secure cookie is only sent to the server with a encrypted request over the HTTPS protocol."
 msgstr ""
 
-#: views/cookie-security.php:4
+#: views/cookie-security.php:9
 msgid "To prevent cross-site scripting (XSS) attacks, HttpOnly cookies are inaccessible to JavaScript's Document.cookie API; they are only sent to the server."
+msgstr ""
+
+#: views/cookie-security.php:10
+msgid "SameSite prevents the browser from sending this cookie along with cross-site requests. The main goal is mitigate the risk of cross-origin information leakage. It also provides some protection against cross-site request forgery attacks."
+msgstr ""
+
+#: views/cookie-security.php:45
+msgid "(PHP 7.3+ only)"
 msgstr ""
 
 #: views/custom-headers.php:3

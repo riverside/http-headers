@@ -123,18 +123,7 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 					$value = join(', ', array_keys($value));
 					break;
 				case 'hh_content_security_policy':
-					$csp = array();
-					foreach ($value as $key => $val)
-					{
-						if (!empty($val))
-						{
-							$csp[] = sprintf("%s %s", $key, $val);
-						}
-					}
-					if (!empty($csp))
-					{
-						$value = join('; ', $csp);
-					}
+				    $value = build_csp_value($value);
 					if (get_option('hh_content_security_policy_report_only')) {
 						$item[0] .= '-Report-Only';
 					}
@@ -186,7 +175,14 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 					$value = join('<br>', $tmp);
 					break;
 				case 'hh_cookie_security':
-					$value = is_array($value) ? join(', ', array_keys($value)) : NULL;
+				    if (is_array($value)) {
+				        if (isset($value['SameSite']) && !is_samesite_supported()) {
+				            unset($value['SameSite']);
+                        }
+                    }
+					$value = is_array($value) && !empty($value)
+                        ? '&#10004; ' . join(' &#10004; ', array_keys($value))
+                        : NULL;
 					break;
 				case 'hh_expect_ct':
 					$tmp = array();

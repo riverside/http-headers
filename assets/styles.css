@@ -205,7 +205,6 @@ select[readonly] {
 .hh-categories *{
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
-	     -o-box-sizing: border-box;
 	        box-sizing: border-box;
 }
 .hh-wrapper:after,
@@ -240,7 +239,7 @@ a.hh-category i {
     -webkit-transform: rotate(20deg);
        -moz-transform: rotate(20deg);
         -ms-transform: rotate(20deg);
-         -o-transform: rotate(20eg);
+         -o-transform: rotate(20deg);
 }
 a.hh-category i:after {
     background-color: #92D295;
@@ -279,7 +278,7 @@ a.hh-category:hover i{
 	-webkit-transform: rotate(160deg);
        -moz-transform: rotate(160deg);
         -ms-transform: rotate(160deg);
-         -o-transform: rotate(160eg);
+         -o-transform: rotate(160deg);
 
 	-webkit-transition: -webkit-transform 0.5s ease-out;
 	   -moz-transition: -moz-transform 0.5s ease-out;
@@ -288,6 +287,9 @@ a.hh-category:hover i{
 }
 .hh-p{
 	margin: 0.5em 0;
+}
+.hh-csv-value {
+	padding-left: 25px;
 }
 @media (min-width: 1280px) {
 	a.hh-category{

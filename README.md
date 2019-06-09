@@ -76,6 +76,26 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.13.1
+*Release Date - 8th June, 2019*
+
+* Added Brotli compression
+
+#### 1.13.0
+*Release Date - 7th June, 2019*
+
+* Added "SameSite" to Cookie Security
+* Fixed import/export function
+* Code refactoring
+
+#### 1.12.2
+*Release Date - 5th April, 2019*
+
+* UI improvement for Content-Security-Policy 
+* Fix for Access-Control-Allow-Headers
+* Fix for Access-Control-Allow-Origin
+* Fix for Feature-Policy
+
 #### 1.12.1
 *Release Date - 9th January, 2019*
 

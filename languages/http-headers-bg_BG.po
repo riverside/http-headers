@@ -222,11 +222,15 @@ msgstr "Connection хедъра контролира дали мрежовата
 msgid "Compression is an important way to increase the performance of a Web site. For some documents, size reduction of up to 70% lowers the bandwidth capacity needs."
 msgstr "Компресирането е важен начин за увеличаване на ефективността на един уеб сайт. За някои документи, намаляването на размера им до 70% понижава нуждата от по-висок капацитет на честотната лента."
 
-#: views/content-encoding.php:22
+#: views/content-encoding.php:28
+msgid "Module"
+msgstr "Модул"
+
+#: views/content-encoding.php:53
 msgid "By content type"
 msgstr "По съдържание"
 
-#: views/content-encoding.php:67
+#: views/content-encoding.php:98
 msgid "By extension"
 msgstr "По разширение"
 
@@ -242,13 +246,21 @@ msgstr "Директива"
 msgid "for reporting-only purposes"
 msgstr "генерира само отчет/доклад"
 
-#: views/cookie-security.php:3
+#: views/cookie-security.php:8
 msgid "A secure cookie is only sent to the server with a encrypted request over the HTTPS protocol."
 msgstr "Сигурните (Secure) 'бисквитки' се изпращат към сървъра само при криптирани заявки чрез HTTPS протокола."
 
-#: views/cookie-security.php:4
+#: views/cookie-security.php:9
 msgid "To prevent cross-site scripting (XSS) attacks, HttpOnly cookies are inaccessible to JavaScript's Document.cookie API; they are only sent to the server."
 msgstr "За да се предотвратят атаки между сървъри (XSS), HttpOnly 'бисквитките' са недостъпни за JavaScript's Document.cookie API; те се изпращат само до сървъра."
+
+#: views/cookie-security.php:10
+msgid "SameSite prevents the browser from sending this cookie along with cross-site requests. The main goal is mitigate the risk of cross-origin information leakage. It also provides some protection against cross-site request forgery attacks."
+msgstr "SameSite не позволява на браузъра да изпраща 'бисквитката' заедно с cross-site заявки. Основната цел е да се намали рискът от изтичане на информация от различни източници. Също така осигурява известна защита срещу CSRF атаки."
+
+#: views/cookie-security.php:45
+msgid "(PHP 7.3+ only)"
+msgstr "(поддържа се само от PHP 7.3+)"
 
 #: views/custom-headers.php:3
 msgid "Common non-standard response fields:"

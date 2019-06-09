@@ -23,7 +23,33 @@ if (!defined('ABSPATH')) {
 		<?php settings_fields( 'http-headers-ce' ); ?>
 		<?php do_settings_sections( 'http-headers-ce' ); ?>
 		<table>
-		<tbody><tr>
+		<tbody>
+		<tr>
+			<th colspan="2"><?php _e('Module', 'http-headers'); ?></th>
+		</tr>
+		<?php 
+		$content_encoding_module = get_option('hh_content_encoding_module');
+		?>
+		<tr>
+			<td colspan="2" class="hh-td-inner">
+    			<table style="width: 100%">
+    				<tbody>
+        				<tr>
+        					<td>
+        						<label><input type="radio" name="hh_content_encoding_module" value="deflate"<?php echo $content_encoding_module == 'deflate' || !$content_encoding_module ? ' checked' : NULL; ?>> <?php _e('DEFLATE', 'http-headers'); ?></label>
+        					</td>
+        					<td>
+        						<label><input type="radio" name="hh_content_encoding_module" value="brotli"<?php checked($content_encoding_module, 'brotli'); ?>> <?php _e('BROTLI', 'http-headers'); ?></label>
+        					</td>
+        					<td>
+        						<label><input type="radio" name="hh_content_encoding_module" value="brotli_deflate"<?php checked($content_encoding_module, 'brotli_deflate'); ?>> <?php _e('BROTLI; DEFLATE', 'http-headers'); ?></label>
+        					</td>
+        				</tr>
+    				</tbody>
+    			</table>
+			</td>
+		</tr>
+		<tr>
 			<th colspan="2"><?php _e('By content type', 'http-headers'); ?></th>
 		</tr><tr>
 		<?php

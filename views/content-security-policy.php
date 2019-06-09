@@ -30,28 +30,67 @@ $content_security_policy = get_option('hh_content_security_policy', 0);
 	<?php settings_fields( 'http-headers-csp' ); ?>
 	<?php do_settings_sections( 'http-headers-csp' ); ?>
 		<table>
-			<thead>
-				<tr>
-					<th><?php _e('Directive', 'http-headers'); ?></th>
-					<th><?php _e('Value', 'http-headers'); ?></th>
-				</tr>
-			</thead>
 			<tbody>
+				<tr>
+					<td><strong><?php _e('Directive', 'http-headers'); ?></strong></td>
+					<td><strong><?php _e('Value', 'http-headers'); ?></strong></td>
+				</tr>
 			<?php 
-			$directives = array('default-src', 'script-src', 'style-src', 'img-src', 'connect-src', 
-				'font-src', 'media-src', 'sandbox', 'report-uri', 'child-src', 'form-action',
-				'frame-ancestors', 'plugin-types', 
-			    'object-src', 'frame-src', 'worker-src', 'manifest-src', 'base-uri', 'report-to',
+			$directives = array(
+			    'default-src', 
+			    'script-src',
+			    'style-src',
+			    'img-src',
+			    'connect-src',
+			    'font-src',
+			    'media-src',
+			    'report-uri',
+			    'child-src',
+			    'form-action',
+			    'frame-ancestors',
+			    'object-src', 
+			    'frame-src',
+			    'worker-src',
+			    'manifest-src',
+			    'base-uri',
+			    'plugin-types',
+			    'report-to',
+			    'sandbox',
+			    'require-sri-for',
+                'block-all-mixed-content', 
+                'upgrade-insecure-requests',
 			);
-			$csp = get_option('hh_content_security_policy_value');
+			$csp_value = get_option('hh_content_security_policy_value');
 			foreach ($directives as $item)
 			{
 				?>
 				<tr>
         			<td><?php echo $item; ?></td>
-        			<td class="hh-td-inner" valign="middle">
-        				<input type="text" name="hh_content_security_policy_value[<?php echo $item; ?>]" class="http-header-value" size="40"
-        					value="<?php echo esc_attr(@$csp[$item]); ?>"<?php echo $content_security_policy == 1 ? NULL : ' readonly'; ?>>
+        			<td>
+        			<?php 
+        			
+        			if ($item == 'sandbox')
+        			{
+        			    include 'includes/csp-sandbox.inc.php';
+        			    
+        			} elseif (in_array($item, array('block-all-mixed-content', 'upgrade-insecure-requests'))) {
+        			             			    
+        			    include 'includes/csp-inc.inc.php';
+        			    
+        			} elseif (in_array($item, array('report-to', 'plugin-types'))) {
+        			    
+        			    include 'includes/csp-text.inc.php';
+        			    
+        			} elseif ($item == 'require-sri-for') {
+        			    
+        			    include 'includes/csp-sri.inc.php';
+        			    
+        			} else {
+        			    
+        			    include 'includes/csp-src.inc.php';
+        			    
+        			}
+        			?>
         			</td>
         		</tr>
 				<?php
