@@ -6,9 +6,9 @@ Donate link: https://zinoui.com/donation
 
 Requires at least: 3.2
 
-Tested up to: 5.0.3
+Tested up to: 5.2.1
 
-Stable tag: 1.12.1
+Stable tag: 1.13.1
 
 License: GPLv2 or later
 
