@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.13.1
+Version: 1.13.2
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -604,10 +604,6 @@ function http_headers_option($option) {
                 check_admin_referer('http-headers-ce-options');
                 update_content_encoding_directives();
                 break;
-            case array_key_exists('hh_vary', $_POST):
-                check_admin_referer('http-headers-vary-options');
-                update_content_encoding_directives();
-                break;
             case array_key_exists('hh_expires', $_POST):
                 check_admin_referer('http-headers-exp-options');
                 update_expires_directives();
@@ -924,7 +920,7 @@ function apache_content_encoding_directives() {
         if (!empty($content_encoding_ext)) {
             $lines[] = sprintf('<FilesMatch "\.(%s)$">', join('|', array_keys($content_encoding_ext)));
             $lines[] = sprintf('  <IfModule %s>', $module);
-            $lines[] = sprinf('    SetOutputFilter %s', $filter);
+            $lines[] = sprintf('    SetOutputFilter %s', $filter);
             $lines[] = sprintf('  </IfModule>%s', $module_end);
             $lines[] = '</FilesMatch>';
         }
