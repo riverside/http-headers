@@ -1001,10 +1001,13 @@ function apache_auth_directives() {
         $lines[] = '  Order deny,allow';
         $lines[] = '  Deny from all';
         $lines[] = '</FilesMatch>';
+        // no empty AuthName
+	$realm = get_option('hh_www_authenticate_realm'); // AuthName
+	$realm = ($realm == '') ? 'restricted area':$realm; // Empty => give fixed value
         
         $lines[] = sprintf('<IfModule mod_auth_%s.c>', strtolower($type));
         $lines[] = sprintf('  AuthType %s', get_option('hh_www_authenticate_type'));
-        $lines[] = sprintf('  AuthName "%s"', get_option('hh_www_authenticate_realm'));
+        $lines[] = sprintf('  AuthName "%s"', $realm);
         $lines[] = sprintf('  AuthUserFile "%s%s"', get_home_path(), $file);
         $lines[] = '  Require valid-user';
         $lines[] = '</IfModule>';
