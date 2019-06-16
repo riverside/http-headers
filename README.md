@@ -8,7 +8,7 @@ Requires at least: 3.2
 
 Tested up to: 5.2.1
 
-Stable tag: 1.13.2
+Stable tag: 1.13.3
 
 License: GPLv2 or later
 
@@ -76,6 +76,12 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.13.3
+*Release Date - 16th June, 2019*
+
+* Bugfix in "WWW-Authenticate" header
+* Added support of Apache 2.4
+
 #### 1.13.2
 *Release Date - 13th June, 2019*
 
