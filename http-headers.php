@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.13.2
+Version: 1.13.3
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -998,12 +998,17 @@ function apache_auth_directives() {
         $file = $type == 'Basic' ? '.hh-htpasswd' : '.hh-htdigest';
         
         $lines[] = '<FilesMatch "^\.hh-ht(digest|passwd)$">';
-        $lines[] = '  Order deny,allow';
-        $lines[] = '  Deny from all';
+        $lines[] = '  <IfModule mod_authz_core.c>';
+        $lines[] = '    Require all denied';
+        $lines[] = '  </IfModule>';
+        $lines[] = '  <IfModule !mod_authz_core.c>';
+        $lines[] = '    Order deny,allow';
+        $lines[] = '    Deny from all';
+        $lines[] = '  </IfModule>';
         $lines[] = '</FilesMatch>';
         // no empty AuthName
-	$realm = get_option('hh_www_authenticate_realm'); // AuthName
-	$realm = ($realm == '') ? 'restricted area':$realm; // Empty => give fixed value
+		$realm = get_option('hh_www_authenticate_realm'); // AuthName
+		$realm = ($realm == '') ? 'restricted area':$realm; // Empty => give fixed value
         
         $lines[] = sprintf('<IfModule mod_auth_%s.c>', strtolower($type));
         $lines[] = sprintf('  AuthType %s', get_option('hh_www_authenticate_type'));
