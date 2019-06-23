@@ -6,7 +6,7 @@ Donate link: https://zinoui.com/donation
 
 Requires at least: 3.2
 
-Tested up to: 5.2.1
+Tested up to: 5.2.2
 
 Stable tag: 1.13.3
 
