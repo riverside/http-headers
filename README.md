@@ -8,7 +8,7 @@ Requires at least: 3.2
 
 Tested up to: 5.2.2
 
-Stable tag: 1.13.3
+Stable tag: 1.13.4
 
 License: GPLv2 or later
 
@@ -76,6 +76,13 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.13.4
+*Release Date - 14th July, 2019*
+
+* Added the "always" condition to Header (unset) directive
+* Fixed the "import" function
+* Fixed the "Access-Control-Allow-Origin" header
+
 #### 1.13.3
 *Release Date - 16th June, 2019*
 
