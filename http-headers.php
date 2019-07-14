@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.13.3
+Version: 1.13.4
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -438,7 +438,7 @@ function http_headers() {
 	foreach ($headers as $key => $value) {
 	    if ($key == 'Access-Control-Allow-Origin') { 
             if (isset($_SERVER['HTTP_ORIGIN'])) {
-                if ($value == '*') {
+                if (in_array($value, array('*', 'null'))) {
                     $isCors = true;
                     header(sprintf("%s: *", $key));
                 }
@@ -828,6 +828,7 @@ function apache_headers_directives() {
     list($headers, $statuses, $unset, $append) = get_http_headers();
     
     foreach ($unset as $header) {
+        $lines[] = sprintf('    Header always unset %s', $header);
         $lines[] = sprintf('    Header unset %s', $header);
     }
     $all = array();
@@ -852,7 +853,7 @@ function apache_headers_directives() {
                     $value = array();
                 }
             }
-            $value[] = 'null';
+            //$value[] = 'null';
             if (is_array($value))
             {
                 $all[] = sprintf('    SetEnvIf Origin "^(%s)$" CORS=$0', str_replace('.', '\.', join('|', $value)));
@@ -1211,6 +1212,7 @@ function http_headers_post_import() {
     
     $arr = preg_split('/;(\s+)?\n/', $string);
     foreach ($arr as $statement) {
+        $statement = preg_replace("/(INSERT\s*INTO\s*)[\w\_]+options/", '${1}'.$wpdb->options, $statement);
         $wpdb->query($statement);
     }
     
