@@ -161,7 +161,7 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 				case 'hh_cache_control':
 					$tmp = array();
 					foreach ($value as $k => $v) {
-						if (in_array($k, array('max-age', 's-maxage'))) {
+						if (in_array($k, array('max-age', 's-maxage', 'stale-while-revalidate', 'stale-if-error'))) {
 							if (strlen($v) > 0) {
 								$tmp[] = sprintf("%s=%u", $k, $v);
 							}
@@ -264,6 +264,13 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 				case 'hh_clear_site_data':
 				    $value = '"' . join('", "', array_keys($value)) . '"';
 				    break;
+                case 'hh_content_type':
+                    $tmp = array();
+                    foreach ($value as $key => $val)  {
+                        $tmp[] = sprintf(".%s => %s", $key, $val);
+                    }
+                    $value = join("<br>", $tmp);
+                    break;
 				default:
 					$value = !is_array($value) ? $value : join(', ', $value);
 			}

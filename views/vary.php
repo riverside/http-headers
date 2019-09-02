@@ -23,22 +23,25 @@ if (!defined('ABSPATH')) {
 		<?php settings_fields( 'http-headers-vary' ); ?>
 		<?php do_settings_sections( 'http-headers-vary' ); ?>
 		<table>
-		<tbody><tr>
-		<?php
-		$items = array(
-			'Accept-Encoding', 'User-Agent', 'Referer', 'Cookie',
-		);
-		$vary_value = get_option('hh_vary_value');
-		if (!$vary_value) {
-			$vary_value = array();
-		}
-		foreach ($items as $i => $item) {
-			if ($i % 2 === 0) {
-				?></tr><tr><?php
-			}
-			?><td><label><input type="checkbox" class="http-header-value" name="hh_vary_value[<?php echo $item; ?>]" value="1"<?php echo !array_key_exists($item, $vary_value) ? NULL : ' checked'; ?><?php echo $vary == 1 ? NULL : ' readonly'; ?> /> <?php echo $item; ?></label></td><?php
-		}
-		?>
-		</tr></tbody></table>
+            <tbody>
+                <tr>
+                    <td>
+					<?php
+					$items = array(
+                        '*', 'Accept-Encoding', 'User-Agent', 'Referer', 'Cookie',
+					);
+					$vary_value = get_option('hh_vary_value');
+					if (!$vary_value) {
+						$vary_value = array();
+					}
+                    foreach ($items as $item)
+                    {
+                        ?><p><label><input type="checkbox" class="http-header-value" name="hh_vary_value[<?php echo $item; ?>]" value="1"<?php echo !array_key_exists($item, $vary_value) ? NULL : ' checked'; ?><?php echo $vary == 1 ? NULL : ' readonly'; ?> /> <?php echo $item; ?></label></p><?php
+					}
+					?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 	</td>
 </tr>

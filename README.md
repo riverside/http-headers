@@ -8,7 +8,7 @@ Requires at least: 3.2
 
 Tested up to: 5.2.2
 
-Stable tag: 1.13.4
+Stable tag: 1.14.0
 
 License: GPLv2 or later
 
@@ -31,6 +31,7 @@ Headers supported by HTTP Headers includes:
 * Clear-Site-Data
 * Connection
 * Content-Encoding
+* Content-Type
 * Expect-CT
 * Expires
 * Feature-Policy
@@ -76,6 +77,17 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.14.0
+*Release Date - 1st September, 2019*
+
+* Added the "Content-Type" header
+* Fixed the "Access-Control-Allow-Credentials" header
+* Improvement to "Access-Control-Allow-Headers" header
+* Improvement to "Access-Control-Allow-Methods" header
+* Improvement to "Access-Control-Expose-Headers" header
+* Improvement to "Cache-Control" header
+* Improvement to "Vary" header
+
 #### 1.13.4
 *Release Date - 14th July, 2019*
 

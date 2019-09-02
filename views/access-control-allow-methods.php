@@ -23,7 +23,7 @@ if (!defined('ABSPATH')) {
 	<?php settings_fields( 'http-headers-acam' ); ?>
 	<?php do_settings_sections( 'http-headers-acam' ); ?>
 	<?php
-	$items = array('GET', 'POST', 'OPTIONS', 'HEAD', 'PUT', 'DELETE', 'TRACE', 'CONNECT', 'PATCH');
+	$items = array('*', 'GET', 'POST', 'OPTIONS', 'HEAD', 'PUT', 'DELETE', 'TRACE', 'CONNECT', 'PATCH');
 	$access_control_allow_methods_value = get_option('hh_access_control_allow_methods_value');
 	if (!$access_control_allow_methods_value)
 	{

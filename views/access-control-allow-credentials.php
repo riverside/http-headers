@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
 		<?php do_settings_sections( 'http-headers-acac' ); ?>
 		<select name="hh_access_control_allow_credentials_value" class="http-header-value"<?php echo $access_control_allow_credentials == 1 ? NULL : ' readonly'; ?>>
 		<?php
-		$items = array('true', 'false');
+		$items = array('true');
 		$access_control_allow_credentials_value = get_option('hh_access_control_allow_credentials_value');
 		foreach ($items as $item) {
 			?><option value="<?php echo $item; ?>"<?php selected($access_control_allow_credentials_value, $item); ?>><?php echo $item; ?></option><?php

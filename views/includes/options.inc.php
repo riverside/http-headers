@@ -39,8 +39,10 @@ return array(
     array('hh_access_control_allow_methods_value', ''),
     array('hh_access_control_allow_headers', 0),
     array('hh_access_control_allow_headers_value', ''),
+    array('hh_access_control_allow_headers_custom', ''),
     array('hh_access_control_expose_headers', 0),
     array('hh_access_control_expose_headers_value', ''),
+    array('hh_access_control_expose_headers_custom', ''),
     array('hh_access_control_max_age', 0),
     array('hh_access_control_max_age_value', ''),
     array('hh_content_encoding', 0),
@@ -93,4 +95,6 @@ return array(
     array('hh_feature_policy_value', ''),
     array('hh_clear_site_data', 0),
     array('hh_clear_site_data_value', ''),
+    array('hh_content_type', 0),
+    array('hh_content_type_value', ''),
 );

@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.13.4
+Version: 1.14.0
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -131,7 +131,7 @@ function get_http_headers() {
 		$hh_cache_control_value = get_option('hh_cache_control_value', array());
 		$tmp = array();
 		foreach ($hh_cache_control_value as $k => $v) {
-			if (in_array($k, array('max-age', 's-maxage'))) {
+			if (in_array($k, array('max-age', 's-maxage', 'stale-while-revalidate', 'stale-if-error'))) {
 				if (strlen($v) > 0) {
 					$tmp[] = sprintf("%s=%u", $k, $v);
 				}
@@ -239,18 +239,42 @@ function get_http_headers() {
 	}
 	if (get_option('hh_access_control_allow_headers') == 1)
 	{
+        $tmp = array();
 		$value = get_option('hh_access_control_allow_headers_value');
 		if (!empty($value))
 		{
-			$headers['Access-Control-Allow-Headers'] = join(', ', array_keys($value));
+            $tmp = array_merge($tmp, array_keys($value));
+		}
+        $custom = get_option('hh_access_control_allow_headers_custom');
+        if (!empty($custom))
+        {
+            $tmp = array_merge($tmp, $custom);
+        }
+        if ($tmp)
+        {
+            $tmp = array_filter($tmp, 'trim');
+            $tmp = array_unique($tmp);
+            $headers['Access-Control-Allow-Headers'] = join(', ', $tmp);
 		}
 	}
 	if (get_option('hh_access_control_expose_headers') == 1)
 	{
+	    $tmp = array();
 		$value = get_option('hh_access_control_expose_headers_value');
 		if (!empty($value))
 		{
-			$headers['Access-Control-Expose-Headers'] = join(', ', array_keys($value));
+            $tmp = array_merge($tmp, array_keys($value));
+		}
+        $custom = get_option('hh_access_control_expose_headers_custom');
+        if (!empty($custom))
+        {
+            $tmp = array_merge($tmp, $custom);
+        }
+        if ($tmp)
+        {
+            $tmp = array_filter($tmp, 'trim');
+            $tmp = array_unique($tmp);
+            $headers['Access-Control-Expose-Headers'] = join(', ', $tmp);
 		}
 	}
 	if (get_option('hh_p3p') == 1)
@@ -526,8 +550,10 @@ function http_headers_admin() {
 	register_setting('http-headers-acam', 'hh_access_control_allow_methods_value');
 	register_setting('http-headers-acah', 'hh_access_control_allow_headers');
 	register_setting('http-headers-acah', 'hh_access_control_allow_headers_value');
+    register_setting('http-headers-acah', 'hh_access_control_allow_headers_custom');
 	register_setting('http-headers-aceh', 'hh_access_control_expose_headers');
 	register_setting('http-headers-aceh', 'hh_access_control_expose_headers_value');
+    register_setting('http-headers-aceh', 'hh_access_control_expose_headers_custom');
 	register_setting('http-headers-acma', 'hh_access_control_max_age');
 	register_setting('http-headers-acma', 'hh_access_control_max_age_value');
 	register_setting('http-headers-ce', 'hh_content_encoding');
@@ -580,6 +606,8 @@ function http_headers_admin() {
 	register_setting('http-headers-fp', 'hh_feature_policy_origin');
 	register_setting('http-headers-csd', 'hh_clear_site_data');
 	register_setting('http-headers-csd', 'hh_clear_site_data_value');
+    register_setting('http-headers-cty', 'hh_content_type');
+    register_setting('http-headers-cty', 'hh_content_type_value');
 }
 
 function http_headers_option($option) {
@@ -603,6 +631,10 @@ function http_headers_option($option) {
             case array_key_exists('hh_content_encoding', $_POST):
                 check_admin_referer('http-headers-ce-options');
                 update_content_encoding_directives();
+                break;
+            case array_key_exists('hh_content_type', $_POST):
+                check_admin_referer('http-headers-cty-options');
+                update_content_type_directives();
                 break;
             case array_key_exists('hh_expires', $_POST):
                 check_admin_referer('http-headers-exp-options');
@@ -698,6 +730,18 @@ function nginx_content_encoding_directives() {
             $lines[] = sprintf('gzip_types %s;', join(' ', array_keys($content_encoding_value)));
         }
     }
+    return $lines;
+}
+
+function nginx_content_type_directives() {
+    $lines = array();
+    if (get_option('hh_content_type') == 1) {
+        $values = get_option('hh_content_type_value', array());
+        foreach ($values as $ext => $media_type) {
+            $lines[] = sprintf("%s %s;", $media_type, $ext);
+        }
+    }
+
     return $lines;
 }
 
@@ -798,6 +842,10 @@ function iis_content_encoding_directives() {
     //TODO scheduled for v2.0.0
 }
 
+function iis_content_type_directives() {
+    //TODO scheduled for v2.0.0
+}
+
 function iis_expires_directives() {
     //TODO scheduled for v2.0.0
 }
@@ -856,7 +904,7 @@ function apache_headers_directives() {
             //$value[] = 'null';
             if (is_array($value))
             {
-                $all[] = sprintf('    SetEnvIf Origin "^(%s)$" CORS=$0', str_replace('.', '\.', join('|', $value)));
+                $all[] = sprintf('    SetEnvIf Origin "^(%s)$" CORS=$0', str_replace(array('.', '*'), array('\.', '\*'), join('|', $value)));
             } else {
                 $all[] = '    SetEnvIf Origin "^(.+)$" CORS=$0';
             }
@@ -873,7 +921,7 @@ function apache_headers_directives() {
     foreach ($append as $key => $value) {
         $lines[] = sprintf('    Header append %s %s', $key, sprintf('%1$s%2$s%1$s', strpos($value, '"') === false ? '"' : "'", $value));
     }
-    if (!empty($lines)) {
+    if (!empty($lines) || !empty($all)) {
         $lines = array_merge(
             array('<IfModule mod_headers.c>'),
             $all,
@@ -964,6 +1012,20 @@ function apache_expires_directives() {
         $lines[] = '</IfModule>';
     }
     
+    return $lines;
+}
+
+function apache_content_type_directives() {
+    $lines = array();
+    if (get_option('hh_content_type') == 1) {
+        $values = get_option('hh_content_type_value', array());
+        $lines[] = '<IfModule mod_mime.c>';
+        foreach ($values as $ext => $media_type) {
+            $lines[] = sprintf("  AddType %s .%s", $media_type, $ext);
+        }
+        $lines[] = '</IfModule>';
+    }
+
     return $lines;
 }
 
@@ -1105,6 +1167,15 @@ function update_expires_directives() {
 	return insert_with_markers(get_home_path().'.htaccess', "HttpHeadersExpires", $lines);
 }
 
+function update_content_type_directives() {
+    $lines = array();
+    if (get_option('hh_method') == 'htaccess') {
+        $lines = apache_content_type_directives();
+    }
+
+    return insert_with_markers(get_home_path().'.htaccess', "HttpHeadersContentType", $lines);
+}
+
 function update_timing_directives() {
 	$lines = array();
 	if (get_option('hh_method') == 'htaccess') {
@@ -1177,7 +1248,7 @@ function http_headers_enqueue($hook) {
         //return;
     }
 
-    wp_enqueue_script('http_headers_admin_scripts', plugin_dir_url( __FILE__ ) . 'assets/scripts.js', array(), '1.13.0', true);
+    wp_enqueue_script('http_headers_admin_scripts', plugin_dir_url( __FILE__ ) . 'assets/scripts.js', array(), '1.14.0', true);
     wp_localize_script('http_headers_admin_scripts', 'hh', array(
         'lbl_delete' => __('Delete', 'http-headers'),
         'lbl_value' => __('Value', 'http-headers'),
@@ -1326,6 +1397,7 @@ function http_headers_activate() {
     update_auth_credentials();
     update_auth_directives();
     update_content_encoding_directives();
+    update_content_type_directives();
     update_expires_directives();
     update_cookie_security_directives();
     update_timing_directives();
@@ -1336,6 +1408,7 @@ function http_headers_deactivate() {
     
     insert_with_markers($filename, "HttpHeaders", array());
     insert_with_markers($filename, "HttpHeadersCompression", array());
+    insert_with_markers($filename, "HttpHeadersContentType", array());
     insert_with_markers($filename, "HttpHeadersExpires", array());
     insert_with_markers($filename, "HttpHeadersTiming", array());
     insert_with_markers($filename, "HttpHeadersAuth", array());

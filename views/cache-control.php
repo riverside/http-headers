@@ -33,6 +33,9 @@ if (!defined('ABSPATH')) {
 			'proxy-revalidate' => 'bool',
 			'max-age' => 'int',
 			's-maxage' => 'int',
+            'immutable' => 'bool',
+            'stale-while-revalidate' => 'int',
+            'stale-if-error' => 'int',
 		);
 		?>
 		<table>

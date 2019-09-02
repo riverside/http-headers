@@ -246,6 +246,10 @@ msgstr "Директива"
 msgid "for reporting-only purposes"
 msgstr "генерира само отчет/доклад"
 
+#: views/content-type.php:8
+msgid "The Content-Type entity header is used to indicate the media type of the resource. In responses, a Content-Type header tells the client what the content type of the returned content actually is. Browsers will do MIME sniffing in some cases and will not necessarily follow the value of this header; to prevent this behavior, the header X-Content-Type-Options can be set to nosniff."
+msgstr "Content-Type хедъра се използва за посочване на типа медия на ресурса. В отговорите на сървъра, Content-Type хедъра казва на клиента какъв всъщност е типа на върнатото съдържание. Браузърите ще направят MIME проврека в някои случаи и не е задължително да следват стойността на този хедър; за да се предотврати това поведение, хедъра X-Content-Type-Options може да бъде настроен с nosniff стойността."
+
 #: views/cookie-security.php:8
 msgid "A secure cookie is only sent to the server with a encrypted request over the HTTPS protocol."
 msgstr "Сигурните (Secure) 'бисквитки' се изпращат към сървъра само при криптирани заявки чрез HTTPS протокола."
