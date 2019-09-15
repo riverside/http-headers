@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.14.0
+Version: 1.14.1
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -938,23 +938,15 @@ function apache_content_encoding_directives() {
     if (get_option('hh_content_encoding') == 1) {
         
         $content_encoding_module = get_option('hh_content_encoding_module');
-        switch ($content_encoding_module) {
-            case 'brotli':
-                $module = 'mod_brotli.c';
-                $module_end = '';
-                $filter = 'BROTLI_COMPRESS';
-                break;
-            case 'brotli_deflate':
-                $module = "mod_brotli.c>\n<IfModule mod_deflate.c";
-                $module_end = "\n</IfModule>";
-                $filter = 'BROTLI_COMPRESS;DEFLATE';
-                break;
-            case 'deflate':
-            default:
-                $module = 'mod_deflate.c';
-                $module_end = '';
-                $filter = 'DEFLATE';
-                break;
+
+        $module = 'mod_deflate.c';
+        $filter = 'DEFLATE';
+        $accept_encoding = 'gzip';
+
+        if ($content_encoding_module == 'brotli') {
+            $module = 'mod_brotli.c';
+            $filter = 'BROTLI_COMPRESS';
+            $accept_encoding = 'br';
         }
         
         $content_encoding_value = get_option('hh_content_encoding_value');
@@ -966,22 +958,37 @@ function apache_content_encoding_directives() {
         if (!$content_encoding_ext) {
             $content_encoding_ext = array();
         }
-        if (!empty($content_encoding_ext)) {
-            $lines[] = sprintf('<FilesMatch "\.(%s)$">', join('|', array_keys($content_encoding_ext)));
-            $lines[] = sprintf('  <IfModule %s>', $module);
-            $lines[] = sprintf('    SetOutputFilter %s', $filter);
-            $lines[] = sprintf('  </IfModule>%s', $module_end);
-            $lines[] = '</FilesMatch>';
+
+        $type = join('|', array_keys($content_encoding_value));
+        $ext = join('|', array_keys($content_encoding_ext));
+
+        if (!empty($type) && !empty($ext)) {
+            $expression = sprintf('(%%{CONTENT_TYPE} =~ m#^(%1$s)# || %%{REQUEST_FILENAME} =~ /.(%2$s)$/)', $type, $ext);
+        } elseif (!empty($type)) {
+            $expression = sprintf('%%{CONTENT_TYPE} =~ m#^(%1$s)#', $type);
+        } elseif (!empty($ext)) {
+            $expression = sprintf('%%{REQUEST_FILENAME} =~ /.(%1$s)$/', $ext);
         }
-        if (!empty($content_encoding_value)) {
-            if (!empty($lines)) {
-                $lines[] = '';
-            }
+
+        if (isset($expression)) {
+            $lines[] = '<IfModule mod_filter.c>';
+            $lines[] = '  FilterDeclare HttpHeaders';
+            if (in_array($content_encoding_module, array('brotli', 'deflate'))) {
             $lines[] = sprintf('<IfModule %s>', $module);
-            foreach (array_keys($content_encoding_value) as $item) {
-                $lines[] = sprintf('  AddOutputFilterByType %s %s', $filter, $item);
+                $lines[] = sprintf('    FilterProvider HttpHeaders %1$s "%%{HTTP:Accept-Encoding} =~ /%2$s/ && %3$s"', $filter, $accept_encoding, $expression);
+                $lines[] = '  </IfModule>';
+            } else {
+                $lines[] = '  <IfModule mod_deflate.c>';
+                $lines[] = '    <IfModule !mod_brotli.c>';
+                $lines[] = sprintf('      FilterProvider HttpHeaders DEFLATE "%%{HTTP:Accept-Encoding} =~ /gzip/ && %1$s"', $expression);
+                $lines[] = '    </IfModule>';
+                $lines[] = '  </IfModule>';
+                $lines[] = '  <IfModule mod_brotli.c>';
+                $lines[] = sprintf('    FilterProvider HttpHeaders BROTLI_COMPRESS "%%{HTTP:Accept-Encoding} =~ /br/ && %1$s"', $expression);
+                $lines[] = '  </IfModule>';
             }
-            $lines[] = sprintf('</IfModule>%s', $module_end);
+            $lines[] = '  FilterChain HttpHeaders';
+            $lines[] = '</IfModule>';
         }
     }
     

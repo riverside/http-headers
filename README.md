@@ -6,9 +6,9 @@ Donate link: https://zinoui.com/donation
 
 Requires at least: 3.2
 
-Tested up to: 5.2.2
+Tested up to: 5.2.3
 
-Stable tag: 1.14.0
+Stable tag: 1.14.1
 
 License: GPLv2 or later
 
@@ -77,6 +77,11 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.14.1
+*Release Date - 15th September, 2019*
+
+* Simple filtering was replaced with Dynamic filtering
+
 #### 1.14.0
 *Release Date - 1st September, 2019*
 

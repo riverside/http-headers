@@ -14,6 +14,16 @@ $content_security_policy = get_option('hh_content_security_policy', 0);
 			<?php checked(get_option('hh_content_security_policy_report_only'), 1, true); ?>
 			<?php echo $content_security_policy == 1 ? NULL : ' readonly'; ?> /> "Report-Only" (<?php _e('for reporting-only purposes', 'http-headers'); ?>)</label>
 		</p>
+        <hr>
+        <p class="description">Useful tools:</p>
+        <p class="description">
+            <a target="_blank" href="https://zinoui.com/tools/sri-generator">SRI Hash Generator</a>
+            - generates subresource integrity hashes using a cryptographic algorithm.
+        </p>
+        <p class="description">
+            <a target="_blank" href="https://zinoui.com/tools/csp-hash">CSP Hash Generator</a>
+            - generates CSP hashes to use in script-src and style-src directives.
+        </p>
 	</th>
 	<td>
        	<fieldset>
