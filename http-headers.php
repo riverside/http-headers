@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.14.1
+Version: 1.14.2
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -470,6 +470,7 @@ function http_headers() {
                 if (is_array($value) && in_array($_SERVER['HTTP_ORIGIN'], $value)) {
                     $isCors = true;
                     header(sprintf("%s: %s", $key, $_SERVER['HTTP_ORIGIN']));
+                    header("Vary: Origin", false);
                 }
             }
 	        continue;
@@ -677,6 +678,10 @@ function nginx_headers_directives() {
             $cors_header[] = sprintf('if ($http_origin ~* ^(%s)$) {', str_replace('.', '\.', join('|', $value)));
             $cors_footer[] = '}';
             $cors_inner[] = '    add_header Access-Control-Allow-Origin "$http_origin";';
+            if (!in_array('*', $value))
+            {
+                $cors_inner[] = '    add_header Vary "Origin";';
+            }
             continue;
         }
         if (in_array($key, array('Access-Control-Allow-Headers', 'Access-Control-Allow-Methods', 'Access-Control-Allow-Credentials', 'Access-Control-Max-Age', 'Access-Control-Expose-Headers'))) {
@@ -910,6 +915,10 @@ function apache_headers_directives() {
             }
             $all[] = '  </IfModule>';
             $all[] = '  Header set Access-Control-Allow-Origin %{CORS}e env=CORS';
+            if (!in_array('*', $value))
+            {
+                $all[] = '  Header append Vary "Origin" env=CORS';
+            }
             continue;
         }
         if (in_array($key, array('Access-Control-Allow-Headers', 'Access-Control-Allow-Methods', 'Access-Control-Allow-Credentials', 'Access-Control-Max-Age', 'Access-Control-Expose-Headers'))) {
