@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 <tr>
 	<th scope="row">Access-Control-Allow-Origin
 		<p class="description"><?php _e('The Access-Control-Allow-Origin header indicates whether a resource can be shared.', 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
 	</th>
 	<td>
 	    <fieldset>
@@ -36,15 +40,15 @@ if (!defined('ABSPATH')) {
 		<table>
     		<tr>
     			<td>
-					<select name="hh_access_control_allow_origin_value" class="http-header-value"<?php echo $access_control_allow_origin == 1 ? NULL : ' readonly'; ?>>
-					<?php
+            		<select name="hh_access_control_allow_origin_value" class="http-header-value"<?php echo $access_control_allow_origin == 1 ? NULL : ' readonly'; ?>>
+            		<?php
             		$items = array('*', 'origin', 'null');
-					$access_control_allow_origin_value = get_option('hh_access_control_allow_origin_value');
-					foreach ($items as $item) {
-						?><option value="<?php echo $item; ?>"<?php selected($access_control_allow_origin_value, $item); ?>><?php echo $item; ?></option><?php
-					}
-					?>
-					</select>
+            		$access_control_allow_origin_value = get_option('hh_access_control_allow_origin_value');
+            		foreach ($items as $item) {
+            		    ?><option value="<?php echo $item; ?>"<?php selected($access_control_allow_origin_value, $item); ?>><?php echo $item; ?></option><?php
+            		}
+            		?>
+            		</select>
 				</td>
     			<td class="hh-acao<?php echo $access_control_allow_origin_value != 'origin' ? ' hh-hidden' : NULL; ?>"><input type="text" name="hh_access_control_allow_origin_url[]" class="http-header-value" placeholder="http://domain.com" size="35" value="<?php echo esc_attr(@$access_control_allow_origin_url[0]); ?>"<?php echo $access_control_allow_origin == 1 && $access_control_allow_origin_value == 'origin' ? NULL : ' readonly'; ?> /></td>
     			<td class="hh-acao<?php echo $access_control_allow_origin_value != 'origin' ? ' hh-hidden' : NULL; ?>">&nbsp;</td>

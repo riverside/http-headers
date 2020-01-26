@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 <tr>
 	<th scope="row">Cross-Origin-Resource-Policy
 		<p class="description"><?php _e('The HTTP Cross-Origin-Resource-Policy response header conveys a desire that the browser blocks no-cors cross-origin/cross-site requests to the given resource.', 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
 	</th>
 	<td>
 		<fieldset>

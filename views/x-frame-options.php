@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 <tr valign="top">
 	<th scope="row">X-Frame-Options
 		<p class="description"><?php _e('This header can be used to indicate whether or not a browser should be allowed to render a page in a &lt;frame&gt;, &lt;iframe&gt; or &lt;object&gt;. Use this to avoid clickjacking attacks.', 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
 	</th>
 	<td>
 		<fieldset>

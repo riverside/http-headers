@@ -178,6 +178,14 @@ msgstr "Избери файл..."
 msgid "The Access-Control-Allow-Credentials header indicates whether the response to request can be exposed when the credentials flag is true."
 msgstr "Access-Control-Allow-Credentials хедъра посочва дали в отговор на заявка може да се съдържат идентификационни данни."
 
+#: views/access-control-allow-credentials.php:10
+msgid "Read more at"
+msgstr "Прочети повече на"
+
+#: views/access-control-allow-credentials.php:11
+msgid "MDN Web Docs"
+msgstr "MDN Web Docs"
+
 #: views/access-control-allow-headers.php:3
 msgid "The Access-Control-Allow-Headers header is returned by the server in a response to a preflight request and informs the browser about the HTTP headers that can be used in the actual request."
 msgstr "Access-Control-Allow-Headers хедъра се връща от сървъра в отговор на preflight заявка и информира браузъра за HTTP хедърите които могат да се използват в действителната заявка."

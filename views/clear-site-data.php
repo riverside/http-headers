@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 <tr>
 	<th scope="row">Clear-Site-Data
 		<p class="description"><?php _e('The Clear-Site-Data header clears browsing data (cookies, storage, cache) associated with the requesting website. It allows web developers to have more control over the data stored locally by a browser for their origins.', 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Clear-Site-Data"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
 	</th>
 	<td>
         <fieldset>

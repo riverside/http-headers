@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 <tr>
 	<th scope="row">Timing-Allow-Origin
 		<p class="description"><?php _e('The Timing-Allow-Origin header indicates whether a resource provides the complete timing information. SEO tools use the Resource Timing API to analyze the speed and weight of your web page resources.', 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Timing-Allow-Origin"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
 	</th>
 	<td>
 	    <fieldset>

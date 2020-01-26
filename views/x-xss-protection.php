@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 <tr valign="top">
 	<th scope="row">X-XSS-Protection
 		<p class="description"><?php _e("This header enables the Cross-site scripting (XSS) filter built into most recent web browsers. It's usually enabled by default anyway, so the role of this header is to re-enable the filter for this particular website if it was disabled by the user.", 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
 	</th>
 	<td>
 		<fieldset>

@@ -7,6 +7,10 @@ if (!defined('ABSPATH')) {
     <th scope="row">X-DNS-Prefetch-Control
     	<p class="description"><?php _e('The X-DNS-Prefetch-Control HTTP response header controls DNS prefetching, a feature by which browsers proactively perform domain name resolution on both links that the user may choose to follow as well as URLs for items referenced by the document, including images, CSS, JavaScript, and so forth.', 'http-headers'); ?></p>
 		<p class="description"><?php _e('This prefetching is performed in the background, so that the DNS is likely to have been resolved by the time the referenced items are needed. This reduces latency when the user clicks a link.', 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
     </th>
     <td>
    		<fieldset>

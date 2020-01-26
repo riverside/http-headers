@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 <tr>
     <th scope="row">Content-Type
         <p class="description"><?php _e('The Content-Type entity header is used to indicate the media type of the resource. In responses, a Content-Type header tells the client what the content type of the returned content actually is. Browsers will do MIME sniffing in some cases and will not necessarily follow the value of this header; to prevent this behavior, the header X-Content-Type-Options can be set to nosniff.', 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
     </th>
     <td>
         <fieldset>

@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 <tr valign="top">
     <th scope="row">Feature-Policy
     	<p class="description"><?php _e('With Feature Policy, you opt-in to a set of policies for the browser to enforce on specific features used throughout your site. These policies restrict what APIs the site can access or modify the browser\'s default behavior for certain features.', 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
     </th>
 	<td>
    		<fieldset>

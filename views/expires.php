@@ -9,6 +9,11 @@ if (!defined('ABSPATH')) {
 		<p class="description"><?php _e('Invalid dates, like the value 0, represent a date in the past and mean that the resource is already expired.', 'http-headers'); ?></p>
 	    <p class="description"><?php _e("If there is a Cache-Control header with the 'max-age' or 's-max-age' directive in the response, the Expires header is ignored.", 'http-headers'); ?></p>
 		<p class="description"><?php _e('* Works only in Apache mode', 'http-headers'); ?></p>
+
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
 	</th>
 	<td>
         <fieldset>

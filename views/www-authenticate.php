@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 <tr valign="top">
 	<th scope="row">WWW-Authenticate
 		<p class="description"><?php _e('HTTP supports the use of several authentication mechanisms to control access to pages and other resources. These mechanisms are all based around the use of the 401 status code and the WWW-Authenticate response header.', 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
 	</th>
 	<td>
 		<fieldset>
@@ -61,7 +65,7 @@ if (!defined('ABSPATH')) {
 				$i = 0;
 				foreach ($usernames as $k => $user) {
 				    ?>
-					<tr>
+    				<tr>
     					<td>&nbsp;</td>
     					<td><input type="text" name="hh_www_authenticate_user[]" class="http-header-value" value="<?php echo esc_attr($user); ?>"<?php echo $www_authenticate == 1 ? NULL : ' readonly'; ?>></td>
     					<td><input type="text" name="hh_www_authenticate_pswd[]" class="http-header-value" value="<?php echo esc_attr($passwords[$k]); ?>"<?php echo $www_authenticate == 1 ? NULL : ' readonly'; ?>></td>

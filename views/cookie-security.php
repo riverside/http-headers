@@ -6,8 +6,12 @@ if (!defined('ABSPATH')) {
 <tr>
 	<th scope="row">Cookie security
 		<p class="description"><?php _e('A secure cookie is only sent to the server with a encrypted request over the HTTPS protocol.', 'http-headers'); ?></p>
-		<p class="description"><?php _e("To prevent cross-site scripting (XSS) attacks, HttpOnly cookies are inaccessible to JavaScript's Document.cookie API; they are only sent to the server.", 'http-headers'); ?></p> 
+		<p class="description"><?php _e("To prevent cross-site scripting (XSS) attacks, HttpOnly cookies are inaccessible to JavaScript's Document.cookie API; they are only sent to the server.", 'http-headers'); ?></p>
         <p class="description"><?php _e('SameSite prevents the browser from sending this cookie along with cross-site requests. The main goal is mitigate the risk of cross-origin information leakage. It also provides some protection against cross-site request forgery attacks.', 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Secure_and_HttpOnly_cookies"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
 	</th>
 	<td>
 		<fieldset>

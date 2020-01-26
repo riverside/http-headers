@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 <tr>
 	<th scope="row">Access-Control-Allow-Credentials
 		<p class="description"><?php _e('The Access-Control-Allow-Credentials header indicates whether the response to request can be exposed when the credentials flag is true.', 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
 	</th>
 	<td>
 		<fieldset>
@@ -27,7 +31,7 @@ if (!defined('ABSPATH')) {
 		$items = array('true');
 		$access_control_allow_credentials_value = get_option('hh_access_control_allow_credentials_value');
 		foreach ($items as $item) {
-			?><option value="<?php echo $item; ?>"<?php selected($access_control_allow_credentials_value, $item); ?>><?php echo $item; ?></option><?php
+		    ?><option value="<?php echo $item; ?>"<?php selected($access_control_allow_credentials_value, $item); ?>><?php echo $item; ?></option><?php
 		}
 		?>
 		</select>

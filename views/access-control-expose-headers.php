@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 <tr>
 	<th scope="row">Access-Control-Expose-Headers
 		<p class="description"><?php _e('The Access-Control-Expose-Headers response header brings information about headers that browsers could allow accessing.', 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
 	</th>
 	<td>
 		<fieldset>
@@ -41,7 +45,7 @@ if (!defined('ABSPATH')) {
             }
 			if ($i % 3 === 0) {
 				?></tr><tr><?php
-									}
+			}
 			?><td><label><input type="checkbox" class="http-header-value" name="hh_access_control_expose_headers_value[<?php echo $item; ?>]" value="1"<?php echo !array_key_exists($item, $access_control_expose_headers_value) ? NULL : ' checked'; ?><?php echo $access_control_expose_headers == 1 ? NULL : ' readonly'; ?> /> <?php echo $item; ?></label></td><?php
             $i += 1;
 		}

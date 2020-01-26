@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 <tr valign="top">
     <th scope="row">X-Content-Type-Options
     	<p class="description"><?php _e('Prevents Internet Explorer and Google Chrome from MIME-sniffing a response away from the declared content-type. This also applies to Google Chrome, when downloading extensions. This reduces exposure to drive-by download attacks and sites serving user uploaded content that, by clever naming, could be treated by MSIE as executable or dynamic HTML files.', 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
     </th>
     <td>
    		<fieldset>

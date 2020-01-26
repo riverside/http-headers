@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 <tr valign="top">
     <th scope="row">Strict-Transport-Security
     	<p class="description"><?php _e("HTTP Strict-Transport-Security (HSTS) enforces secure (HTTP over SSL/TLS) connections to the server. This reduces impact of bugs in web applications leaking session data through cookies and external links and defends against Man-in-the-middle attacks. HSTS also disables the ability for user's to ignore SSL negotiation warnings.", 'http-headers'); ?></p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
+        </p>
     </th>
     <td>
    		<fieldset>

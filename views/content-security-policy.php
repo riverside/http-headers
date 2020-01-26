@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -23,6 +23,10 @@ $content_security_policy = get_option('hh_content_security_policy', 0);
         <p class="description">
             <a target="_blank" href="https://zinoui.com/tools/csp-hash">CSP Hash Generator</a>
             - generates CSP hashes to use in script-src and style-src directives.
+        </p>
+        <hr>
+        <p class="description"><?php _e('Read more at', 'http-headers'); ?>
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy"><?php _e('MDN Web Docs', 'http-headers'); ?></a>
         </p>
 	</th>
 	<td>
