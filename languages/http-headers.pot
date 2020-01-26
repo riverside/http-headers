@@ -268,6 +268,10 @@ msgstr ""
 msgid "(PHP 7.3+ only)"
 msgstr ""
 
+#: views/cross-origin-resource-policy.php:8
+msgid "The HTTP Cross-Origin-Resource-Policy response header conveys a desire that the browser blocks no-cors cross-origin/cross-site requests to the given resource."
+msgstr ""
+
 #: views/custom-headers.php:3
 msgid "Common non-standard response fields:"
 msgstr ""
@@ -310,10 +314,6 @@ msgstr ""
 
 #: views/pragma.php:3
 msgid "The Pragma HTTP/1.0 general header is an implementation-specific header that may have various effects along the request-response chain. It is used for backwards compatibility with HTTP/1.0 caches where the Cache-Control HTTP/1.1 header is not yet present."
-msgstr ""
-
-#: views/public-key-pins.php:6
-msgid "HTTP Public Key Pinning (HPKP) is a security mechanism which allows HTTPS websites to resist impersonation by attackers using mis-issued or otherwise fraudulent certificates."
 msgstr ""
 
 #: views/referrer-policy.php:3

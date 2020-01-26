@@ -266,6 +266,10 @@ msgstr "SameSite не позволява на браузъра да изпращ
 msgid "(PHP 7.3+ only)"
 msgstr "(поддържа се само от PHP 7.3+)"
 
+#: views/cross-origin-resource-policy.php:8
+msgid "The HTTP Cross-Origin-Resource-Policy response header conveys a desire that the browser blocks no-cors cross-origin/cross-site requests to the given resource."
+msgstr "HTTP Cross-Origin-Resource-Policy хедъра изразява желание браузърът да блокира no-cors cross-origin/cross-site заявки за даден ресурс."
+
 #: views/custom-headers.php:3
 msgid "Common non-standard response fields:"
 msgstr "Често срещани нестандартни хедъри:"
@@ -309,10 +313,6 @@ msgstr "P3P е протокол, позволяващ на уебсайтове�
 #: views/pragma.php:3
 msgid "The Pragma HTTP/1.0 general header is an implementation-specific header that may have various effects along the request-response chain. It is used for backwards compatibility with HTTP/1.0 caches where the Cache-Control HTTP/1.1 header is not yet present."
 msgstr "Pragma хедъра, част от HTTP/1.0 протокола, е специфичен за внедряване, който може да има различни ефекти по веригата на заявка-отговор. Използва се за обратна съвместимост с HTTP/1.0 кеширане, където Cache-Control хедъра, част от HTTP/1.1 протокола, все още не е налице."
-
-#: views/public-key-pins.php:6
-msgid "HTTP Public Key Pinning (HPKP) is a security mechanism which allows HTTPS websites to resist impersonation by attackers using mis-issued or otherwise fraudulent certificates."
-msgstr "HTTP Public Key Pinning (HPKP) е защитен механизъм, който позволява на уеб сайт с HTTPS да се противопостави на атаки при които се изплозва чужда самоличност и неверни или измамни сертификати."
 
 #: views/referrer-policy.php:3
 msgid "The Referrer-Policy HTTP header governs which referrer information, sent in the Referer header, should be included with requests made."

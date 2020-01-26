@@ -6,9 +6,9 @@ Donate link: https://zinoui.com/donation
 
 Requires at least: 3.2
 
-Tested up to: 5.3
+Tested up to: 5.3.2
 
-Stable tag: 1.14.2
+Stable tag: 1.15.0
 
 License: GPLv2 or later
 
@@ -32,12 +32,11 @@ Headers supported by HTTP Headers includes:
 * Connection
 * Content-Encoding
 * Content-Type
+* Cross-Origin-Resource-Policy
 * Expect-CT
 * Expires
 * Feature-Policy
 * Pragma
-* Public-Key-Pins
-* Public-Key-Pins-Report-Only
 * P3P
 * Referrer-Policy
 * Report-To
@@ -77,6 +76,12 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.15.0
+*Release Date - 26th January, 2020*
+
+* Added the "Cross-Origin-Resource-Policy" header
+* Removed the "Public-Key-Pins" header
+
 #### 1.14.2
 *Release Date - 25th November, 2019*
 

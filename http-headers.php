@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.14.2
+Version: 1.15.0
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -24,7 +24,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/copyleft/gpl.html>.
 
-Copyright (c) 2017-2019 Zino UI
+Copyright (c) 2017-2020 Zino UI
 */
 
 if (!defined('ABSPATH')) {
@@ -165,28 +165,6 @@ function get_http_headers() {
 	if (get_option('hh_x_ua_compatible') == 1) {
 		$headers['X-UA-Compatible'] = get_option('hh_x_ua_compatible_value');
 	}
-	if (get_option('hh_public_key_pins') == 1) {
-		$public_key_pins_sha256_1 = get_option('hh_public_key_pins_sha256_1');
-		$public_key_pins_sha256_2 = get_option('hh_public_key_pins_sha256_2');
-		$public_key_pins_max_age = get_option('hh_public_key_pins_max_age');
-		$public_key_pins_sub_domains = get_option('hh_public_key_pins_sub_domains');
-		$public_key_pins_report_uri = get_option('hh_public_key_pins_report_uri');
-		$public_key_pins_report_only = get_option('hh_public_key_pins_report_only');
-		if (!empty($public_key_pins_sha256_1) && !empty($public_key_pins_sha256_2) && !empty($public_key_pins_max_age)) {
-			
-			$public_key_pins = array();
-			$public_key_pins[] = sprintf('pin-sha256="%s"', $public_key_pins_sha256_1);
-			$public_key_pins[] = sprintf('pin-sha256="%s"', $public_key_pins_sha256_2);
-			$public_key_pins[] = sprintf("max-age=%u", $public_key_pins_max_age);
-			if ($public_key_pins_sub_domains) {
-				$public_key_pins[] = "includeSubDomains";
-			}
-			if (!empty($public_key_pins_report_uri)) {
-				$public_key_pins[] = sprintf('report-uri="%s"', $public_key_pins_report_uri);
-			}
-			$headers['Public-Key-Pins'.($public_key_pins_report_only ? '-Report-Only' : NULL)] = join('; ', $public_key_pins);
-		}
-	}
 	
 	if (get_option('hh_content_security_policy') == 1)
 	{
@@ -288,6 +266,9 @@ function get_http_headers() {
 	if (get_option('hh_referrer_policy') == 1) {
 		$headers['Referrer-Policy'] = get_option('hh_referrer_policy_value');
 	}
+    if (get_option('hh_cross_origin_resource_policy') == 1) {
+        $headers['Cross-Origin-Resource-Policy'] = get_option('hh_cross_origin_resource_policy_value');
+    }
 	if (get_option('hh_www_authenticate') == 1) {
 	
 		switch (get_option('hh_www_authenticate_type')) {
@@ -526,13 +507,6 @@ function http_headers_admin() {
 	register_setting('http-headers-sts', 'hh_strict_transport_security_max_age');
 	register_setting('http-headers-sts', 'hh_strict_transport_security_sub_domains');
 	register_setting('http-headers-sts', 'hh_strict_transport_security_preload');
-	register_setting('http-headers-pkp', 'hh_public_key_pins');
-	register_setting('http-headers-pkp', 'hh_public_key_pins_sha256_1');
-	register_setting('http-headers-pkp', 'hh_public_key_pins_sha256_2');
-	register_setting('http-headers-pkp', 'hh_public_key_pins_max_age');
-	register_setting('http-headers-pkp', 'hh_public_key_pins_sub_domains');
-	register_setting('http-headers-pkp', 'hh_public_key_pins_report_uri');
-	register_setting('http-headers-pkp', 'hh_public_key_pins_report_only');
 	register_setting('http-headers-uac', 'hh_x_ua_compatible');
 	register_setting('http-headers-uac', 'hh_x_ua_compatible_value');
 	register_setting('http-headers-p3p', 'hh_p3p');
@@ -609,6 +583,8 @@ function http_headers_admin() {
 	register_setting('http-headers-csd', 'hh_clear_site_data_value');
     register_setting('http-headers-cty', 'hh_content_type');
     register_setting('http-headers-cty', 'hh_content_type_value');
+    register_setting('http-headers-corp', 'hh_cross_origin_resource_policy');
+    register_setting('http-headers-corp', 'hh_cross_origin_resource_policy_value');
 }
 
 function http_headers_option($option) {

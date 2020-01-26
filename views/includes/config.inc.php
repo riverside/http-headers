@@ -23,7 +23,6 @@ $headers = array(
 	'x-ua-compatible' => array('X-UA-Compatible', 'hh_x_ua_compatible', 'misc'),
 	'strict-transport-security' => array('Strict-Transport-Security', 'hh_strict_transport_security', 'security'),
 	'p3p' => array('P3P', 'hh_p3p', 'access-control'),
-	'public-key-pins' => array('Public-Key-Pins', 'hh_public_key_pins', 'security'),
 	'referrer-policy' => array('Referrer-Policy', 'hh_referrer_policy', 'security'),
 	'content-security-policy' => array('Content-Security-Policy', 'hh_content_security_policy', 'security'),
 	'access-control-allow-origin' => array('Access-Control-Allow-Origin', 'hh_access_control_allow_origin', 'access-control'),
@@ -52,6 +51,7 @@ $headers = array(
     'feature-policy' => array('Feature-Policy', 'hh_feature_policy', 'security'),
     'clear-site-data' => array('Clear-Site-Data', 'hh_clear_site_data', 'security'),
     'content-type' => array('Content-Type', 'hh_content_type', 'misc'),
+    'cross-origin-resource-policy' => array('Cross-Origin-Resource-Policy', 'hh_cross_origin_resource_policy', 'access-control'),
 );
 
 $headers_list = array(

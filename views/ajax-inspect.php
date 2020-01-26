@@ -70,7 +70,7 @@ if ($status !== 200)
 		</thead>
 		<tbody>
 		<?php 
-		$reportOnly = array('content-security-policy-report-only', 'public-key-pins-report-only');
+		$reportOnly = array('content-security-policy-report-only');
 		foreach ($responseHeaders as $k => $v)
 		{
 			$k = strtolower($k);
@@ -87,7 +87,7 @@ if ($status !== 200)
 	</table>
 </section>
 <?php
-$special = array('content-security-policy', 'public-key-pins');
+$special = array('content-security-policy');
 $exclude = array('custom-headers', 'cookie-security', 'x-powered-by');
 $missing = array();
 foreach ($headers as $k => $v)

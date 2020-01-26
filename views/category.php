@@ -81,30 +81,6 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 						$value = join('; ', $tmp);
 					}
 					break;
-				case 'hh_public_key_pins':
-					$public_key_pins_sha256_1 = get_option('hh_public_key_pins_sha256_1');
-					$public_key_pins_sha256_2 = get_option('hh_public_key_pins_sha256_2');
-					$public_key_pins_max_age = get_option('hh_public_key_pins_max_age');
-					$public_key_pins_sub_domains = get_option('hh_public_key_pins_sub_domains');
-					$public_key_pins_report_uri = get_option('hh_public_key_pins_report_uri');
-					if (!empty($public_key_pins_sha256_1) && !empty($public_key_pins_sha256_2) && !empty($public_key_pins_max_age)) {
-							
-						$public_key_pins = array();
-						$public_key_pins[] = sprintf('pin-sha256="%s"', $public_key_pins_sha256_1);
-						$public_key_pins[] = sprintf('pin-sha256="%s"', $public_key_pins_sha256_2);
-						$public_key_pins[] = sprintf("max-age=%u", $public_key_pins_max_age);
-						if ($public_key_pins_sub_domains) {
-							$public_key_pins[] = "includeSubDomains";
-						}
-						if (!empty($public_key_pins_report_uri)) {
-							$public_key_pins[] = sprintf('report-uri="%s"', $public_key_pins_report_uri);
-						}
-						$value = join('; ', $public_key_pins);
-						if (get_option('hh_public_key_pins_report_only')) {
-							$item[0] .= '-Report-Only';
-						}
-					}
-					break;
 				case 'hh_timing_allow_origin':
 					if ($value == 'origin')
 					{
