@@ -37,6 +37,8 @@ Headers supported by HTTP Headers includes:
 * Expires
 * Feature-Policy
 * Pragma
+* ~~Public-Key-Pins~~
+* ~~Public-Key-Pins-Report-Only~~
 * P3P
 * Referrer-Policy
 * Report-To
