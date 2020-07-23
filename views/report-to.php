@@ -136,7 +136,7 @@ if (!is_array($report_to_value) || empty($report_to_value))
     				    }
     				} else {
     				    ?>
-    				    <tr class="hh-tr-group-start hh-tr-group-end">
+    				    <tr class="hh-tr-first hh-tr-group-start hh-tr-group-end">
     				    	<td><input type="text" class="http-header-value" name="hh_report_to_value[<?php echo $i; ?>][group]" value="<?php echo esc_attr($item['group']); ?>" placeholder="csp-endpoint"<?php echo $report_to == 1 ? NULL : ' readonly'; ?>></td>
             				<td><select class="http-header-value" name="hh_report_to_value[<?php echo $i; ?>][max_age]"<?php echo $report_to == 1 ? NULL : ' readonly'; ?>>
             				<?php
