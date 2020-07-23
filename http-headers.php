@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.15.0
+Version: 1.16.0
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -331,12 +331,40 @@ function get_http_headers() {
 	    $tmp = array();
 	    foreach ($report_to as $item)
 	    {
-	        $tmp[] = sprintf('{"url": "%s", "group": "%s", "max-age": %u%s}', 
-	            $item['url'], $item['group'], $item['max-age'], isset($item['includeSubDomains']) ? ', includeSubDomains' : NULL);
+	        $endpoints = array();
+	        foreach ($item['endpoints'] as $endpoint)
+	        {
+	            $endpoints[] = sprintf('{"url": "%s"%s%s}',
+	                $endpoint['url'],
+	                is_numeric($endpoint['priority']) ? sprintf(', "priority": %u', $endpoint['priority']) : NULL,
+	                is_numeric($endpoint['weight']) ? sprintf(', "weight": %u', $endpoint['weight']) : NULL
+	            );
+	        }
+	        
+	        $tmp[] = sprintf('{"max_age": %u%s%s, "endpoints": [%s]}',
+	            $item['max_age'],
+	            $item['group'] ? sprintf(', "group": "%s"', $item['group']) : NULL,
+	            $item['include_subdomains'] ? sprintf(', "include_subdomains": true') : NULL,
+	            join(", ", $endpoints)
+	        );
 	    }
 	    if ($tmp)
 	    {
 	       $headers['Report-To'] = join(', ', $tmp);
+	    }
+	}
+	if (get_option('hh_nel') == 1) {
+	    $nel = get_option('hh_nel_value', array());
+	    if ($nel)
+	    {
+    	    $headers['NEL'] = sprintf('{"report_to": "%s", "max_age": %u%s%s%s%s%s}',
+    	        @$nel['report_to'], @$nel['max_age'],
+    	        isset($nel['include_subdomains']) ? ', "include_subdomains": true' : NULL,
+    	        array_key_exists('success_fraction', $nel) && is_numeric($nel['success_fraction']) ? ', "success_fraction": '. $nel['success_fraction'] : NULL,
+    	        array_key_exists('failure_fraction', $nel) && is_numeric($nel['failure_fraction']) ? ', "failure_fraction": '. $nel['failure_fraction'] : NULL,
+    	        isset($nel['request_headers']) && !empty($nel['request_headers']) ? sprintf(', "request_headers": ["%s"]', join('", "', array_map('trim', explode(',', $nel['request_headers'])))) : NULL,
+    	        isset($nel['response_headers']) && !empty($nel['response_headers']) ? sprintf(', "response_headers": ["%s"]', join('", "', array_map('trim', explode(',', $nel['response_headers'])))) : NULL
+            );
 	    }
 	}
 	if (get_option('hh_feature_policy') == 1) {
@@ -585,6 +613,8 @@ function http_headers_admin() {
     register_setting('http-headers-cty', 'hh_content_type_value');
     register_setting('http-headers-corp', 'hh_cross_origin_resource_policy');
     register_setting('http-headers-corp', 'hh_cross_origin_resource_policy_value');
+    register_setting('http-headers-nel', 'hh_nel');
+    register_setting('http-headers-nel', 'hh_nel_value');
 }
 
 function http_headers_option($option) {
@@ -885,7 +915,7 @@ function apache_headers_directives() {
             //$value[] = 'null';
             if (is_array($value))
             {
-                $all[] = sprintf('    SetEnvIf Origin "^(%s)$" CORS=$0', str_replace(array('.', '*'), array('\.', '\*'), join('|', $value)));
+                $all[] = sprintf('    SetEnvIf Origin "^(%s)$" CORS=$0', str_replace(array('.', '*'), array('\.', '.+'), join('|', $value)));
             } else {
                 $all[] = '    SetEnvIf Origin "^(.+)$" CORS=$0';
             }
@@ -1200,7 +1230,8 @@ function update_cookie_security_directives() {
     $lines = array();
     $is_apache = get_option('hh_method') == 'htaccess';
     $htaccess = get_home_path().'.htaccess';
-    if (strpos(PHP_SAPI, 'cgi') !== false) {
+    $is_cgi = strpos(PHP_SAPI, 'cgi') !== false;
+    if ($is_cgi) {
         $filename = get_home_path().ini_get('user_ini.filename');
         $lines = php_cookie_security_directives();
     } elseif ($is_apache) {
@@ -1212,7 +1243,44 @@ function update_cookie_security_directives() {
         insert_with_markers($htaccess, "HttpHeadersCookieSecurity", array());
     }
     
+    if ($is_cgi) {
+        return update_user_ini_filename($filename, "HttpHeadersCookieSecurity", $lines);
+    }
+    
     return insert_with_markers($filename, "HttpHeadersCookieSecurity", $lines);
+}
+
+function update_user_ini_filename($filename, $marker, $insertion) {
+    if (!is_array($insertion)) {
+        $insertion = explode("\n", $insertion);
+    }
+    
+    $start_marker = "; BEGIN " . $marker;
+    $end_marker   = "; END " . $marker;
+    
+    $data = "";
+    if (is_file($filename)) {
+        $data = @file_get_contents($filename);
+    }
+    
+    $string = $start_marker;
+    if ($insertion)
+    {
+        $string .= "\n".join("\n", $insertion);
+    }
+    $string .= "\n".$end_marker;
+    
+    $pattern = '/'.$start_marker.'.*'.$end_marker.'/isU';
+    
+    if (preg_match($pattern, $data)) {
+        $data = preg_replace($pattern, $string, $data);
+    } else {
+        $data .= "\n".$string;
+    }
+    
+    $bytes = @file_put_contents($filename, $data, LOCK_EX);
+    
+    return !!$bytes;
 }
 
 function is_samesite_supported() {
@@ -1244,6 +1312,8 @@ function http_headers_enqueue($hook) {
     wp_localize_script('http_headers_admin_scripts', 'hh', array(
         'lbl_delete' => __('Delete', 'http-headers'),
         'lbl_value' => __('Value', 'http-headers'),
+        'lbl_remove_endpoint' => __('Remove endpoint', 'http-headers'),
+        'lbl_remove_group' => __('Remove group', 'http-headers'),
     ));
     wp_enqueue_style('http_headers_admin_styles', plugin_dir_url( __FILE__ ) . 'assets/styles.css');
 }

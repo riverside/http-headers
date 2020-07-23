@@ -89,7 +89,8 @@ if (!defined('ABSPATH')) {
 					<select class="http-header-value" name="hh_expires_value[<?php echo $type; ?>]"<?php echo $expires == 1 ? NULL : ' readonly'; ?>>
 					<?php 
 					foreach ($items as $k => $v) {
-						?><option value="<?php echo $k; ?>"<?php selected($expires_value[$type], $k); ?>><?php echo $v; ?></option><?php
+					    $val_type = !empty($expires_value[$type]) ? $expires_value[$type] : '';
+					    ?><option value="<?php echo $k; ?>"<?php selected($val_type, $k); ?>><?php echo $v; ?></option><?php
 					}
 					?>
 					</select>

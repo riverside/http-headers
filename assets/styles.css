@@ -22,6 +22,20 @@ select[readonly] {
 .hh-table .hh-center{
 	text-align: center;
 }
+.hh-table .hh-middle{
+	vertical-align: middle;
+}
+.hh-table .hh-p-sm td,
+.hh-table .hh-p-sm th{
+	padding: 8px 5px;
+}
+.hh-bordered{
+	border-collapse: collapse;
+}
+.hh-bordered th,
+.hh-bordered td{
+	border: dashed 1px #999;
+}
 .hh-panel{
 	background-color: #fff;
 	padding: .7em 2em 1em;

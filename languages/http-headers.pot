@@ -328,12 +328,28 @@ msgstr ""
 msgid "The Referrer-Policy HTTP header governs which referrer information, sent in the Referer header, should be included with requests made."
 msgstr ""
 
+#: views/nel.php:8
+msgid "Network Error Logging is a mechanism that can be configured via the NEL HTTP response header. This experimental header allows web sites and applications to opt-in to receive reports about failed (and, if desired, successful) network fetches from supporting browsers."
+msgstr ""
+
 #: views/report-to.php:3
 msgid "The Report-To HTTP response header field instructs the user agent to store reporting endpoints for an origin."
 msgstr ""
 
-#: views/report-to.php:75
+#: views/report-to.php:110
 msgid "Add endpoint"
+msgstr ""
+
+#: views/report-to.php:114
+msgid "Remove endpoint"
+msgstr ""
+
+#: views/report-to.php:126
+msgid "Remove group"
+msgstr ""
+
+#: views/report-to.php:171
+msgid "Add endpoint group"
 msgstr ""
 
 #: views/strict-transport-security.php:3

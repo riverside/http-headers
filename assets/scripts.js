@@ -103,26 +103,111 @@
 					<td><input type="text" name="hh_custom_headers_value[value][]" class="http-header-value" placeholder="' + hh.lbl_value + '"></td> \
 					<td><button type="button" class="button button-small hh-btn-delete-header" title="' + hh.lbl_delete + '">x</button></td> \
 				</tr>');
-		}).on('click', '#hh-btn-add-endpoint', function () {
+		}).on('click', '.hh-btn-add-endpoint', function () {
+			
+			var $tr = $(this).closest("tr");
+			
+			$tr.children("td").each(function() {
+				if ($(this).attr("rowspan") !== undefined) {
+					this.rowSpan = this.rowSpan + 1;
+				}
+			});
+			
+			var name,
+				$clone = $tr.clone().removeClass("hh-tr-first hh-tr-group-start"),
+				$this = $(this),
+				index = Math.ceil(Math.random() * 9999);
+			
+			if ($tr.hasClass("hh-tr-group-end")) {
+				name = $tr.find("input[name$='[url]']").attr("name");
+			} else {
+				name = $tr.nextAll(".hh-tr-group-end:eq(0)").find("input[name$='[url]']").attr("name");
+			}
+			
+			var m = name.match(/\[(\d+)\]\[url\]$/),
+				index = Number(m[1]) + 1;
+			
+			$clone.find("td").each(function() {
+				if ($(this).attr("rowspan") !== undefined) {
+					$(this).remove();
+				}
+			});
+			
+			$clone.find('input[type="text"]').val("");
+			$clone.find('input[type="number"]').val("");
+			$clone.find("td:last").html('<button type="button" class="button hh-btn-delete-endpoint" title="' + hh.lbl_delete + '">' + hh.lbl_remove_endpoint + '</button>');
+			$clone.find(":input").each(function () {
+				this.name = this.name.replace('[endpoints][0]', '[endpoints][' + index + ']');
+			});
+			
+			$clone.addClass("hh-tr-group-end");
+			if ($tr.hasClass("hh-tr-group-end")) {
+				$tr.removeClass("hh-tr-group-end");
+				$tr.after($clone);
+			} else {
+				$tr.nextAll(".hh-tr-group-end:eq(0)").removeClass("hh-tr-group-end").after($clone);
+			}
+			
+		}).on('click', '#hh-btn-add-endpoint-group', function () {
 			var $this = $(this),
 				index = Math.ceil(Math.random() * 9999),
 				$table = $this.closest("table"),
-				$clone = $table.find("tr:nth-child(2)").clone(),
+				$clone = $table.find("tr.hh-tr-first").eq(0).clone(),
 				name = $table.find("tr:nth-last-child(2)").find(":input:first").attr("name"),
 				m = name.match(/^hh_report_to_value\[(\d+)\]/),
 				index = Number(m[1]) + 1;
 			
+			$clone.find("td").each(function() {
+				if ($(this).attr("rowspan") !== undefined) {
+					this.rowSpan = 1;
+				}
+			});
+			
 			$clone.find('input[type="text"]').val("");
+			$clone.find('input[type="number"]').val("");
 			$clone.find('input[type="checkbox"]').prop("checked", false);
 			$clone.find("option:first").prop("selected", true);
-			$clone.find("td:last").html('<button type="button" class="button button-small hh-btn-delete-endpoint" title="' + hh.lbl_delete + '">x</button>');
+			$clone.find("td:last").html('<button type="button" class="button hh-btn-delete-endpoint-group" title="' + hh.lbl_delete + '">' + hh.lbl_remove_group + '</button>');
 			$clone.find(":input").each(function () {
 				this.name = this.name.replace('[0]', '[' + index + ']');
 			});
+			$clone.addClass("hh-tr-group-end").removeClass("hh-tr-first");
 			
 			$this.closest('tr').before($clone);
-		}).on('click', '.hh-btn-delete-header, .hh-btn-delete-endpoint, .hh-btn-delete-origin, .hh-btn-delete-user, .hh-btn-delete-ac', function () {
+		}).on('click', '.hh-btn-delete-header, .hh-btn-delete-origin, .hh-btn-delete-user, .hh-btn-delete-ac', function () {
+			
 			$(this).closest('tr').remove();
+			
+		}).on('click', '.hh-btn-delete-endpoint', function() {
+			
+			var $group,
+				$tr = $(this).closest("tr");
+			
+			if ($tr.prev("tr").hasClass("hh-tr-group-start")) {
+				$group = $tr.prev("tr");
+			} else {
+				$group = $tr.prevUntil("tr.hh-tr-group-start").prev("tr");
+			}
+			
+			$group.children("td").each(function() {
+				if (this.rowSpan > 1) {
+					this.rowSpan = this.rowSpan - 1;
+				}
+			});
+
+			if ($tr.hasClass("hh-tr-group-end")) {
+				$tr.prev("tr").addClass("hh-tr-group-end");
+			}
+			
+			$tr.remove();
+			
+		}).on('click', '.hh-btn-delete-endpoint-group', function () {
+			var rows = $(this).closest("td").attr("rowspan");
+			if (rows === undefined || rows < 2) {
+				$(this).closest('tr').remove();
+			} else {
+				$(this).closest('tr').nextAll("tr").addBack().slice(0, rows).remove();
+			}
         }).on("click", ".hh-btn-add-ac", function () {
         	var $this = $(this);
             $this.closest('tr').before('<tr> \

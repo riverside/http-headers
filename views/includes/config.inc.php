@@ -52,6 +52,7 @@ $headers = array(
     'clear-site-data' => array('Clear-Site-Data', 'hh_clear_site_data', 'security'),
     'content-type' => array('Content-Type', 'hh_content_type', 'misc'),
     'cross-origin-resource-policy' => array('Cross-Origin-Resource-Policy', 'hh_cross_origin_resource_policy', 'access-control'),
+    'nel' => array('NEL', 'hh_nel', 'misc'),
 );
 
 $headers_list = array(

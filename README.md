@@ -6,9 +6,9 @@ Donate link: https://zinoui.com/donation
 
 Requires at least: 3.2
 
-Tested up to: 5.3.2
+Tested up to: 5.4.2
 
-Stable tag: 1.15.0
+Stable tag: 1.16.0
 
 License: GPLv2 or later
 
@@ -36,6 +36,7 @@ Headers supported by HTTP Headers includes:
 * Expect-CT
 * Expires
 * Feature-Policy
+* NEL
 * Pragma
 * ~~Public-Key-Pins~~
 * ~~Public-Key-Pins-Report-Only~~
@@ -78,6 +79,23 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.16.0
+*Release Date - 23nd July, 2020*
+
+* Added the "NEL" header
+* Fixed the "Report-To" header
+
+#### 1.15.2
+*Release Date - 18th June, 2020*
+
+* Fixed a PHP Notice at "Expires" page
+* Fixed comments in .user.ini file
+
+#### 1.15.1
+*Release Date - 9th May, 2020*
+
+* Fixed the "Access-Control-Allow-Origin" header
+
 #### 1.15.0
 *Release Date - 26th January, 2020*
 

@@ -326,13 +326,29 @@ msgstr "Pragma хедъра, част от HTTP/1.0 протокола, е сп�
 msgid "The Referrer-Policy HTTP header governs which referrer information, sent in the Referer header, should be included with requests made."
 msgstr "Referrer-Policy хедъра указва коя референтна информация, изпратена в Referer хедъра, трябва да бъде включена при направени заявки."
 
+#: views/nel.php:8
+msgid "Network Error Logging is a mechanism that can be configured via the NEL HTTP response header. This experimental header allows web sites and applications to opt-in to receive reports about failed (and, if desired, successful) network fetches from supporting browsers."
+msgstr "Network Error Logging е механизъм, който може да бъде конфигуриран чрез NEL хедъра. Този експериментален хедър позволява на уебсайтовете и приложенията да се включат, за да получават отчети за неуспешни (и по желание успешни) мрежови заявки от поддържащи браузъри."
+
 #: views/report-to.php:3
 msgid "The Report-To HTTP response header field instructs the user agent to store reporting endpoints for an origin."
 msgstr "Report-To хедъра казва на потребителския агент (браузър) да съхранява крайните точки за отчитане за даден origin."
 
-#: views/report-to.php:75
+#: views/report-to.php:110
 msgid "Add endpoint"
 msgstr "Добави крайна точка"
+
+#: views/report-to.php:114
+msgid "Remove endpoint"
+msgstr "Премахни крайна точка"
+
+#: views/report-to.php:126
+msgid "Remove group"
+msgstr "Премахни група"
+
+#: views/report-to.php:171
+msgid "Add endpoint group"
+msgstr "Добави група"
 
 #: views/strict-transport-security.php:3
 msgid "HTTP Strict-Transport-Security (HSTS) enforces secure (HTTP over SSL/TLS) connections to the server. This reduces impact of bugs in web applications leaking session data through cookies and external links and defends against Man-in-the-middle attacks. HSTS also disables the ability for user's to ignore SSL negotiation warnings."

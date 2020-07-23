@@ -201,10 +201,34 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 				    $tmp = array();
 				    foreach ($value as $a_item)
 				    {
-				        $tmp[] = sprintf('{"url": "%s", "group": "%s", "max-age": %u%s}',
-				            $a_item['url'], $a_item['group'], $a_item['max-age'], isset($a_item['includeSubDomains']) ? ', includeSubDomains' : NULL);
+				        $endpoints = array();
+				        foreach ($a_item['endpoints'] as $endpoint)
+				        {
+				            $endpoints[] = sprintf('{"url": "%s"%s%s}',
+				                $endpoint['url'],
+				                is_numeric($endpoint['priority']) ? sprintf(', "priority": %u', $endpoint['priority']) : NULL,
+				                is_numeric($endpoint['weight']) ? sprintf(', "weight": %u', $endpoint['weight']) : NULL
+				            );
+				        }
+				        
+				        $tmp[] = sprintf('{"max_age": %u%s%s, "endpoints": [%s]}', 
+				            $a_item['max_age'],
+				            $a_item['group'] ? sprintf(', "group": "%s"', $a_item['group']) : NULL,
+				            $a_item['include_subdomains'] ? sprintf(', "include_subdomains": true') : NULL,
+				            join(", ", $endpoints)
+				        );
 				    }
 				    $value = join(', ', $tmp);
+				    break;
+				case 'hh_nel':
+				    $value = sprintf('{"report_to": "%s", "max_age": %u%s%s%s%s%s}',
+				        $value['report_to'], $value['max_age'], 
+				        isset($value['include_subdomains']) ? ', "include_subdomains": true' : NULL,
+				        array_key_exists('success_fraction', $value) && is_numeric($value['success_fraction']) ? ', "success_fraction": '. $value['success_fraction'] : NULL,
+				        array_key_exists('failure_fraction', $value) && is_numeric($value['failure_fraction']) ? ', "failure_fraction": '. $value['failure_fraction'] : NULL,
+				        isset($value['request_headers']) && !empty($value['request_headers']) ? sprintf(', "request_headers": ["%s"]', join('", "', array_map('trim', explode(',', $value['request_headers'])))) : NULL,
+				        isset($value['response_headers']) && !empty($value['response_headers']) ? sprintf(', "response_headers": ["%s"]', join('", "', array_map('trim', explode(',', $value['response_headers'])))) : NULL
+				    );
 				    break;
 				case 'hh_feature_policy':
 				    $fp = array();

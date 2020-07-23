@@ -97,4 +97,6 @@ return array(
     array('hh_clear_site_data_value', ''),
     array('hh_content_type', 0),
     array('hh_content_type_value', ''),
+    array('hh_content_nel', 0),
+    array('hh_content_nel_value', ''),
 );
