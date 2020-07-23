@@ -8,7 +8,7 @@ Requires at least: 3.2
 
 Tested up to: 5.4.2
 
-Stable tag: 1.16.0
+Stable tag: 1.16.1
 
 License: GPLv2 or later
 
@@ -79,8 +79,13 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.16.1
+*Release Date - 23rd July, 2020*
+
+* Fixed JS/CSS versioning
+
 #### 1.16.0
-*Release Date - 23nd July, 2020*
+*Release Date - 23rd July, 2020*
 
 * Added the "NEL" header
 * Fixed the "Report-To" header

@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.16.0
+Version: 1.16.1
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -1308,14 +1308,14 @@ function http_headers_enqueue($hook) {
         //return;
     }
 
-    wp_enqueue_script('http_headers_admin_scripts', plugin_dir_url( __FILE__ ) . 'assets/scripts.js', array(), '1.14.0', true);
+    wp_enqueue_script('http_headers_admin_scripts', plugin_dir_url( __FILE__ ) . 'assets/scripts.js', array(), '1.16.1', true);
     wp_localize_script('http_headers_admin_scripts', 'hh', array(
         'lbl_delete' => __('Delete', 'http-headers'),
         'lbl_value' => __('Value', 'http-headers'),
         'lbl_remove_endpoint' => __('Remove endpoint', 'http-headers'),
         'lbl_remove_group' => __('Remove group', 'http-headers'),
     ));
-    wp_enqueue_style('http_headers_admin_styles', plugin_dir_url( __FILE__ ) . 'assets/styles.css');
+    wp_enqueue_style('http_headers_admin_styles', plugin_dir_url( __FILE__ ) . 'assets/styles.css', array(), '1.16.1');
 }
 
 function http_headers_ajax_inspect() {
