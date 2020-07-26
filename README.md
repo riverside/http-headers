@@ -8,7 +8,7 @@ Requires at least: 3.2
 
 Tested up to: 5.4.2
 
-Stable tag: 1.16.1
+Stable tag: 1.17.0
 
 License: GPLv2 or later
 
@@ -32,6 +32,8 @@ Headers supported by HTTP Headers includes:
 * Connection
 * Content-Encoding
 * Content-Type
+* Cross-Origin-Embedder-Policy
+* Cross-Origin-Opener-Policy
 * Cross-Origin-Resource-Policy
 * Expect-CT
 * Expires
@@ -79,6 +81,12 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.17.0
+*Release Date - 26th July, 2020*
+
+* Added "Cross-Origin-Embedder-Policy" header
+* Added "Cross-Origin-Opener-Policy" header
+
 #### 1.16.1
 *Release Date - 23rd July, 2020*
 

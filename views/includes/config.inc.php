@@ -51,8 +51,10 @@ $headers = array(
     'feature-policy' => array('Feature-Policy', 'hh_feature_policy', 'security'),
     'clear-site-data' => array('Clear-Site-Data', 'hh_clear_site_data', 'security'),
     'content-type' => array('Content-Type', 'hh_content_type', 'misc'),
-    'cross-origin-resource-policy' => array('Cross-Origin-Resource-Policy', 'hh_cross_origin_resource_policy', 'access-control'),
+    'cross-origin-resource-policy' => array('Cross-Origin-Resource-Policy', 'hh_cross_origin_resource_policy', 'security'),
     'nel' => array('NEL', 'hh_nel', 'misc'),
+    'cross-origin-embedder-policy' => array('Cross-Origin-Embedder-Policy', 'hh_cross_origin_embedder_policy', 'security'),
+    'cross-origin-opener-policy' => array('Cross-Origin-Opener-Policy', 'hh_cross_origin_opener_policy', 'security'),
 );
 
 $headers_list = array(

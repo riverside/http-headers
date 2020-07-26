@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.16.1
+Version: 1.17.0
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -268,6 +268,12 @@ function get_http_headers() {
 	}
     if (get_option('hh_cross_origin_resource_policy') == 1) {
         $headers['Cross-Origin-Resource-Policy'] = get_option('hh_cross_origin_resource_policy_value');
+    }
+    if (get_option('hh_cross_origin_embedder_policy') == 1) {
+        $headers['Cross-Origin-Embedder-Policy'] = get_option('hh_cross_origin_embedder_policy_value');
+    }
+    if (get_option('hh_cross_origin_opener_policy') == 1) {
+        $headers['Cross-Origin-Opener-Policy'] = get_option('hh_cross_origin_opener_policy_value');
     }
 	if (get_option('hh_www_authenticate') == 1) {
 	
@@ -615,6 +621,10 @@ function http_headers_admin() {
     register_setting('http-headers-corp', 'hh_cross_origin_resource_policy_value');
     register_setting('http-headers-nel', 'hh_nel');
     register_setting('http-headers-nel', 'hh_nel_value');
+    register_setting('http-headers-coep', 'hh_cross_origin_embedder_policy');
+    register_setting('http-headers-coep', 'hh_cross_origin_embedder_policy_value');
+    register_setting('http-headers-coop', 'hh_cross_origin_opener_policy');
+    register_setting('http-headers-coop', 'hh_cross_origin_opener_policy_value');
 }
 
 function http_headers_option($option) {
