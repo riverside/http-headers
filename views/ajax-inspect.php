@@ -75,6 +75,7 @@ if ($status !== 200)
 		{
 			$k = strtolower($k);
 			$found = in_array($k, $reportOnly);
+			$v = is_array($v) ? join(", ", $v) : $v;
 			?>
 			<tr<?php echo array_key_exists($k, $headers) || $found ? ' class="hh-found"' : NULL; ?>>
 				<td><?php echo htmlspecialchars($k); ?></td>

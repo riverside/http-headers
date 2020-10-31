@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.17.0
+Version: 1.18.1
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -332,83 +332,163 @@ function get_http_headers() {
 			}
 		}
 	}
-	if (get_option('hh_report_to') == 1) {
-	    $report_to = get_option('hh_report_to_value');
-	    $tmp = array();
-	    foreach ($report_to as $item)
-	    {
-	        $endpoints = array();
-	        foreach ($item['endpoints'] as $endpoint)
-	        {
-	            $endpoints[] = sprintf('{"url": "%s"%s%s}',
-	                $endpoint['url'],
-	                is_numeric($endpoint['priority']) ? sprintf(', "priority": %u', $endpoint['priority']) : NULL,
-	                is_numeric($endpoint['weight']) ? sprintf(', "weight": %u', $endpoint['weight']) : NULL
-	            );
-	        }
-	        
-	        $tmp[] = sprintf('{"max_age": %u%s%s, "endpoints": [%s]}',
-	            $item['max_age'],
-	            $item['group'] ? sprintf(', "group": "%s"', $item['group']) : NULL,
-	            $item['include_subdomains'] ? sprintf(', "include_subdomains": true') : NULL,
-	            join(", ", $endpoints)
-	        );
-	    }
-	    if ($tmp)
-	    {
-	       $headers['Report-To'] = join(', ', $tmp);
-	    }
-	}
-	if (get_option('hh_nel') == 1) {
-	    $nel = get_option('hh_nel_value', array());
-	    if ($nel)
-	    {
-    	    $headers['NEL'] = sprintf('{"report_to": "%s", "max_age": %u%s%s%s%s%s}',
-    	        @$nel['report_to'], @$nel['max_age'],
-    	        isset($nel['include_subdomains']) ? ', "include_subdomains": true' : NULL,
-    	        array_key_exists('success_fraction', $nel) && is_numeric($nel['success_fraction']) ? ', "success_fraction": '. $nel['success_fraction'] : NULL,
-    	        array_key_exists('failure_fraction', $nel) && is_numeric($nel['failure_fraction']) ? ', "failure_fraction": '. $nel['failure_fraction'] : NULL,
-    	        isset($nel['request_headers']) && !empty($nel['request_headers']) ? sprintf(', "request_headers": ["%s"]', join('", "', array_map('trim', explode(',', $nel['request_headers'])))) : NULL,
-    	        isset($nel['response_headers']) && !empty($nel['response_headers']) ? sprintf(', "response_headers": ["%s"]', join('", "', array_map('trim', explode(',', $nel['response_headers'])))) : NULL
-            );
-	    }
-	}
-	if (get_option('hh_feature_policy') == 1) {
-	    $feature_policy_feature = get_option('hh_feature_policy_feature');
-	    $feature_policy_value = get_option('hh_feature_policy_value');
-	    $feature_policy_origin = get_option('hh_feature_policy_origin');
-	    $tmp = array();
-	    $feature_policy_feature = is_array($feature_policy_feature) ? $feature_policy_feature : array();
-	    foreach (array_keys($feature_policy_feature) as $feature)
-	    {
-	        $value = NULL;
-	        switch ($feature_policy_value[$feature])
-	        {
-	            case '*':
-	            case "'none'":
-    	            $value = $feature_policy_value[$feature];
-    	            break;
-	            case "'self'":
-	                $value = $feature_policy_value[$feature];
-	                if (!empty($feature_policy_origin[$feature]))
-	                {
-	                    $value .= " " . $feature_policy_origin[$feature];
-	                }
-	                break;
-	            case 'origin(s)':
-	                $value = $feature_policy_origin[$feature];
-	                break;
-	        }
-	        
-	        $tmp[] = sprintf("%s %s", $feature, $value);
-	    }
-	    if ($tmp)
-	    {
-	       $headers['Feature-Policy'] = join('; ', $tmp);
-	    }
+	
+	$value = get_http_header('report_to');
+	if ($value) {
+	    $headers['Report-To'] = $value;
 	}
 	
+	$value = get_http_header('nel');
+	if ($value) {
+	    $headers['NEL'] = $value;
+	}
+	
+	$value = get_http_header('feature_policy');
+	if ($value) {
+	    $headers['Feature-Policy'] = $value;
+	}
+
+    $value = get_http_header('permissions_policy');
+    if ($value) {
+        $headers['Permissions-Policy'] = $value;
+    }
+	
 	return array($headers, $statuses, $unset, $append);
+}
+
+function get_http_header($header_name) {
+    $fn = sprintf('get_%s_header', $header_name);
+    if (!function_exists($fn)) {
+        return NULL;
+    }
+        
+    return call_user_func($fn);
+}
+
+function get_report_to_header() {
+    if (get_option('hh_report_to') != 1) {
+        return NULL;
+    }
+    $report_to = get_option('hh_report_to_value');
+    $tmp = array();
+    foreach ($report_to as $item) {
+	    $endpoints = array();
+        foreach ($item['endpoints'] as $endpoint) {
+            $endpoints[] = sprintf('{"url": "%s"%s%s}',
+                $endpoint['url'],
+                is_numeric($endpoint['priority']) ? sprintf(', "priority": %u', $endpoint['priority']) : NULL,
+                is_numeric($endpoint['weight']) ? sprintf(', "weight": %u', $endpoint['weight']) : NULL
+            );
+        }
+	        
+        $tmp[] = sprintf('{"max_age": %u%s%s, "endpoints": [%s]}',
+            $item['max_age'],
+            $item['group'] ? sprintf(', "group": "%s"', $item['group']) : NULL,
+            $item['include_subdomains'] ? sprintf(', "include_subdomains": true') : NULL,
+            join(", ", $endpoints)
+        );
+    }
+
+    return join(', ', $tmp);
+}
+
+function get_nel_header() {
+    if (get_option('hh_nel') != 1) {
+        return NULL;
+	}
+    
+	$nel = get_option('hh_nel_value', array());
+    return sprintf('{"report_to": "%s", "max_age": %u%s%s%s%s%s}',
+        @$nel['report_to'], @$nel['max_age'],
+        isset($nel['include_subdomains']) ? ', "include_subdomains": true' : NULL,
+        array_key_exists('success_fraction', $nel) && is_numeric($nel['success_fraction']) ? ', "success_fraction": '. $nel['success_fraction'] : NULL,
+        array_key_exists('failure_fraction', $nel) && is_numeric($nel['failure_fraction']) ? ', "failure_fraction": '. $nel['failure_fraction'] : NULL,
+        isset($nel['request_headers']) && !empty($nel['request_headers']) ? sprintf(', "request_headers": ["%s"]', join('", "', array_map('trim', explode(',', $nel['request_headers'])))) : NULL,
+        isset($nel['response_headers']) && !empty($nel['response_headers']) ? sprintf(', "response_headers": ["%s"]', join('", "', array_map('trim', explode(',', $nel['response_headers'])))) : NULL
+    );
+}
+
+function get_feature_policy_header() {
+    if (get_option('hh_feature_policy') != 1) {
+        return NULL;
+	}
+    $feature_policy_feature = get_option('hh_feature_policy_feature');
+    $feature_policy_value = get_option('hh_feature_policy_value');
+    $feature_policy_origin = get_option('hh_feature_policy_origin');
+    $tmp = array();
+    $feature_policy_feature = is_array($feature_policy_feature) ? $feature_policy_feature : array();
+    foreach (array_keys($feature_policy_feature) as $feature) {
+        $value = NULL;
+        switch ($feature_policy_value[$feature]) {
+            case '*':
+            case "'none'":
+	            $value = $feature_policy_value[$feature];
+	            break;
+            case "'self'":
+                $value = $feature_policy_value[$feature];
+            if (!empty($feature_policy_origin[$feature])) {
+                    $value .= " " . $feature_policy_origin[$feature];
+                }
+                break;
+            case 'origin(s)':
+                $value = $feature_policy_origin[$feature];
+                break;
+        }
+        
+        $tmp[] = sprintf("%s %s", $feature, $value);
+    }
+    
+    return join('; ', $tmp);
+}
+
+function get_permissions_policy_header() {
+    if (get_option('hh_permissions_policy') != 1) {
+        return NULL;
+    }
+    $permissions_policy_feature = get_option('hh_permissions_policy_feature');
+    $permissions_policy_value   = get_option('hh_permissions_policy_value');
+    $permissions_policy_origin  = get_option('hh_permissions_policy_origin');
+    
+    $tmp = array();
+    $permissions_policy_feature = is_array($permissions_policy_feature) ? $permissions_policy_feature : array();
+    foreach (array_keys($permissions_policy_feature) as $feature) {
+        
+        $origins = NULL;
+        if (!empty($permissions_policy_origin[$feature]))
+        {
+            $origins = $permissions_policy_origin[$feature];
+            $origins = str_replace(array('"', "'"), '', $origins);
+            $origins = explode(' ', $origins);
+            $origins = array_filter($origins);
+            $origins = array_unique($origins);
+            $origins = '"' . join('" "', $origins) . '"';
+        }
+        
+        $value = NULL;
+        switch ($permissions_policy_value[$feature]) {
+            case '*':
+                $value = '*';
+                break;
+            case "none":
+                $value = '()';
+                break;
+            case "self":
+                $value = 'self';
+                if ($origins)
+	    		{
+                    $value .= ' ' . $origins;
+	    		}
+                $value = sprintf('(%s)', $value);
+                break;
+            case 'origin(s)':
+                $value = sprintf('(%s)', $origins);
+                break;
+		}
+	
+        $tmp[] = sprintf('%s=%s', $feature, $value);
+    }
+    
+    return join(', ', $tmp);
 }
 
 function http_digest_parse($txt) {
@@ -418,6 +498,7 @@ function http_digest_parse($txt) {
 	$data = array();
 	$keys = implode('|', array_keys($needed_parts));
 
+	$matches = null;
 	preg_match_all('@(' . $keys . ')=(?:([\'"])([^\2]+?)\2|([^\s,]+))@', $txt, $matches, PREG_SET_ORDER);
 
 	foreach ($matches as $m) {
@@ -613,6 +694,10 @@ function http_headers_admin() {
 	register_setting('http-headers-fp', 'hh_feature_policy_value');
 	register_setting('http-headers-fp', 'hh_feature_policy_feature');
 	register_setting('http-headers-fp', 'hh_feature_policy_origin');
+	register_setting('http-headers-pp', 'hh_permissions_policy');
+	register_setting('http-headers-pp', 'hh_permissions_policy_value');
+	register_setting('http-headers-pp', 'hh_permissions_policy_feature');
+	register_setting('http-headers-pp', 'hh_permissions_policy_origin');
 	register_setting('http-headers-csd', 'hh_clear_site_data');
 	register_setting('http-headers-csd', 'hh_clear_site_data_value');
     register_setting('http-headers-cty', 'hh_content_type');
@@ -675,7 +760,7 @@ function http_headers_option($option) {
 	
 function nginx_headers_directives() {
     $lines = array();
-    list($headers, $statuses, $unset, $append) = get_http_headers();
+    list($headers, , $unset, $append) = get_http_headers();
     
     foreach ($unset as $header) {
         $lines[] = sprintf('    more_clear_headers "%s";', $header);
@@ -774,7 +859,7 @@ function nginx_expires_directives() {
         $values = get_option('hh_expires_value', array());
         
         $lines[] = 'map $sent_http_content_type $expires {';
-        foreach ($types as $type => $whatever) {
+        foreach (array_keys($types) as $type) {
             list($base, $period, $suffix) = explode('_', $values[$type]);
             if (in_array($base, array('access', 'modification'))) {
                 $lines[] = $type != 'default'
@@ -894,7 +979,7 @@ function iis_check_requirements() {
 
 function apache_headers_directives() {
     $lines = array();
-    list($headers, $statuses, $unset, $append) = get_http_headers();
+    list($headers, , $unset, $append) = get_http_headers();
     
     foreach ($unset as $header) {
         $lines[] = sprintf('    Header always unset %s', $header);
@@ -1029,7 +1114,7 @@ function apache_expires_directives() {
         
         $lines[] = '<IfModule mod_expires.c>';
         $lines[] = '  ExpiresActive On';
-        foreach ($types as $type => $whatever) {
+        foreach (array_keys($types) as $type) {
             list($base, $period, $suffix) = explode('_', $values[$type]);
             if (in_array($base, array('access', 'modification'))) {
                 $lines[] = $type != 'default'
@@ -1154,14 +1239,20 @@ function apache_cookie_security_directives() {
     $lines = array();
     if (get_option('hh_cookie_security') == 1) {
         $value = get_option('hh_cookie_security_value', array());
+        $str = '';
         if (isset($value['HttpOnly'])) {
-            $lines[] = 'php_flag session.cookie_httponly on';
+            $str .= ';HttpOnly';
         }
         if (isset($value['Secure'])) {
-            $lines[] = 'php_flag session.cookie_secure on';
+            $str .= ';Secure';
         }
         if (isset($value['SameSite']) && in_array($value['SameSite'], array('None', 'Lax', 'Strict'))) {
-            $lines[] = sprintf('php_value session.cookie_samesite "%s"', $value['SameSite']);
+            $str .= ';SameSite=' . $value['SameSite'];
+        }
+        if ($str) {
+            $lines[] = '<IfModule mod_headers.c>';
+            $lines[] = '  Header always edit Set-Cookie (.*) "$1'.$str.'"';
+            $lines[] = '</IfModule>';
         }
     }
 

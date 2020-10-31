@@ -5,11 +5,13 @@ $sandbox = array(
     'allow-scripts', 
     'allow-popups',
     'allow-modals', 
+    'allow-downloads',
     'allow-orientation-lock', 
     'allow-pointer-lock', 
     'allow-presentation',
     'allow-popups-to-escape-sandbox', 
     'allow-top-navigation',
+    'allow-top-navigation-by-user-activation',
 );
 foreach ($sandbox as $origin)
 {

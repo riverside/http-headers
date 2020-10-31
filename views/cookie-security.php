@@ -33,21 +33,13 @@ if (!defined('ABSPATH')) {
 	$cookie_security_value = get_option('hh_cookie_security_value');
 	foreach ($items as $item)
 	{
-        $is_disabled = $item == 'SameSite' && !is_samesite_supported();
         $is_checked = is_array($cookie_security_value) && array_key_exists($item, $cookie_security_value);
-        if ($is_disabled) {
-            $is_checked = false;
-        }
         ?>
         <p>
             <label><input type="checkbox"
                           class="http-header-value"
-                          name="hh_cookie_security_value[<?php echo $item; ?>]"<?php echo $is_disabled ? ' disabled' : NULL; ?>
+                          name="hh_cookie_security_value[<?php echo $item; ?>]"
                           value="1"<?php echo !$is_checked ? NULL : ' checked'; ?><?php echo $cookie_security == 1 ? NULL : ' readonly'; ?>> <?php echo $item; ?><?php
-                if ($item == 'SameSite' && $is_disabled)
-                {
-                    ?> <small><?php _e('(PHP 7.3+ only)', 'http-headers'); ?></small><?php
-                }
                 ?></label>
         </p>
         <?php

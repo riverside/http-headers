@@ -198,68 +198,16 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 					$value = join('', $_values);
 					break;
 				case 'hh_report_to':
-				    $tmp = array();
-				    foreach ($value as $a_item)
-				    {
-				        $endpoints = array();
-				        foreach ($a_item['endpoints'] as $endpoint)
-				        {
-				            $endpoints[] = sprintf('{"url": "%s"%s%s}',
-				                $endpoint['url'],
-				                is_numeric($endpoint['priority']) ? sprintf(', "priority": %u', $endpoint['priority']) : NULL,
-				                is_numeric($endpoint['weight']) ? sprintf(', "weight": %u', $endpoint['weight']) : NULL
-				            );
-				        }
-				        
-				        $tmp[] = sprintf('{"max_age": %u%s%s, "endpoints": [%s]}', 
-				            $a_item['max_age'],
-				            $a_item['group'] ? sprintf(', "group": "%s"', $a_item['group']) : NULL,
-				            $a_item['include_subdomains'] ? sprintf(', "include_subdomains": true') : NULL,
-				            join(", ", $endpoints)
-				        );
-				    }
-				    $value = join(', ', $tmp);
+				    $value = get_http_header('report_to');
 				    break;
 				case 'hh_nel':
-				    $value = sprintf('{"report_to": "%s", "max_age": %u%s%s%s%s%s}',
-				        $value['report_to'], $value['max_age'], 
-				        isset($value['include_subdomains']) ? ', "include_subdomains": true' : NULL,
-				        array_key_exists('success_fraction', $value) && is_numeric($value['success_fraction']) ? ', "success_fraction": '. $value['success_fraction'] : NULL,
-				        array_key_exists('failure_fraction', $value) && is_numeric($value['failure_fraction']) ? ', "failure_fraction": '. $value['failure_fraction'] : NULL,
-				        isset($value['request_headers']) && !empty($value['request_headers']) ? sprintf(', "request_headers": ["%s"]', join('", "', array_map('trim', explode(',', $value['request_headers'])))) : NULL,
-				        isset($value['response_headers']) && !empty($value['response_headers']) ? sprintf(', "response_headers": ["%s"]', join('", "', array_map('trim', explode(',', $value['response_headers'])))) : NULL
-				    );
+				    $value = get_http_header('nel');
 				    break;
 				case 'hh_feature_policy':
-				    $fp = array();
-				    $features = get_option('hh_feature_policy_feature');
-				    if (!$features)
-				    {
-				        $features = array();
-				    }
-				    $origins = get_option('hh_feature_policy_origin');
-				    foreach ($features as $key => $whatever)
-				    {
-				        switch ($value[$key])
-				        {
-				            case '*':
-				            case "'none'":
-				                $fp[] = sprintf("%s %s", $key, $value[$key]);
-				                break;
-				            case "'self'":
-				                $fp[] = sprintf("%s %s%s", $key, $value[$key], !empty($origins[$key]) ? " " . $origins[$key] : NULL);
-				                break;
-				            case 'origin(s)':
-				                $fp[] = sprintf("%s %s", $key, $origins[$key]);
-				                break;
-				        }
-				    }
-				    if (!empty($fp))
-				    {
-				        $value = join('; ', $fp);
-				    } else {
-				        $value = "";
-				    }
+				    $value = get_http_header('feature_policy');
+				    break;
+				case 'hh_permissions_policy':
+				    $value = get_http_header('permissions_policy');
 				    break;
 				case 'hh_clear_site_data':
 				    $value = '"' . join('", "', array_keys($value)) . '"';

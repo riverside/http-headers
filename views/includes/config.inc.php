@@ -49,6 +49,7 @@ $headers = array(
     'x-permitted-cross-domain-policies' => array('X-Permitted-Cross-Domain-Policies', 'hh_x_permitted_cross_domain_policies', 'security'),
     'report-to' => array('Report-To', 'hh_report_to', 'security'),
     'feature-policy' => array('Feature-Policy', 'hh_feature_policy', 'security'),
+    'permissions-policy' => array('Permissions-Policy', 'hh_permissions_policy', 'security'),
     'clear-site-data' => array('Clear-Site-Data', 'hh_clear_site_data', 'security'),
     'content-type' => array('Content-Type', 'hh_content_type', 'misc'),
     'cross-origin-resource-policy' => array('Cross-Origin-Resource-Policy', 'hh_cross_origin_resource_policy', 'security'),

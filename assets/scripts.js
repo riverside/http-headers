@@ -240,6 +240,15 @@
 			} else {
 				$input.hide();
 			}
+		}).on("change", 'select[name^="hh_permissions_policy_value"]', function () {
+			var $this = $(this),
+				value = $this.find("option:selected").val(),
+				$input = $this.siblings('input[name^="hh_permissions_policy_origin"]');
+			if (value === "self" || value === "origin(s)") {
+				$input.show();
+			} else {
+				$input.hide();
+			}
 		}).on("change", 'input[name^="hh_content_security_policy_value"]', function () {
 			
 			var $this = $(this);

@@ -6,9 +6,9 @@ Donate link: https://zinoui.com/donation
 
 Requires at least: 3.2
 
-Tested up to: 5.4.2
+Tested up to: 5.5.1
 
-Stable tag: 1.17.0
+Stable tag: 1.18.1
 
 License: GPLv2 or later
 
@@ -39,6 +39,7 @@ Headers supported by HTTP Headers includes:
 * Expires
 * Feature-Policy
 * NEL
+* Permissions-Policy
 * Pragma
 * ~~Public-Key-Pins~~
 * ~~Public-Key-Pins-Report-Only~~
@@ -81,6 +82,17 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.18.1
+*Release Date - 29th October, 2020*
+
+* Added "allow-downloads" and "allow-top-navigation-by-user-activation" to "sandbox" directive, part of CSP
+
+#### 1.18.0
+*Release Date - 20th September, 2020*
+
+* Added "Permissions-Policy" header
+* Fixed "Cookie Security"
+
 #### 1.17.0
 *Release Date - 26th July, 2020*
 
