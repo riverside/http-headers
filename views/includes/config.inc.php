@@ -56,6 +56,7 @@ $headers = array(
     'nel' => array('NEL', 'hh_nel', 'misc'),
     'cross-origin-embedder-policy' => array('Cross-Origin-Embedder-Policy', 'hh_cross_origin_embedder_policy', 'security'),
     'cross-origin-opener-policy' => array('Cross-Origin-Opener-Policy', 'hh_cross_origin_opener_policy', 'security'),
+	'x-robots-tag' => array('X-Robots-Tag', 'hh_x_robots_tag', 'misc'),
 );
 
 $headers_list = array(

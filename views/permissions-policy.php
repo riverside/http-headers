@@ -45,10 +45,14 @@ if (!defined('ABSPATH')) {
 			    'fullscreen',
 			    'geolocation',
 			    'gyroscope',
+			    'interest-cohort',
+                'layout-animations',
+                'legacy-image-formats',
 			    'magnetometer',
 			    'microphone',
 			    'midi',
 			    'navigation-override',
+                'oversized-images',
 			    'payment',
 			    'picture-in-picture',
 			    'publickey-credentials-get',
@@ -58,6 +62,7 @@ if (!defined('ABSPATH')) {
 			    'usb',
 			    'vertical-scroll',
 			    'web-share',
+			    'wake-lock',
 			    'xr-spatial-tracking',
 			);
 			$origins = array('none', 'self', '*', 'origin(s)');

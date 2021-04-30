@@ -6,9 +6,9 @@ Donate link: https://zinoui.com/donation
 
 Requires at least: 3.2
 
-Tested up to: 5.5.1
-
-Stable tag: 1.18.1
+Tested up to: 5.7.1
+Requires PHP: 5.3
+Stable tag: 1.18.4
 
 License: GPLv2 or later
 
@@ -41,8 +41,6 @@ Headers supported by HTTP Headers includes:
 * NEL
 * Permissions-Policy
 * Pragma
-* ~~Public-Key-Pins~~
-* ~~Public-Key-Pins-Report-Only~~
 * P3P
 * Referrer-Policy
 * Report-To
@@ -56,6 +54,7 @@ Headers supported by HTTP Headers includes:
 * X-Frame-Options
 * X-Permitted-Cross-Domain-Policies
 * X-Powered-By
+* X-Robots-Tag
 * X-UA-Compatible
 * X-XSS-Protection
 
@@ -82,6 +81,24 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.18.4
+*Release Date - 30th April, 2021*
+
+* Initial value of X-Robots-Tag fixed
+
+#### 1.18.3
+*Release Date - 30th April, 2021*
+
+* Added "X-Robots-Tag" header
+* Added "interest-cohort", "layout-animations", "legacy-image-formats", "oversized-images", and "wake-lock" directive to "Permissions-Policy" header
+* Added "cross-origin" value to "Cross-Origin-Resource-Policy" header
+* Added "navigate-to" and "prefetch-src" directives to "Content-Security-Policy" header
+
+#### 1.18.2
+*Release Date - 24th April, 2021*
+
+* Configurable paths to .htaccess and .user.ini files
+
 #### 1.18.1
 *Release Date - 29th October, 2020*
 

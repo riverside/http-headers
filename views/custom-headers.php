@@ -14,7 +14,6 @@ if (!defined('ABSPATH')) {
 			<br>X-Request-ID
 			<br>X-Correlation-ID
 			<br>X-Content-Duration
-			<br>X-Robots-Tag
 		</p>
 	</th>
 	<td>

@@ -66,6 +66,8 @@ $content_security_policy = get_option('hh_content_security_policy', 0);
 			    'frame-src',
 			    'worker-src',
 			    'manifest-src',
+				'navigate-to',
+			    'prefetch-src',
 			    'base-uri',
 			    'plugin-types',
 			    'report-to',

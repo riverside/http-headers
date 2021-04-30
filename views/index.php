@@ -6,16 +6,16 @@ if (!defined('ABSPATH')) {
 <div class="wrap">
 	<h1>HTTP Headers</h1>
 	<?php 
-	$check = check_webserver_requirements();
+	$check = check_web_server_requirements();
 	if ($check !== true) {
 	    ?>
 	    <div class="notice notice-error">
 	    	<h2><?php _e('Error!', 'http-headers'); ?></h2>
 	    	<?php 
 	    	if ($check == -1) {
-	    	    ?><p><?php _e('The following file was not found. Please make sure the file exists and has write permissions:', 'http-headers'); ?> <code><?php echo get_home_path(); ?>.htaccess</code></p><?php
+	    	    ?><p><?php _e('The following file was not found. Please make sure the file exists and has write permissions:', 'http-headers'); ?> <code><?php echo get_web_server_filename(); ?></code></p><?php
 	    	} elseif ($check == -2) {
-	    	    ?><p><?php _e('Please make sure the following file has write permissions:', 'http-headers'); ?> <code><?php echo get_home_path(); ?>.htaccess</code></p><?php
+	    	    ?><p><?php _e('Please make sure the following file has write permissions:', 'http-headers'); ?> <code><?php echo get_web_server_filename(); ?></code></p><?php
 	    	}
 	    	?>
 	    </div>
@@ -28,9 +28,9 @@ if (!defined('ABSPATH')) {
 	    	<h2><?php _e('Warning!', 'http-headers'); ?></h2>
 	    	<?php 
 	    	if ($check == -1) {
-	    	    ?><p><?php _e('The following file was not found. Please make sure the file exists and has write permissions:', 'http-headers'); ?> <code><?php echo get_home_path().ini_get('user_ini.filename'); ?></code></p><?php
+	    	    ?><p><?php _e('The following file was not found. Please make sure the file exists and has write permissions:', 'http-headers'); ?> <code><?php echo get_user_ini_filename(); ?></code></p><?php
 	    	} elseif ($check == -2) {
-	    	    ?><p><?php _e('Please make sure the following file has write permissions:', 'http-headers'); ?> <code><?php echo get_home_path().ini_get('user_ini.filename'); ?></code></p><?php
+	    	    ?><p><?php _e('Please make sure the following file has write permissions:', 'http-headers'); ?> <code><?php echo get_user_ini_filename(); ?></code></p><?php
 	    	}
 	    	?>
 	    </div>

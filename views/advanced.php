@@ -5,8 +5,64 @@ if (!defined('ABSPATH')) {
 include dirname(__FILE__) . '/includes/config.inc.php';
 include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 ?>
-<section class="hh-panel">
-	<form method="post" action="options.php">
+<form method="post" action="options.php" accept-charset="utf-8">
+    <?php settings_fields( 'http-headers-mtd' ); ?>
+    <?php do_settings_sections( 'http-headers-mtd' ); ?>
+    <div style="overflow: hidden">
+        <div style="float: left; width: 49%">
+            <table class="hh-index-table">
+                <thead>
+                    <tr>
+                        <th>Directive</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="active">
+                        <td>PHP version</td>
+                        <td><?php echo PHP_VERSION; ?></td>
+                    </tr>
+                    <tr class="active">
+                        <td>Server Software</td>
+                        <td><?php echo getenv('SERVER_SOFTWARE'); ?></td>
+                    </tr>
+                    <tr class="active">
+                        <td>Server API</td>
+                        <td><?php echo PHP_SAPI; ?></td>
+                    </tr>
+                    <tr class="active">
+                        <td>user_ini.filename</td>
+                        <td><?php echo ini_get('user_ini.filename'); ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <section class="hh-panel" style="float: right; width: 49%; box-sizing: border-box; margin: 0">
+			<table style="width: 100%">
+				<thead>
+					<tr>
+						<th colspan="2" style="text-align: left"><?php _e('Setup Location', 'http-headers'); ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Location of <code>.htaccess</code></td>
+						<td><input type="text" name="hh_htaccess_path" placeholder="<?php echo get_home_path(); ?>.htaccess" style="width: 100%" value="<?php echo get_option('hh_htaccess_path'); ?>"></td>
+					</tr>
+					<tr>
+						<td>Location of <code>.user.ini</code></td>
+						<td><input type="text" name="hh_user_ini_path" placeholder="<?php echo get_home_path(); ?>.user.ini" style="width: 100%" value="<?php echo get_option('hh_user_ini_path'); ?>"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><?php submit_button(null, 'primary', null, false); ?></td>
+					</tr>
+				</tbody>
+			</table>
+        </section>
+    </div>
+
+	<section class="hh-panel">
 	    <table class="form-table hh-table">
 			<tbody>
 				<tr valign="top">
@@ -16,8 +72,6 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 					<td>&nbsp;</td>
 		        	<td>
 		        		<fieldset>
-			        	<?php settings_fields( 'http-headers-mtd' ); ?>
-						<?php do_settings_sections( 'http-headers-mtd' ); ?>
 						<?php
 						$items = array(
 							'php' => __('Use PHP to send headers (deprecated)', 'http-headers'),
@@ -34,8 +88,9 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 			</tbody>
 		</table>
 		<?php submit_button(); ?>
-	</form>
-</section>
+	</section>
+</form>
+
 <section class="hh-panel">
     <table class="form-table hh-table">
 		<tbody>

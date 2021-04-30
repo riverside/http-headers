@@ -209,6 +209,9 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 				case 'hh_permissions_policy':
 				    $value = get_http_header('permissions_policy');
 				    break;
+				case 'hh_x_robots_tag':
+					$value = get_http_header('x_robots_tag');
+					break;
 				case 'hh_clear_site_data':
 				    $value = '"' . join('", "', array_keys($value)) . '"';
 				    break;

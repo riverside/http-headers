@@ -1,6 +1,8 @@
 <?php
 return array(
     array('hh_method', 'htaccess'),
+	array('hh_htaccess_path', str_replace('\\', '/', ABSPATH) . '.htaccess'),
+	array('hh_user_ini_path', str_replace('\\', '/', ABSPATH) . '.user.ini'),
     array('hh_x_frame_options', 0),
     array('hh_x_frame_options_value', ''),
     array('hh_x_frame_options_domain', ''),
@@ -103,4 +105,6 @@ return array(
     array('hh_content_type_value', ''),
     array('hh_content_nel', 0),
     array('hh_content_nel_value', ''),
+	array('hh_x_robots_tag', 0),
+	array('hh_x_robots_tag_value', ''),
 );

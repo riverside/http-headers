@@ -10,7 +10,7 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 		<li><a href="#hh-tab-2">Nginx</a></li>
 	</ul>
 	<div id="hh-tab-1" class="hh-tab-active">
-		<h3><span class="hh-highlight"><?php echo get_home_path().'.htaccess'; ?></span></h3>
+		<h3><span class="hh-highlight"><?php echo get_htaccess_filename(); ?></span></h3>
 		<textarea class="hh-textarea-manual" rows="20" readonly><?php 
 	$lines = apache_headers_directives();
 	if ($lines)

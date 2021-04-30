@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.18.1
+Version: 1.18.4
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -24,7 +24,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/copyleft/gpl.html>.
 
-Copyright (c) 2017-2020 Zino UI
+Copyright (c) 2017-2021 Zino UI
 */
 
 if (!defined('ABSPATH')) {
@@ -79,6 +79,14 @@ function build_csp_value($value) {
     }
     
     return join('; ', $csp);
+}
+
+function get_htaccess_filename() {
+    return get_option('hh_htaccess_path');
+}
+
+function get_user_ini_filename() {
+    return get_option('hh_user_ini_path');
 }
 
 function get_http_headers() {
@@ -353,6 +361,11 @@ function get_http_headers() {
         $headers['Permissions-Policy'] = $value;
     }
 	
+	$value = get_http_header('x_robots_tag');
+	if ($value) {
+		$headers['X-Robots-Tag'] = $value;
+	}
+	
 	return array($headers, $statuses, $unset, $append);
 }
 
@@ -390,6 +403,37 @@ function get_report_to_header() {
     }
 
     return join(', ', $tmp);
+}
+
+function get_x_robots_tag_header() {
+	if (get_option('hh_x_robots_tag') != 1) {
+		return NULL;
+	}
+
+	$hh_x_robots_tag_value = get_option('hh_x_robots_tag_value', array());
+	$tmp = array();
+	foreach ($hh_x_robots_tag_value as $k => $v) {
+		if ($k == 'max-snippet') {
+			if (is_numeric($v) && $v >= -1) {
+				$tmp[] = "$k:$v";
+			}
+		} elseif ($k == 'max-image-preview') {
+			if (!empty($v)) {
+				$tmp[] = "$k:$v";
+			}
+		} elseif ($k == 'max-video-preview') {
+			if (is_numeric($v) && $v >= -1) {
+				$tmp[] = "$k:$v";
+			}
+		} elseif ($k == 'unavailable_after') {
+			if (!empty($v)) {
+				$tmp[] = "$k:$v";
+			}
+		} else {
+			$tmp[] = $k;
+		}
+	}
+	return join(', ', $tmp);
 }
 
 function get_nel_header() {
@@ -549,7 +593,7 @@ function php_cookie_security_directives() {
 }
 
 function http_headers() {
-	if (get_option('hh_method') !== 'php') {
+	if (!is_php_mode()) {
 		return;
 	}
 	// PHP method below
@@ -609,6 +653,8 @@ function http_headers_admin_add_page() {
 
 function http_headers_admin() {
 	register_setting('http-headers-mtd', 'hh_method');
+	register_setting('http-headers-mtd', 'hh_htaccess_path');
+	register_setting('http-headers-mtd', 'hh_user_ini_path');
 	register_setting('http-headers-xfo', 'hh_x_frame_options');
 	register_setting('http-headers-xfo', 'hh_x_frame_options_value');
 	register_setting('http-headers-xfo', 'hh_x_frame_options_domain');
@@ -710,11 +756,15 @@ function http_headers_admin() {
     register_setting('http-headers-coep', 'hh_cross_origin_embedder_policy_value');
     register_setting('http-headers-coop', 'hh_cross_origin_opener_policy');
     register_setting('http-headers-coop', 'hh_cross_origin_opener_policy_value');
+	register_setting('http-headers-rob', 'hh_x_robots_tag');
+	register_setting('http-headers-rob', 'hh_x_robots_tag_value');
 }
 
 function http_headers_option($option) {
     
     include_once ABSPATH . 'wp-admin/includes/admin.php';
+    
+    require_once ABSPATH . WPINC . '/pluggable.php';
     
     if (isset($_POST['hh_method']))
     {
@@ -722,7 +772,7 @@ function http_headers_option($option) {
         # When method is changed
         http_headers_activate();
         
-    } elseif (get_option('hh_method') == 'htaccess') {
+    } elseif (is_apache_mode()) {
         # When particular header is changed
         switch (true) {
             case array_key_exists('hh_www_authenticate', $_POST):
@@ -1260,65 +1310,66 @@ function apache_cookie_security_directives() {
 }
 
 function apache_check_requirements() {
-    return check_filename(get_home_path().'.htaccess');
+    return check_filename(get_htaccess_filename());
 }
 
 function update_headers_directives() {
-	$lines = array();
-	if (get_option('hh_method') == 'htaccess') {
+	$result = false;
+	if (is_apache_mode()) {
 		$lines = apache_headers_directives();
+		$result = insert_with_markers(get_htaccess_filename(), "HttpHeaders", $lines);
 	}
 	
-	return insert_with_markers(get_home_path().'.htaccess', "HttpHeaders", $lines);
+	return $result;
 }
 
 function update_content_encoding_directives() {
 	$lines = array();
-	if (get_option('hh_method') == 'htaccess') {
+	if (is_apache_mode()) {
 		$lines = apache_content_encoding_directives();
 	}
 	
-	return insert_with_markers(get_home_path().'.htaccess', "HttpHeadersCompression", $lines);
+	return insert_with_markers(get_htaccess_filename(), "HttpHeadersCompression", $lines);
 }
 
 function update_expires_directives() {
 	$lines = array();
-	if (get_option('hh_method') == 'htaccess') {
+	if (is_apache_mode()) {
 	    $lines = apache_expires_directives();
 	}
 	
-	return insert_with_markers(get_home_path().'.htaccess', "HttpHeadersExpires", $lines);
+	return insert_with_markers(get_htaccess_filename(), "HttpHeadersExpires", $lines);
 }
 
 function update_content_type_directives() {
     $lines = array();
-    if (get_option('hh_method') == 'htaccess') {
+    if (is_apache_mode()) {
         $lines = apache_content_type_directives();
     }
 
-    return insert_with_markers(get_home_path().'.htaccess', "HttpHeadersContentType", $lines);
+    return insert_with_markers(get_htaccess_filename(), "HttpHeadersContentType", $lines);
 }
 
 function update_timing_directives() {
 	$lines = array();
-	if (get_option('hh_method') == 'htaccess') {
+	if (is_apache_mode()) {
 		$lines = apache_timing_directives();
 	}
 	
-	return insert_with_markers(get_home_path().'.htaccess', "HttpHeadersTiming", $lines);
+	return insert_with_markers(get_htaccess_filename(), "HttpHeadersTiming", $lines);
 }
 
 function update_auth_directives() {
 	$lines = array();
-	if (get_option('hh_method') == 'htaccess') {
+	if (is_apache_mode()) {
 	    $lines = apache_auth_directives();
 	}
 	
-	return insert_with_markers(get_home_path().'.htaccess', "HttpHeadersAuth", $lines);
+	return insert_with_markers(get_htaccess_filename(), "HttpHeadersAuth", $lines);
 }
 
 function update_auth_credentials() {
-	if (get_option('hh_method') == 'htaccess') {
+	if (is_apache_mode()) {
 		$credentials = apache_auth_credentials();
 		
 		return @file_put_contents($credentials['ht_file'], $credentials['auth']);
@@ -1329,11 +1380,11 @@ function update_auth_credentials() {
 
 function update_cookie_security_directives() {
     $lines = array();
-    $is_apache = get_option('hh_method') == 'htaccess';
-    $htaccess = get_home_path().'.htaccess';
+    $is_apache = is_apache_mode();
+    $htaccess = get_htaccess_filename();
     $is_cgi = strpos(PHP_SAPI, 'cgi') !== false;
     if ($is_cgi) {
-        $filename = get_home_path().ini_get('user_ini.filename');
+        $filename = get_user_ini_filename();
         $lines = php_cookie_security_directives();
     } elseif ($is_apache) {
         $filename = $htaccess;
@@ -1382,6 +1433,14 @@ function update_user_ini_filename($filename, $marker, $insertion) {
     $bytes = @file_put_contents($filename, $data, LOCK_EX);
     
     return !!$bytes;
+}
+
+function is_php_mode() {
+    return get_option('hh_method') == 'php';
+}
+
+function is_apache_mode() {
+    return get_option('hh_method') == 'htaccess';
 }
 
 function is_samesite_supported() {
@@ -1527,9 +1586,16 @@ function check_filename($filename) {
     return true;
 }
 
-function check_webserver_requirements() {
-    $method = get_option('hh_method');
-    if ($method == 'htaccess') {
+function get_web_server_filename() {
+    if (is_apache_mode()) {
+        return get_htaccess_filename();
+    }
+
+    return NULL;
+}
+
+function check_web_server_requirements() {
+    if (is_apache_mode()) {
         return apache_check_requirements();
     }
     
@@ -1539,7 +1605,7 @@ function check_webserver_requirements() {
 function check_php_requirements() {
     if (strpos(PHP_SAPI, 'cgi') !== false) {
         // cgi, cgi-fcgi, fpm-fcgi
-        return check_filename(get_home_path().ini_get('user_ini.filename'));
+        return check_filename(get_user_ini_filename());
     }
     
     return true;
@@ -1567,7 +1633,7 @@ function http_headers_activate() {
 }
 
 function http_headers_deactivate() {
-    $filename = get_home_path().'.htaccess';
+    $filename = get_htaccess_filename();
     
     insert_with_markers($filename, "HttpHeaders", array());
     insert_with_markers($filename, "HttpHeadersCompression", array());
