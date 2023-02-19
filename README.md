@@ -2,7 +2,7 @@
 
 A WordPress plugin that allows you to easily control HTTP response headers of your website.
 
-Donate link: https://zinoui.com/donation
+Donate link: https://www.paypal.me/Dimitar81
 
 Requires at least: 3.2
 
@@ -59,8 +59,6 @@ Headers supported by HTTP Headers includes:
 * X-Robots-Tag
 * X-UA-Compatible
 * X-XSS-Protection
-
-The [getting started tutorial](https://zinoui.com/blog/http-headers-for-wordpress) describes a typical configuration of this plugin.
 
 ## Installation
 
