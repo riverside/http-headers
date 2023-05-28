@@ -94,7 +94,7 @@ if (!is_array($report_to_value) || empty($report_to_value))
                     				}
                     				?>
                     				</select></td>
-                    				<td rowspan="<?php echo $cnt; ?>" class="hh-middle hh-center"><input type="checkbox" class="http-header-value" name="hh_report_to_value[<?php echo $i; ?>][include_subdomains]" value="1"<?php checked(@$item['include_subdomains'], 1, true); ?><?php echo $report_to == 1 ? NULL : ' readonly'; ?> /></td>
+                    				<td rowspan="<?php echo $cnt; ?>" class="hh-middle hh-center"><input type="checkbox" class="http-header-value" name="hh_report_to_value[<?php echo $i; ?>][include_subdomains]" value="1"<?php array_key_exists('include_subdomains', $item) ? checked($item['include_subdomains'], 1, true) : NULL; ?><?php echo $report_to == 1 ? NULL : ' readonly'; ?> /></td>
     				        	    <?php
     				        	}
     				        	?>
@@ -145,7 +145,7 @@ if (!is_array($report_to_value) || empty($report_to_value))
             				}
             				?>
             				</select></td>
-            				<td class="hh-center"><input type="checkbox" class="http-header-value" name="hh_report_to_value[<?php echo $i; ?>][include_subdomains]" value="1"<?php checked(@$item['include_subdomains'], 1, true); ?><?php echo $report_to == 1 ? NULL : ' readonly'; ?> /></td>
+            				<td class="hh-center"><input type="checkbox" class="http-header-value" name="hh_report_to_value[<?php echo $i; ?>][include_subdomains]" value="1"<?php array_key_exists('include_subdomains', $item) ? checked($item['include_subdomains'], 1, true) : NULL; ?><?php echo $report_to == 1 ? NULL : ' readonly'; ?> /></td>
     				        
     				        <td><input type="text" class="http-header-value" name="hh_report_to_value[<?php echo $i; ?>][endpoints][0][url]" placeholder="https://example.com/report/csp"<?php echo $report_to == 1 ? NULL : ' readonly'; ?> size="40"></td>
     				        <td><input type="number" class="http-header-value" name="hh_report_to_value[<?php echo $i; ?>][endpoints][0][priority]" min="0" step="1"></td>

@@ -3,6 +3,8 @@ return array(
     array('hh_method', 'htaccess'),
 	array('hh_htaccess_path', str_replace('\\', '/', ABSPATH) . '.htaccess'),
 	array('hh_user_ini_path', str_replace('\\', '/', ABSPATH) . '.user.ini'),
+	array('hh_htpasswd_path', str_replace('\\', '/', ABSPATH) . '.hh-htpasswd'),
+	array('hh_htdigest_path', str_replace('\\', '/', ABSPATH) . '.hh-htdigest'),
     array('hh_x_frame_options', 0),
     array('hh_x_frame_options_value', ''),
     array('hh_x_frame_options_domain', ''),

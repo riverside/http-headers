@@ -81,5 +81,5 @@ shuffle($host_sources);
 		class="http-header-value" 
 		size="40"
 		placeholder="<?php echo $host_sources[0]; ?>"
-		value="<?php echo esc_attr(@$csp_value[$item]['source']); ?>"<?php echo $content_security_policy == 1 ? NULL : ' readonly'; ?>
+		value="<?php echo isset($csp_value[$item]['source']) ? esc_attr($csp_value[$item]['source']) : NULL; ?>"<?php echo $content_security_policy == 1 ? NULL : ' readonly'; ?>>
 </p>

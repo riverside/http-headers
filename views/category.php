@@ -18,7 +18,7 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 	<?php 
 	foreach ($headers as $index => $item)
 	{
-		if (@$_GET['category'] != $item[2])
+		if ($_GET['category'] != $item[2])
 		{
 			continue;
 		}

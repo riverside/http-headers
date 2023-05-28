@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: HTTP Headers
-Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
+Plugin URI: https://github.com/riverside/http-headers
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.18.4
+Version: 1.18.10
 Author: Dimitar Ivanov
-Author URI: https://zinoui.com
+Author URI: https://github.com/riverside
 License: GPLv2 or later
 Text Domain: http-headers
 */
@@ -24,7 +24,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/copyleft/gpl.html>.
 
-Copyright (c) 2017-2021 Zino UI
+Copyright (c) 2017-2023 Dimitar Ivanov
 */
 
 if (!defined('ABSPATH')) {
@@ -39,6 +39,10 @@ foreach ($options as $option) {
 }
 
 function build_csp_value($value) {
+    if (!is_array($value))
+    {
+        return NULL;
+    }
     $csp = array();
     foreach ($value as $key => $val)
     {
@@ -87,6 +91,14 @@ function get_htaccess_filename() {
 
 function get_user_ini_filename() {
     return get_option('hh_user_ini_path');
+}
+
+function get_htpasswd_filename() {
+	return get_option('hh_htpasswd_path');
+}
+
+function get_htdigest_filename() {
+	return get_option('hh_htdigest_path');
 }
 
 function get_http_headers() {
@@ -443,7 +455,8 @@ function get_nel_header() {
     
 	$nel = get_option('hh_nel_value', array());
     return sprintf('{"report_to": "%s", "max_age": %u%s%s%s%s%s}',
-        @$nel['report_to'], @$nel['max_age'],
+        isset($nel['report_to']) ? $nel['report_to'] : NULL,
+        isset($nel['max_age']) ? $nel['max_age'] : NULL,
         isset($nel['include_subdomains']) ? ', "include_subdomains": true' : NULL,
         array_key_exists('success_fraction', $nel) && is_numeric($nel['success_fraction']) ? ', "success_fraction": '. $nel['success_fraction'] : NULL,
         array_key_exists('failure_fraction', $nel) && is_numeric($nel['failure_fraction']) ? ', "failure_fraction": '. $nel['failure_fraction'] : NULL,
@@ -655,6 +668,8 @@ function http_headers_admin() {
 	register_setting('http-headers-mtd', 'hh_method');
 	register_setting('http-headers-mtd', 'hh_htaccess_path');
 	register_setting('http-headers-mtd', 'hh_user_ini_path');
+	register_setting('http-headers-mtd', 'hh_htpasswd_path');
+	register_setting('http-headers-mtd', 'hh_htdigest_path');
 	register_setting('http-headers-xfo', 'hh_x_frame_options');
 	register_setting('http-headers-xfo', 'hh_x_frame_options_value');
 	register_setting('http-headers-xfo', 'hh_x_frame_options_domain');
@@ -769,6 +784,10 @@ function http_headers_option($option) {
     if (isset($_POST['hh_method']))
     {
         check_admin_referer('http-headers-mtd-options');
+        if (!is_super_admin()) {
+            wp_redirect(sprintf("%soptions-general.php?page=http-headers&tab=advanced&status=ERR&code=102", get_admin_url()));
+            exit;
+        }
         # When method is changed
         http_headers_activate();
         
@@ -954,19 +973,19 @@ function nginx_auth_directives() {
         
         $type = get_option('hh_www_authenticate_type');
         
-        $file = $type == 'Basic' ? '.hh-htpasswd' : '.hh-htdigest';
+        $file = $type == 'Basic' ? get_htpasswd_filename() : get_htdigest_filename();
         
-        $lines[] = 'location ~ ^\.hh-ht(digest|passwd)$ {';
+        $lines[] = sprintf('location ~ ^%s$ {', str_replace('.', '\.', basename($file)));
         $lines[] = '    deny all;';
         $lines[] = '}';
         
         $lines[] = sprintf('location %s {', get_home_path());
         if ($type == 'Basic') {
             $lines[] = sprintf('    auth_basic "%s";', get_option('hh_www_authenticate_realm'));
-            $lines[] = sprintf('    auth_basic_user_file %s%s;', get_home_path(), $file);
+            $lines[] = sprintf('    auth_basic_user_file %s;', $file);
         } else {
             $lines[] = sprintf('    auth_digest "%s";', get_option('hh_www_authenticate_realm'));
-            $lines[] = sprintf('    auth_digest_user_file %s%s;', get_home_path(), $file);
+            $lines[] = sprintf('    auth_digest_user_file %s;', $file);
         }
         $lines[] = '}';
     }
@@ -1161,6 +1180,14 @@ function apache_expires_directives() {
         
         $types = get_option('hh_expires_type', array());
         $values = get_option('hh_expires_value', array());
+		if (!is_array($types))
+        {
+            $types = array();
+        }
+		if (!is_array($values))
+        {
+            $values = array();
+        }
         
         $lines[] = '<IfModule mod_expires.c>';
         $lines[] = '  ExpiresActive On';
@@ -1225,9 +1252,9 @@ function apache_auth_directives() {
         
         $type = get_option('hh_www_authenticate_type');
         
-        $file = $type == 'Basic' ? '.hh-htpasswd' : '.hh-htdigest';
+        $file = $type == 'Basic' ? get_htpasswd_filename() : get_htdigest_filename();
         
-        $lines[] = '<FilesMatch "^\.hh-ht(digest|passwd)$">';
+        $lines[] = sprintf('<FilesMatch "^%s$">', str_replace('.', '\.', basename($file)));
         $lines[] = '  <IfModule mod_authz_core.c>';
         $lines[] = '    Require all denied';
         $lines[] = '  </IfModule>';
@@ -1243,7 +1270,7 @@ function apache_auth_directives() {
         $lines[] = sprintf('<IfModule mod_auth_%s.c>', strtolower($type));
         $lines[] = sprintf('  AuthType %s', get_option('hh_www_authenticate_type'));
         $lines[] = sprintf('  AuthName "%s"', $realm);
-        $lines[] = sprintf('  AuthUserFile "%s%s"', get_home_path(), $file);
+        $lines[] = sprintf('  AuthUserFile "%s"', $file);
         $lines[] = '  Require valid-user';
         $lines[] = '</IfModule>';
     }
@@ -1266,13 +1293,13 @@ function apache_auth_credentials() {
         $auth = array();
         switch ($type) {
             case 'Basic':
-                $ht_file = get_home_path().'.hh-htpasswd';
+                $ht_file = get_htpasswd_filename();
                 foreach ($usernames as $k => $user) {
                     $auth[] = sprintf('%s:{SHA}%s', $user, base64_encode(sha1($passwords[$k], true)));
                 }
                 break;
             case 'Digest':
-                $ht_file = get_home_path().'.hh-htdigest';
+                $ht_file = get_htdigest_filename();
                 foreach ($usernames as $k => $user) {
                     $auth[] = sprintf('%s:%s:%s', $user, $realm, md5($user.':'.$realm.':'.$passwords[$k]));
                 }
@@ -1371,8 +1398,10 @@ function update_auth_directives() {
 function update_auth_credentials() {
 	if (is_apache_mode()) {
 		$credentials = apache_auth_credentials();
-		
-		return @file_put_contents($credentials['ht_file'], $credentials['auth']);
+		if (isset($credentials['ht_file']) && !empty($credentials['ht_file']))
+		{
+			return @file_put_contents($credentials['ht_file'], $credentials['auth'], LOCK_EX);
+		}
 	}
 	
 	return false;
@@ -1486,93 +1515,6 @@ function http_headers_ajax_inspect() {
     wp_die();
 }
 
-function http_headers_post_import() {
-    check_admin_referer('import');
-    global $wpdb;
-    if (!(isset($_FILES['file']['tmp_name'])
-        && is_uploaded_file($_FILES['file']['tmp_name'])
-        && $_FILES['file']['error'] == UPLOAD_ERR_OK
-    )) {
-        wp_redirect(sprintf("%soptions-general.php?page=http-headers&tab=advanced&status=ERR&code=100", get_admin_url()));
-        exit;
-    }
-    
-    $string = @file_get_contents($_FILES['file']['tmp_name']);
-    if ($string === false) {
-        wp_redirect(sprintf("%soptions-general.php?page=http-headers&tab=advanced&status=ERR&code=101", get_admin_url()));
-        exit;
-    }
-    
-    $arr = preg_split('/;(\s+)?\n/', $string);
-    foreach ($arr as $statement) {
-        $statement = preg_replace("/(INSERT\s*INTO\s*)[\w\_]+options/", '${1}'.$wpdb->options, $statement);
-        $wpdb->query($statement);
-    }
-    
-    wp_redirect(sprintf("%soptions-general.php?page=http-headers&tab=advanced&status=OK", get_admin_url()));
-    exit;
-}
-
-function http_headers_post_export() {
-    check_admin_referer('export');
-    global $wpdb;
-    $options = include dirname(__FILE__) . '/views/includes/options.inc.php';
-    $opts = array();
-    foreach ($options as $option)
-    {
-        $opts[] = $option[0];
-    }
-    $statement = sprintf("SELECT * FROM %s WHERE option_name IN ('%s');", $wpdb->options, join("','", $opts));
-    $results = $wpdb->get_results($statement, ARRAY_A);
-    $sql = array();
-    
-    $indexes = array();
-    foreach ($options as $option)
-    {
-        foreach ($results as $item)
-        {
-            if ($item['option_name'] == $option[0])
-            {
-                $indexes[$option[0]] = 1;
-                
-                $value = str_replace("'", "''", $item['option_value']);
-                $query = array();
-                $query[] = sprintf("INSERT INTO %s (option_id, option_name, option_value, autoload)", $wpdb->options);
-                $query[] = sprintf("VALUES (NULL, '%s', '%s', '%s')", $item['option_name'], $value, $item['autoload']);
-                $query[] = sprintf("ON DUPLICATE KEY UPDATE option_value = '%s', autoload = '%s';", $value, $item['autoload']);
-                $sql[] = join("\n", $query);
-                break;
-            }
-        }
-        
-        if (!isset($indexes[$option[0]]))
-        {
-            $query = array();
-            $query[] = sprintf("INSERT INTO %s (option_id, option_name, option_value, autoload)", $wpdb->options);
-            $query[] = sprintf("VALUES (NULL, '%s', '%s', 'yes')", $option[0], $option[1]);
-            $query[] = sprintf("ON DUPLICATE KEY UPDATE option_value = '%s', autoload = 'yes';", $option[1]);
-            $sql[] = join("\n", $query);
-        }
-    }
-    
-    $sql = join("\n\n", $sql);
-    $length = function_exists('mb_strlen') ? mb_strlen($sql) : strlen($sql);
-    $name = sprintf('WP-HTTP-Headers-%u.sql', time());
-    
-    # Send headers
-    header('Pragma: public');
-    header('Expires: 0');
-    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-    header('Cache-Control: private', false);
-    header('Content-Transfer-Encoding: binary');
-    header('Content-Disposition: attachment; filename="'.$name.'";');
-    header('Content-Type: application/sql');
-    header('Content-Length: ' . $length);
-    
-    echo $sql;
-    exit;
-}
-
 function check_filename($filename) {
     if (!is_file($filename)) {
         return -1;
@@ -1644,6 +1586,18 @@ function http_headers_deactivate() {
     insert_with_markers($filename, "HttpHeadersCookieSecurity", array());
 }
 
+function http_headers_update_option() {
+	global $option_page;
+
+	if ('http-headers-mtd' == $option_page && !is_super_admin()) {
+		foreach (array('hh_htaccess_path', 'hh_user_ini_path', 'hh_htpasswd_path', 'hh_htdigest_path') as $index) {
+			if (isset($_POST[$index])) {
+				$_POST[$index] = get_option($index, $_POST[$index]);
+			}
+		}
+	}
+}
+
 register_activation_hook(__FILE__, 'http_headers_activate');
 register_deactivation_hook(__FILE__, 'http_headers_deactivate');
 add_action('wp_logout', 'http_headers_logout');
@@ -1651,14 +1605,13 @@ add_action('wp_logout', 'http_headers_logout');
 if ( is_admin() ){ // admin actions
     add_action('admin_menu', 'http_headers_admin_add_page');
 	add_action('admin_init', 'http_headers_admin');
-	add_action("added_option", 'http_headers_option');
-	add_action("updated_option", 'http_headers_option');
+	add_action('update_option', 'http_headers_update_option');
+	add_action('added_option', 'http_headers_option');
+	add_action('updated_option', 'http_headers_option');
 	add_action('admin_enqueue_scripts', 'http_headers_enqueue');
 	add_action('after_setup_theme', 'http_headers_after_setup_theme');
 	add_action('plugins_loaded', 'http_headers_text_domain');
 	add_action('wp_ajax_inspect', 'http_headers_ajax_inspect');
-	add_action('admin_post_import', 'http_headers_post_import');
-	add_action('admin_post_export', 'http_headers_post_export');
 } else {
   // non-admin enqueues, actions, and filters
 	add_action('send_headers', 'http_headers');

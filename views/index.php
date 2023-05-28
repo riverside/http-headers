@@ -38,7 +38,6 @@ if (!defined('ABSPATH')) {
 	}
 	?>
 	<p><?php _e('Quick links', 'http-headers'); ?>: 
-		<a href="https://zinoui.com/blog/http-headers-for-wordpress" target="_blank" title="HTTP Headers"><?php _e('Getting started', 'http-headers'); ?></a>, 
 		<a href="<?php echo get_admin_url(); ?>options-general.php?page=http-headers&amp;tab=advanced"><?php _e('Advanced settings', 'http-headers'); ?></a>,
 		<a href="<?php echo get_admin_url(); ?>options-general.php?page=http-headers&amp;tab=manual"><?php _e('Manual setup', 'http-headers'); ?></a>,
 		<a href="<?php echo get_admin_url(); ?>options-general.php?page=http-headers&amp;tab=inspect"><?php _e('Inspect headers', 'http-headers'); ?></a>

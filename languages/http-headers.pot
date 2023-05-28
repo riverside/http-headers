@@ -148,32 +148,8 @@ msgstr ""
 msgid "Use Apache (mod_headers) to send headers"
 msgstr ""
 
-#: views/advanced.php:40
-msgid "Export"
-msgstr ""
-
-#: views/advanced.php:41
-msgid "Export the plugin current state of settings for later use if recovery needs."
-msgstr ""
-
-#: views/advanced.php:46
-msgid "Export settings"
-msgstr ""
-
-#: views/advanced.php:51
-msgid "Import"
-msgstr ""
-
-#: views/advanced.php:52
-msgid "Import a previously saved state of settings."
-msgstr ""
-
-#: views/advanced.php:58
-msgid "Import settings"
-msgstr ""
-
-#: views/advanced.php:58
-msgid "Choose file..."
+#: views/advanced.php:209
+msgid "Only Super Admin users have access to this functionality."
 msgstr ""
 
 #: views/access-control-allow-credentials.php:3

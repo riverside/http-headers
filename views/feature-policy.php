@@ -86,12 +86,13 @@ if (!defined('ABSPATH')) {
         				<?php 
         				foreach ($origins as $origin)
         				{
-        				    ?><option value="<?php echo $origin; ?>"<?php selected(@$feature_policy_value[$feature], $origin); ?>><?php echo $origin; ?></option><?php
+        				    ?><option value="<?php echo $origin; ?>"<?php isset($feature_policy_value[$feature]) ? selected($feature_policy_value[$feature], $origin) : NULL; ?>><?php echo $origin; ?></option><?php
         				}
         				?>
         				</select>
         				<input type="text" name="hh_feature_policy_origin[<?php echo $feature; ?>]" 
-        					value="<?php echo @$feature_policy_origin[$feature]; ?>" size="30"<?php echo isset($feature_policy_value[$feature]) && in_array($feature_policy_value[$feature], array('origin(s)', "'self'")) ? NULL : ' style="display: none"'; ?> 
+                               value="<?php echo isset($feature_policy_origin[$feature]) ? $feature_policy_origin[$feature] : NULL; ?>"
+                               size="30"<?php echo isset($feature_policy_value[$feature]) && in_array($feature_policy_value[$feature], array('origin(s)', "'self'")) ? NULL : ' style="display: none"'; ?>
         					class="http-header-value"<?php echo $feature_policy == 1 ? NULL : ' readonly'; ?>>
         			</td>
         		</tr>

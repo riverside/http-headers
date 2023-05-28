@@ -6,11 +6,11 @@ Donate link: https://www.paypal.me/Dimitar81
 
 Requires at least: 3.2
 
-Tested up to: 5.7.1
+Tested up to: 6.2.2
 
 Requires PHP: 5.3
 
-Stable tag: 1.18.4
+Stable tag: 1.18.10
 
 License: GPLv2 or later
 
@@ -81,6 +81,40 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.18.10
+*Release Date - 28th May, 2023*
+
+* Fixed: Remote Code Execution by an Admin user
+* Removed: Import/Export functions
+
+#### 1.18.9
+*Release Date - 23rd April, 2023*
+
+* Fixed: Remote Code Execution by an Admin user
+
+#### 1.18.8
+*Release Date - 17th April, 2023*
+
+* Fixed: SQL Injection by an Admin user
+* Fixed: Remote Code Execution by an Admin user
+* Few PHP 8.x compatible fixes
+
+#### 1.18.7
+*Release Date - 24th January, 2023*
+
+* Fix CSP default value
+
+#### 1.18.6
+*Release Date - 22nd January, 2023*
+
+* PHP 8 compatibility changes
+
+#### 1.18.5
+*Release Date - 30th April, 2021*
+
+* Configurable paths to files who store passwords for basic/digest auth
+* Fixed issue with plugin activation, due missing file
+
 #### 1.18.4
 *Release Date - 30th April, 2021*
 

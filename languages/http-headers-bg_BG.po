@@ -146,33 +146,9 @@ msgstr "PHP режим"
 msgid "Use Apache (mod_headers) to send headers"
 msgstr "Apache режим (препоръчва се)"
 
-#: views/advanced.php:40
-msgid "Export"
-msgstr "Експорт"
-
-#: views/advanced.php:41
-msgid "Export the plugin current state of settings for later use if recovery needs."
-msgstr "Експортирайте текущото състояние на настройките на плъгина за по-нататъшна употреба, ако е необходимо възстановяване."
-
-#: views/advanced.php:46
-msgid "Export settings"
-msgstr "Експортирай настройките"
-
-#: views/advanced.php:51
-msgid "Import"
-msgstr "Импорт"
-
-#: views/advanced.php:52
-msgid "Import a previously saved state of settings."
-msgstr "Възстановяване на предварително запазено състояние на настройките."
-
-#: views/advanced.php:58
-msgid "Import settings"
-msgstr "Импортирай"
-
-#: views/advanced.php:58
-msgid "Choose file..."
-msgstr "Избери файл..."
+#: views/advanced.php:209
+msgid "Only Super Admin users have access to this functionality."
+msgstr "Само потребители с роля 'Супер Администратор' имат достъп до тази функционалност."
 
 #: views/access-control-allow-credentials.php:3
 msgid "The Access-Control-Allow-Credentials header indicates whether the response to request can be exposed when the credentials flag is true."

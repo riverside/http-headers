@@ -17,11 +17,11 @@ $content_security_policy = get_option('hh_content_security_policy', 0);
         <hr>
         <p class="description">Useful tools:</p>
         <p class="description">
-            <a target="_blank" href="https://zinoui.com/tools/sri-generator">SRI Hash Generator</a>
+            <a target="_blank" href="https://report-uri.com/home/sri_hash">SRI Hash Generator</a>
             - generates subresource integrity hashes using a cryptographic algorithm.
         </p>
         <p class="description">
-            <a target="_blank" href="https://zinoui.com/tools/csp-hash">CSP Hash Generator</a>
+            <a target="_blank" href="https://report-uri.com/home/hash">CSP Hash Generator</a>
             - generates CSP hashes to use in script-src and style-src directives.
         </p>
         <hr>
@@ -76,7 +76,8 @@ $content_security_policy = get_option('hh_content_security_policy', 0);
                 'block-all-mixed-content', 
                 'upgrade-insecure-requests',
 			);
-			$csp_value = get_option('hh_content_security_policy_value');
+			$csp_value = get_option('hh_content_security_policy_value', array());
+            $csp_value = is_array($csp_value) ? $csp_value : array();
 			foreach ($directives as $item)
 			{
 				?>

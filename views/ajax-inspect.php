@@ -97,7 +97,7 @@ foreach ($headers as $k => $v)
 	    && !in_array($k, $exclude)
 	    && !(in_array($k, $special) && array_key_exists($k . '-report-only', $responseHeaders) ))
 	{
-		$missing[$k] = @$categories[$v[2]];
+		$missing[$k] = isset($categories[$v[2]]) ? $categories[$v[2]] : 'Other';
 	}
 }
 

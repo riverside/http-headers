@@ -26,7 +26,12 @@ include dirname(__FILE__) . '/includes/config.inc.php';
 		<a href="<?php echo get_admin_url(); ?>options-general.php?page=http-headers&amp;category=<?php echo $key; ?>" class="hh-category">
 			<i></i>
     		<span><?php echo $key[0]; ?></span>
-			<strong><?php echo $val; ?></strong>(<?php printf('%u/%u', @$tmp[$key]['on'], @$tmp[$key]['total']); ?>)</a>
+			<strong><?php echo $val; ?></strong><?php
+            if (isset($tmp[$key]))
+            {
+                printf('(%u/%u)', $tmp[$key]['on'], $tmp[$key]['total']);
+            }
+            ?></a>
 		<?php 
 	}
 	?>
