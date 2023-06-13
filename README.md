@@ -10,7 +10,7 @@ Tested up to: 6.2.2
 
 Requires PHP: 5.3
 
-Stable tag: 1.18.10
+Stable tag: 1.18.11
 
 License: GPLv2 or later
 
@@ -81,6 +81,11 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.18.11
+*Release Date - 11th June, 2023*
+
+* Fixed: Remote Code Execution by an Admin user
+
 #### 1.18.10
 *Release Date - 28th May, 2023*
 

@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://github.com/riverside/http-headers
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.18.10
+Version: 1.18.11
 Author: Dimitar Ivanov
 Author URI: https://github.com/riverside
 License: GPLv2 or later
@@ -1586,16 +1586,15 @@ function http_headers_deactivate() {
     insert_with_markers($filename, "HttpHeadersCookieSecurity", array());
 }
 
-function http_headers_update_option() {
-	global $option_page;
+function http_headers_pre_update_option($value, $option, $old_value) {
 
-	if ('http-headers-mtd' == $option_page && !is_super_admin()) {
-		foreach (array('hh_htaccess_path', 'hh_user_ini_path', 'hh_htpasswd_path', 'hh_htdigest_path') as $index) {
-			if (isset($_POST[$index])) {
-				$_POST[$index] = get_option($index, $_POST[$index]);
-			}
-		}
+	if (in_array($option, array('hh_htaccess_path', 'hh_htdigest_path', 'hh_htpasswd_path', 'hh_user_ini_path', 'hh_method'))
+	    && !is_super_admin())
+	{
+		return $old_value;
 	}
+
+	return $value;
 }
 
 register_activation_hook(__FILE__, 'http_headers_activate');
@@ -1605,7 +1604,7 @@ add_action('wp_logout', 'http_headers_logout');
 if ( is_admin() ){ // admin actions
     add_action('admin_menu', 'http_headers_admin_add_page');
 	add_action('admin_init', 'http_headers_admin');
-	add_action('update_option', 'http_headers_update_option');
+	add_filter('pre_update_option', 'http_headers_pre_update_option', 10, 3);
 	add_action('added_option', 'http_headers_option');
 	add_action('updated_option', 'http_headers_option');
 	add_action('admin_enqueue_scripts', 'http_headers_enqueue');
