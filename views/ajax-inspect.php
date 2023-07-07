@@ -23,7 +23,7 @@ if (isset($_POST['authentication'], $_POST['username'], $_POST['password'])
     );
 }
 
-$response = wp_remote_head($_POST['url'], $args);
+$response = wp_safe_remote_head($_POST['url'], $args);
 $status = wp_remote_retrieve_response_code($response);
 $dictionary = wp_remote_retrieve_headers($response);
 $responseHeaders = $dictionary ? $dictionary->getAll() : array();

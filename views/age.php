@@ -26,7 +26,7 @@ if (!defined('ABSPATH')) {
 	<td>
 		<?php settings_fields( 'http-headers-age' ); ?>
 		<?php do_settings_sections( 'http-headers-age' ); ?>
-		<input type="text" name="hh_age_value" class="http-header-value" size="5" value="<?php echo esc_attr(get_option('hh_age_value')); ?>"<?php echo $age == 1 ? NULL : ' checked'; ?>>
+		<input type="text" name="hh_age_value" class="http-header-value" size="5" value="<?php echo (int) esc_attr(get_option('hh_age_value')); ?>"<?php echo $age == 1 ? NULL : ' checked'; ?>>
 		<?php _e('seconds', 'http-headers'); ?>
 	</td>
 </tr>

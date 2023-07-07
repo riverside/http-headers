@@ -31,6 +31,10 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 		if ($isOn)
 		{
 			$value = get_option($key .'_value');
+			if (is_string($value))
+            {
+	            $value = esc_html($value);
+            }
 			switch ($key)
 			{
 				case 'hh_age':
@@ -44,7 +48,7 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 					break;
 				case 'hh_x_xxs_protection':
 					if ($value == '1; report=') {
-						$value .= get_option('hh_x_xxs_protection_uri');
+						$value .= esc_html(get_option('hh_x_xxs_protection_uri'));
 					}
 					break;
 				case 'hh_x_powered_by':
@@ -56,7 +60,7 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 					$value = strtoupper($value);
 					if ($value == 'ALLOW-FROM')
 					{
-						$value .= ' ' . get_option('hh_x_frame_options_domain');
+						$value .= ' ' . esc_html(get_option('hh_x_frame_options_domain'));
 					}
 					break;
 				case 'hh_strict_transport_security':
@@ -84,13 +88,13 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 				case 'hh_timing_allow_origin':
 					if ($value == 'origin')
 					{
-						$value = get_option('hh_timing_allow_origin_url');
+						$value = esc_html(get_option('hh_timing_allow_origin_url'));
 					}
 					break;
 				case 'hh_access_control_allow_origin':
 					if ($value == 'origin')
 					{
-					    $value = join('<br>', get_option('hh_access_control_allow_origin_url', array()));
+					    $value = join('<br>', array_map('esc_html', get_option('hh_access_control_allow_origin_url', array())));
 					}
 					break;
 				case 'hh_access_control_expose_headers':
@@ -99,7 +103,7 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 					$value = join(', ', array_keys($value));
 					break;
 				case 'hh_content_security_policy':
-				    $value = build_csp_value($value);
+				    $value = build_csp_value($value, true);
 					if (get_option('hh_content_security_policy_report_only')) {
 						$item[0] .= '-Report-Only';
 					}
@@ -132,7 +136,7 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 					$value = !$value ? null : join(', ', array_keys($value));
 					break;
 				case 'hh_www_authenticate':
-					$value = get_option('hh_www_authenticate_type');
+					$value = esc_html(get_option('hh_www_authenticate_type'));
 					break;
 				case 'hh_cache_control':
 					$tmp = array();
@@ -180,7 +184,7 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 					if (get_option('hh_expect_ct_enforce') == 1) {
 						$tmp[] = 'enforce';
 					}
-					$tmp[] = sprintf('report-uri="%s"', get_option('hh_expect_ct_report_uri'));
+					$tmp[] = sprintf('report-uri="%s"', esc_html(get_option('hh_expect_ct_report_uri')));
 					$value = join(', ', $tmp); 
 					break;
 				case 'hh_custom_headers':
@@ -191,26 +195,26 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 						if (!empty($name) && !empty($value['value'][$key]))
 						{
 							$_names[] = '<p class="hh-p">&nbsp;&nbsp;&nbsp;&nbsp;'.$name.'</p>';
-							$_values[] = '<p class="hh-p">'.$value['value'][$key].'</p>';
+							$_values[] = '<p class="hh-p">'.esc_html($value['value'][$key]).'</p>';
 						}
 					}
 					$item[0] = join('', $_names);
 					$value = join('', $_values);
 					break;
 				case 'hh_report_to':
-				    $value = get_http_header('report_to');
+				    $value = esc_html(get_http_header('report_to'));
 				    break;
 				case 'hh_nel':
-				    $value = get_http_header('nel');
+				    $value = esc_html(get_http_header('nel'));
 				    break;
 				case 'hh_feature_policy':
-				    $value = get_http_header('feature_policy');
+				    $value = esc_html(get_http_header('feature_policy'));
 				    break;
 				case 'hh_permissions_policy':
-				    $value = get_http_header('permissions_policy');
+				    $value = esc_html(get_http_header('permissions_policy'));
 				    break;
 				case 'hh_x_robots_tag':
-					$value = get_http_header('x_robots_tag');
+					$value = esc_html(get_http_header('x_robots_tag'));
 					break;
 				case 'hh_clear_site_data':
 				    $value = '"' . join('", "', array_keys($value)) . '"';

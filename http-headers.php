@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://github.com/riverside/http-headers
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.18.11
+Version: 1.19.0
 Author: Dimitar Ivanov
 Author URI: https://github.com/riverside
 License: GPLv2 or later
@@ -38,7 +38,7 @@ foreach ($options as $option) {
     }
 }
 
-function build_csp_value($value) {
+function build_csp_value($value, $escape=false) {
     if (!is_array($value))
     {
         return NULL;
@@ -61,9 +61,9 @@ function build_csp_value($value) {
                 {
                     $val .= " " . $source;
                 }
-                $csp[] = sprintf("%s %s", $key, $val);
+                $csp[] = sprintf("%s %s", $key, $escape ? esc_html($val) : $val);
             } elseif ($source) {
-                $csp[] = sprintf("%s %s", $key, $source);
+                $csp[] = sprintf("%s %s", $key, $escape ? esc_html($source) : $source);
             }
         } else {
             if (in_array($key, array('block-all-mixed-content', 'upgrade-insecure-requests')))
@@ -72,7 +72,7 @@ function build_csp_value($value) {
             }
             if (in_array($key, array('plugin-types', 'report-to')) && !empty($val))
             {
-                $csp[] = sprintf("%s %s", $key, $val);
+                $csp[] = sprintf("%s %s", $key, $escape ? esc_html($val) : $val);
             }
         }
     }
