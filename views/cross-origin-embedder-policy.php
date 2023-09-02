@@ -28,7 +28,7 @@ if (!defined('ABSPATH')) {
 		<?php do_settings_sections( 'http-headers-coep' ); ?>
         <select name="hh_cross_origin_embedder_policy_value" class="http-header-value"<?php echo $cross_origin_embedder_policy == 1 ? NULL : ' readonly'; ?>>
             <?php
-            $items = array('unsafe-none', 'require-corp');
+            $items = array('unsafe-none', 'require-corp', 'credentialless');
             $cross_origin_embedder_policy_value = get_option('hh_cross_origin_embedder_policy_value');
             foreach ($items as $item) {
                 ?><option value="<?php echo $item; ?>"<?php selected($cross_origin_embedder_policy_value, $item); ?>><?php echo $item; ?></option><?php

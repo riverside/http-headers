@@ -6,11 +6,11 @@ Donate link: https://www.paypal.me/Dimitar81
 
 Requires at least: 3.2
 
-Tested up to: 6.2.2
+Tested up to: 6.3.1
 
 Requires PHP: 5.3
 
-Stable tag: 1.19.0
+Stable tag: 1.19.1
 
 License: GPLv2 or later
 
@@ -81,6 +81,12 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.19.1
+*Release Date - 2nd September, 2023*
+
+* Added "clientHints" directive to "Clear-Site-Data" header
+* Added "credentialless" directive to "Cross-Origin-Embedder-Policy" header
+
 #### 1.19.0
 *Release Date - 7th July, 2023*
 

@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://github.com/riverside/http-headers
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.19.0
+Version: 1.19.1
 Author: Dimitar Ivanov
 Author URI: https://github.com/riverside
 License: GPLv2 or later

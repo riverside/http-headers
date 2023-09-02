@@ -29,6 +29,7 @@ if (!defined('ABSPATH')) {
 		<?php 
 		$items = array(
 			'cache' => 'bool',
+			'clientHints' => 'bool',
 			'cookies' => 'bool',
 			'storage' => 'bool',
 			'executionContexts' => 'bool',
