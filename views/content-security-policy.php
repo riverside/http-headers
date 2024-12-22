@@ -53,11 +53,11 @@ $content_security_policy = get_option('hh_content_security_policy', 0);
 			$directives = array(
 			    'default-src', 
 			    'script-src',
-				'script-src-elem',
-				'script-src-attr',
+			    'script-src-elem',
+			    'script-src-attr',
 			    'style-src',
 			    'style-src-elem',
-				'style-src-attr',
+			    'style-src-attr',
 			    'img-src',
 			    'connect-src',
 			    'font-src',
@@ -70,15 +70,15 @@ $content_security_policy = get_option('hh_content_security_policy', 0);
 			    'frame-src',
 			    'worker-src',
 			    'manifest-src',
-				'navigate-to',
+				  'navigate-to',
 			    'prefetch-src',
 			    'base-uri',
 			    'plugin-types',
 			    'report-to',
 			    'sandbox',
 			    'require-sri-for',
-                'block-all-mixed-content', 
-                'upgrade-insecure-requests',
+          'block-all-mixed-content', 
+          'upgrade-insecure-requests',
 			);
 			$csp_value = get_option('hh_content_security_policy_value', array());
             $csp_value = is_array($csp_value) ? $csp_value : array();
