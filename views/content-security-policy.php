@@ -53,7 +53,11 @@ $content_security_policy = get_option('hh_content_security_policy', 0);
 			$directives = array(
 			    'default-src', 
 			    'script-src',
+				'script-src-elem',
+				'script-src-attr',
 			    'style-src',
+			    'style-src-elem',
+				'style-src-attr',
 			    'img-src',
 			    'connect-src',
 			    'font-src',

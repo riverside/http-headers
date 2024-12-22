@@ -31,6 +31,7 @@ foreach ($origins as $k => $origin)
 
 switch ($item) {
     case 'script-src':
+	case 'script-src-elem':
         $host_sources = array(
             'js.example.com',
             'http://js.example.com',
@@ -38,6 +39,7 @@ switch ($item) {
         );
         break;
     case 'style-src':
+	case 'style-src-elem':
         $host_sources = array(
             'css.example.com',
             'http://css.example.com',
