@@ -6,11 +6,11 @@ Donate link: https://www.paypal.me/Dimitar81
 
 Requires at least: 3.2
 
-Tested up to: 6.3.1
+Tested up to: 6.7.1
 
 Requires PHP: 5.3
 
-Stable tag: 1.19.1
+Stable tag: 1.19.2
 
 License: GPLv2 or later
 
@@ -81,6 +81,14 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 ## Changelog
+#### 1.19.2
+*Release Date - 22nd December, 2024*
+
+* Added "script-src-elem" directive to "Content-Security-Policy" header
+* Added "script-src-attr" directive to "Content-Security-Policy" header
+* Added "style-src-elem" directive to "Content-Security-Policy" header
+* Added "style-src-attr" directive to "Content-Security-Policy" header
+
 #### 1.19.1
 *Release Date - 2nd September, 2023*
 
